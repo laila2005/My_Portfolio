@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useState } from 'react';
 
 const Contact = () => {
   const contactInfo = [
@@ -26,6 +27,40 @@ const Contact = () => {
       href: "#"
     }
   ];
+
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', message: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.firstName + ' ' + form.lastName,
+          email: form.email,
+          message: form.message,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert('Message sent!');
+        setForm({ firstName: '', lastName: '', email: '', message: '' });
+      } else {
+        alert(data.error || 'Failed to send message.');
+      }
+    } catch (err) {
+      alert('Failed to send message.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-20 bg-gradient-to-b from-white to-purple-light">
@@ -96,19 +131,33 @@ const Contact = () => {
                   Send a Message
                 </h3>
                 
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         First Name
                       </label>
-                      <Input placeholder="Your first name" className="border-gray-200" />
+                      <Input 
+                        name="firstName"
+                        value={form.firstName}
+                        onChange={handleChange}
+                        placeholder="Your first name" 
+                        className="border-gray-200" 
+                        required
+                      />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Last Name
                       </label>
-                      <Input placeholder="Your last name" className="border-gray-200" />
+                      <Input 
+                        name="lastName"
+                        value={form.lastName}
+                        onChange={handleChange}
+                        placeholder="Your last name" 
+                        className="border-gray-200" 
+                        required
+                      />
                     </div>
                   </div>
                   
@@ -116,14 +165,15 @@ const Contact = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Email
                     </label>
-                    <Input type="email" placeholder="your.email@example.com" className="border-gray-200" />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Subject
-                    </label>
-                    <Input placeholder="What's this about?" className="border-gray-200" />
+                    <Input 
+                      type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder="your.email@example.com" 
+                      className="border-gray-200" 
+                      required
+                    />
                   </div>
                   
                   <div>
@@ -131,15 +181,31 @@ const Contact = () => {
                       Message
                     </label>
                     <Textarea 
+                      name="message"
+                      value={form.message}
+                      onChange={handleChange}
                       placeholder="Tell me about your project or just say hello!"
                       rows={5}
                       className="border-gray-200 resize-none"
+                      required
                     />
                   </div>
                   
-                  <Button type="submit" className="w-full bg-purple-gradient hover:shadow-lg transition-all duration-300">
-                    <Send size={18} className="mr-2" />
-                    Send Message
+                  <Button type="submit" className="w-full bg-purple-gradient hover:shadow-lg transition-all duration-300" disabled={loading}>
+                    {loading ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send size={18} className="mr-2" />
+                        Send Message
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>
