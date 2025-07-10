@@ -9,7 +9,7 @@ const Projects = () => {
       description: "Comprehensive front-end dashboard for monitoring and controlling high-altitude balloon systems with real-time telemetry visualization and interactive controls.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
       tech: ["React.js", "JavaScript", "CSS3", "Real-time Data"],
-      github: "#",
+      github: "https://github.com/laila2005/R-SkyOrb-dashboard",
       featured: true
     },
     {
