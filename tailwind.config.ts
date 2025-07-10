@@ -20,8 +20,10 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'inter': ['Inter', 'sans-serif'],
-				'poppins': ['Poppins', 'sans-serif'],
+				clash: ["'Clash Display'", 'Poppins', 'sans-serif'],
+				poppins: ["Poppins", 'sans-serif'],
+				inter: ["Inter", 'sans-serif'],
+				outfit: ["Outfit", 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -62,6 +64,22 @@ export default {
 				'purple-dark': 'hsl(262 83% 25%)',
 				'gray-dark': 'hsl(215 28% 17%)',
 				'pink-light': 'hsl(350 100% 88%)',
+				'pastel-purple': '#d1c4e9',
+				'pastel-pink': '#f8bbd0',
+				'pastel-white': '#f8fafc',
+				'glass': 'rgba(255,255,255,0.3)',
+				'glass-dark': 'rgba(30,41,59,0.3)',
+			},
+			backgroundImage: {
+				'gradient-glass': 'linear-gradient(135deg, #d1c4e9 0%, #f8bbd0 100%)',
+				'gradient-neumorph': 'linear-gradient(135deg, #f8fafc 0%, #d1c4e9 100%)',
+			},
+			boxShadow: {
+				glass: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+				neumorph: '8px 8px 16px #bebebe, -8px -8px 16px #ffffff',
+			},
+			backdropBlur: {
+				glass: '8px',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

@@ -19,8 +19,8 @@ const About = () => {
     {
       icon: <Heart className="text-accent" size={24} />,
       title: "Community Leader",
-      description: "HR Team at Computality Community",
-      year: "2023 - Present"
+      description: "HR Team at Computality Community (worked for one year)",
+      year: "2024"
     }
   ];
 
@@ -44,21 +44,14 @@ const About = () => {
               My Journey in Tech
             </h3>
             <div className="space-y-4 text-gray-600 font-inter">
-              <p>
-                As a dedicated software engineering student at Egyptian Russian University, I've developed 
-                a strong foundation in systems programming, algorithms, and full-stack development. My journey 
-                has been enriched by the comprehensive ALX Africa program, where I mastered everything from 
-                low-level C programming to modern web technologies.
+              <p className="text-lg leading-relaxed">
+                I'm a passionate software engineering student at the Egyptian Russian University, currently diving deep into systems programming, algorithms, and full-stack development. My growth really took off through the intensive ALX Africa program, where I built everything from low-level C programs to dynamic web apps—bridging the gap between the fundamentals and modern tech.
               </p>
-              <p>
-                What sets me apart is my ability to balance technical precision with creative thinking. 
-                Whether I'm building a 3D raycasting game in C or designing beautiful user interfaces with React, 
-                I bring both analytical rigor and aesthetic sensibility to every project.
+              <p className="text-lg leading-relaxed">
+                What makes me different is how I blend logic with creativity. Whether I’m developing a 3D raycasting game in C, crafting engaging user interfaces with React, or sketching illustrations by hand—I love building things that not only work well but feel good and look beautiful.
               </p>
-              <p>
-                Beyond coding, I'm passionate about community building and leadership. As part of the HR team 
-                at Computality Community, I've helped organize tech events and fostered an inclusive environment 
-                for aspiring developers.
+              <p className="text-lg leading-relaxed">
+                As both a developer and an artist, I’m always exploring new ways to make technology more human, expressive, and inspiring.
               </p>
             </div>
 

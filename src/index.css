@@ -81,6 +81,10 @@
   html {
     scroll-behavior: smooth;
   }
+
+  html, body {
+    cursor: none !important;
+  }
 }
 
 @layer utilities {
