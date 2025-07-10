@@ -10,7 +10,6 @@ const Projects = () => {
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
       tech: ["React.js", "JavaScript", "CSS3", "Real-time Data"],
       github: "#",
-      demo: "#",
       featured: true
     },
     {
@@ -18,8 +17,7 @@ const Projects = () => {
       description: "ALX Africa portfolio project featuring comprehensive UI/UX design, user authentication, and seamless database integration for a culinary platform.",
       image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop",
       tech: ["React.js", "Node.js", "Database", "Authentication"],
-      github: "#",
-      demo: "#",
+      github: "https://github.com/laila2005/DishCraft/tree/combined-branch",
       featured: true
     },
     {
@@ -27,8 +25,7 @@ const Projects = () => {
       description: "Built in C using SDL2 with collision detection, player movement, enemy AI, and dynamic maze generation with textures.",
       image: "https://images.unsplash.com/photo-1509048191080-d2e2678e0c4c?w=600&h=400&fit=crop",
       tech: ["C", "SDL2", "Game Development", "3D Graphics"],
-      github: "#",
-      demo: "#",
+      github: "https://github.com/walid-mehelba/The_Maze",
       featured: false
     },
     {
@@ -36,8 +33,7 @@ const Projects = () => {
       description: "Real-time MATLAB tool for pitch modification and waveform visualization with advanced signal processing capabilities.",
       image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&h=400&fit=crop",
       tech: ["MATLAB", "Signal Processing", "GUI", "Audio"],
-      github: "#",
-      demo: "#",
+      github: "https://github.com/laila2005/Audio-Visualization-and-Pitch-Modification",
       featured: false
     },
     {
@@ -45,8 +41,7 @@ const Projects = () => {
       description: "Comprehensive task manager built in Java with SQL Server backend, featuring user authentication and progress visualization.",
       image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
       tech: ["Java", "SQL Server", "JDBC", "Desktop App"],
-      github: "#",
-      demo: "#",
+      github: "https://github.com/laila2005/FinalProjectManagmentSystem",
       featured: false
     },
     {
@@ -54,8 +49,7 @@ const Projects = () => {
       description: "Unix-like shell implementation in C with built-in commands, process control, memory handling, and comprehensive error feedback.",
       image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=600&h=400&fit=crop",
       tech: ["C", "Unix", "System Programming", "Shell"],
-      github: "#",
-      demo: "#",
+      github: "https://github.com/laila2005/simple_shell",
       featured: false
     }
   ];
@@ -106,14 +100,12 @@ const Projects = () => {
                   ))}
                 </div>
                 <div className="flex gap-3">
-                  <Button variant="outline" size="sm" className="flex-1">
-                    <Github size={16} className="mr-2" />
-                    Code
-                  </Button>
-                  <Button size="sm" className="flex-1 bg-purple-gradient">
-                    <ExternalLink size={16} className="mr-2" />
-                    Demo
-                  </Button>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1">
+                    <Button variant="outline" size="sm" className="w-full">
+                      <Github size={16} className="mr-2" />
+                      Code
+                    </Button>
+                  </a>
                 </div>
               </CardContent>
             </Card>
@@ -149,14 +141,12 @@ const Projects = () => {
                   )}
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="flex-1 text-xs py-1">
-                    <Github size={12} className="mr-1" />
-                    Code
-                  </Button>
-                  <Button size="sm" className="flex-1 bg-purple-gradient text-xs py-1">
-                    <ExternalLink size={12} className="mr-1" />
-                    Demo
-                  </Button>
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1">
+                    <Button variant="outline" size="sm" className="w-full text-xs py-1">
+                      <Github size={12} className="mr-1" />
+                      Code
+                    </Button>
+                  </a>
                 </div>
               </CardContent>
             </Card>
