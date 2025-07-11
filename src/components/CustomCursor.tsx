@@ -33,7 +33,9 @@ const CustomCursor: React.FC = () => {
   // Check if device is mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window);
+      // Only hide on actual touch devices, not just small screens
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      setIsMobile(isTouchDevice);
     };
     
     checkMobile();
@@ -41,7 +43,7 @@ const CustomCursor: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Don't render cursor on mobile devices
+  // Don't render cursor on touch devices
   if (isMobile) {
     return null;
   }

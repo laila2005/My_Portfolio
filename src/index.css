@@ -82,8 +82,8 @@
     scroll-behavior: smooth;
   }
 
-  /* Hide default cursor only on desktop devices */
-  @media (min-width: 769px) and (hover: hover) {
+  /* Hide default cursor only on non-touch devices */
+  @media (hover: hover) and (pointer: fine) {
     html, body {
       cursor: none !important;
     }
