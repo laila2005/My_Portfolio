@@ -248,8 +248,8 @@ const Projects = () => {
               }
               back={
                 <Card className="border-0 shadow-xl hover-lift overflow-hidden h-full bg-white/90 backdrop-blur-md" style={{ minHeight: 380 }}>
-                  <CardContent className="p-8 flex flex-col justify-between h-full min-h-[224px] text-center">
-                    <div>
+                  <CardContent className="p-8 flex flex-col justify-between h-full min-h-[224px] text-center min-h-full" style={{paddingBottom: '2.5rem'}}>
+                    <div className="flex-1 flex flex-col justify-start">
                       <h3 className="font-poppins font-semibold text-xl mb-2 text-gray-dark text-center">
                         {project.title}
                       </h3>
@@ -271,7 +271,7 @@ const Projects = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="flex gap-3 justify-center mt-4 items-center">
+                    <div className="flex gap-3 justify-center mt-4 items-center w-full">
                       <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1">
                         <Button variant="outline" size="sm" className="w-full">
                           <Github size={16} className="mr-2" />
