@@ -219,62 +219,62 @@ const Projects = () => {
             <FlipCard
               key={project.title}
               front={
-                <Card className="border-0 shadow-xl hover-lift overflow-hidden animate-slide-up h-full" style={{ animationDelay: `${index * 0.2}s`, minHeight: 380 }}>
+                <Card className="border-0 shadow-lg hover-lift overflow-hidden animate-fade-in h-full sm:shadow-xl sm:animate-slide-up sm:min-h-[380px]" style={{ animationDelay: `${index * 0.2}s`, minHeight: '260px' }}>
                   <div className="relative overflow-hidden">
                     <img 
                       src={project.image} 
                       alt={project.title}
                       className="w-full object-cover transition-transform duration-300 hover:scale-110"
-                      style={{ height: '224px' }}
+                      style={{ height: '160px' }}
                     />
-                    <div className="absolute top-4 left-4">
+                    <div className="absolute top-4 left-4 sm:block hidden">
                       <span className="bg-purple-gradient text-white px-3 py-1 rounded-full text-sm font-medium">
                         Featured
                       </span>
                     </div>
                   </div>
-                  <CardContent className="p-8 flex flex-col items-center justify-center min-h-[120px]">
-                    <h3
-                      className="font-poppins font-extrabold text-2xl sm:text-3xl mb-2 text-center text-purple-900 drop-shadow-lg"
+                  <CardContent className="p-5 flex flex-col items-center justify-center min-h-[80px] sm:p-8 sm:min-h-[120px]">
+                    <h4
+                      className="font-poppins font-extrabold text-lg sm:text-2xl mb-1 text-center text-purple-900 drop-shadow-md sm:drop-shadow-lg"
                       style={{ letterSpacing: '0.01em', lineHeight: 1.1 }}
                     >
                       {project.title}
-                    </h3>
-                    <div className="mb-2 text-xs text-gray-600 text-center">
+                    </h4>
+                    <div className="mb-1 text-xs text-gray-600 text-center sm:mb-2">
                       <span className="font-semibold text-purple-800">Languages:</span> {project.languages.join(', ')}
                     </div>
                   </CardContent>
                 </Card>
               }
               back={
-                <Card className="border-0 shadow-xl hover-lift overflow-hidden h-full bg-white/90 backdrop-blur-md" style={{ minHeight: 380 }}>
-                  <CardContent className="p-8 flex flex-col justify-between h-full min-h-[224px] text-center min-h-full" style={{paddingBottom: '2.5rem'}}>
+                <Card className="border-0 shadow-lg hover-lift overflow-hidden h-full bg-white/90 backdrop-blur-md sm:shadow-xl" style={{ minHeight: '260px' }}>
+                  <CardContent className="p-5 flex flex-col justify-between h-full min-h-[160px] text-center min-h-full sm:p-8 sm:min-h-[224px]" style={{paddingBottom: '2.5rem'}}>
                     <div className="flex-1 flex flex-col justify-start">
-                      <h3 className="font-poppins font-semibold text-xl mb-2 text-gray-dark text-center">
+                      <h4 className="font-poppins font-semibold text-sm mb-2 text-gray-dark line-clamp-1 text-center sm:text-xl sm:mb-2 sm:line-clamp-none">
                         {project.title}
-                      </h3>
-                      <p className="text-gray-600 font-inter mb-4 text-sm leading-relaxed text-center">
+                      </h4>
+                      <p className="text-gray-600 font-inter text-xs mb-3 line-clamp-2 text-center sm:text-sm sm:mb-4 sm:leading-relaxed sm:line-clamp-none">
                         {project.description}
                       </p>
-                      <div className="mb-4">
-                        <h4 className="font-semibold text-xs text-purple-700 mb-1 text-center">Details</h4>
-                        <div className="flex flex-col items-center gap-1">
+                      <div className="mb-2 sm:mb-4">
+                        <h5 className="font-semibold text-xs text-purple-700 mb-0.5 text-center sm:mb-1">Details</h5>
+                        <div className="flex flex-col items-center gap-0.5 sm:gap-1">
                           <span className="text-xs text-gray-500">Languages: <span className="font-medium text-gray-700">{project.languages.join(', ')}</span></span>
                           <span className="text-xs text-gray-500">Skills: <span className="font-medium text-gray-700">{project.tech.join(', ')}</span></span>
                         </div>
                       </div>
-                      <div className="flex flex-wrap gap-2 justify-center mb-4">
+                      <div className="flex flex-wrap gap-1 justify-center mb-3 sm:gap-2 sm:mb-4">
                         {project.tech.map((tech) => (
-                          <span key={tech} className="bg-purple-light text-primary px-3 py-1 rounded-full text-xs font-medium">
+                          <span key={tech} className="bg-purple-light text-primary px-2 py-0.5 rounded-full text-xs font-medium sm:px-3 sm:py-1">
                             {tech}
                           </span>
                         ))}
                       </div>
                     </div>
-                    <div className="flex gap-3 justify-center mt-4 items-center w-full">
+                    <div className="flex gap-2 justify-center mt-2 items-center w-full sm:gap-3 sm:mt-4">
                       <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1">
-                        <Button variant="outline" size="sm" className="w-full">
-                          <Github size={16} className="mr-2" />
+                        <Button variant="outline" size="sm" className="w-full text-xs py-1 sm:text-base sm:py-2">
+                          <Github size={12} className="mr-1 sm:mr-2" />
                           Code
                         </Button>
                       </a>
