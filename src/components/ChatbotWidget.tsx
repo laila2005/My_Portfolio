@@ -37,6 +37,9 @@ export default function ChatbotWidget() {
   ]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Check if it's a mobile device
+  const isMobile = typeof window !== 'undefined' && 'ontouchstart' in window;
 
   useEffect(() => {
     if (open && messagesEndRef.current) {
@@ -58,15 +61,23 @@ export default function ChatbotWidget() {
     <div>
       {/* Floating button */}
       <button
-        className="fixed bottom-8 right-8 z-50 bg-gradient-to-r from-[#a78bfa] to-[#f472b6] text-white p-4 rounded-full shadow-xl hover:scale-110 transition-all"
+        className={`fixed z-50 bg-gradient-to-r from-[#a78bfa] to-[#f472b6] text-white rounded-full shadow-xl transition-all ${
+          isMobile 
+            ? 'bottom-4 right-4 p-3' 
+            : 'bottom-8 right-8 p-4 hover:scale-110'
+        }`}
         onClick={() => setOpen(o => !o)}
         aria-label={open ? 'Close chatbot' : 'Open chatbot'}
       >
-        {open ? <X size={28} /> : <MessageCircle size={28} />}
+        {open ? <X size={isMobile ? 24 : 28} /> : <MessageCircle size={isMobile ? 24 : 28} />}
       </button>
       {/* Chatbot window */}
       {open && (
-        <div className="fixed bottom-24 right-8 z-50 w-80 max-w-[90vw] bg-white rounded-2xl shadow-2xl border border-purple-100 flex flex-col overflow-hidden animate-fade-in">
+        <div className={`fixed z-50 bg-white rounded-2xl shadow-2xl border border-purple-100 flex flex-col overflow-hidden animate-fade-in ${
+          isMobile 
+            ? 'bottom-20 right-4 left-4 w-auto' 
+            : 'bottom-24 right-8 w-80 max-w-[90vw]'
+        }`}>
           <div className="bg-gradient-to-r from-[#a78bfa] to-[#f472b6] text-white px-4 py-3 font-bold text-lg flex items-center gap-2">
             <MessageCircle size={20} /> Talk to Laila
           </div>
