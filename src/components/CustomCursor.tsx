@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useMobile } from '@/hooks/use-mobile';
 
 // Utility to detect if hovering a link or button
 function useCursorHover() {
@@ -26,38 +27,29 @@ function useCursorHover() {
 
 const CustomCursor: React.FC = () => {
   const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useMobile();
   const hovered = useCursorHover();
   const cursorRef = useRef<HTMLDivElement>(null);
 
-  // Check if device is mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      // Only hide on actual touch devices, not just small screens
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      setIsMobile(isTouchDevice);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Don't render cursor on touch devices
+  // Don't render cursor on mobile devices
   if (isMobile) {
     return null;
   }
 
   useEffect(() => {
+    if (isMobile) return; // Don't add mouse listeners on mobile
+    
     const move = (e: MouseEvent) => {
       setPos({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', move);
     return () => window.removeEventListener('mousemove', move);
-  }, []);
+  }, [isMobile]);
 
   // Hide cursor on text input/textarea
   useEffect(() => {
+    if (isMobile) return; // Don't add mouse listeners on mobile
+    
     const onMove = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
       if (el.closest('input,textarea,select')) {
@@ -68,7 +60,7 @@ const CustomCursor: React.FC = () => {
     };
     document.addEventListener('mousemove', onMove);
     return () => document.removeEventListener('mousemove', onMove);
-  }, []);
+  }, [isMobile]);
 
   // After rotation, tip is at (8,8) but visually up/right, so offset by 8
   const offset = 8;
