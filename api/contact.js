@@ -1,20 +1,25 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const axios = require('axios');
+import axios from 'axios';
 
-// Load environment variables
-dotenv.config();
+export default async function handler(req, res) {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
 
-app.use(cors());
-app.use(express.json());
+  // Only allow POST requests
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-// Contact endpoint
-app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
+
+  // Validate required fields
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'All fields are required.' });
   }
@@ -35,12 +40,13 @@ app.post('/api/contact', async (req, res) => {
         }
       }
     );
+
     res.status(200).json({ success: true, data: response.data });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to send email', details: error.response?.data || error.message });
+    console.error('Email sending error:', error);
+    res.status(500).json({ 
+      error: 'Failed to send email', 
+      details: error.response?.data || error.message 
+    });
   }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-}); 
+} 

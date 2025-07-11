@@ -36,6 +36,22 @@ npm run dev
 
 Visit `http://localhost:5173` to view the portfolio.
 
+## 🚀 Vercel Deployment
+
+This project is configured for Vercel deployment with serverless functions.
+
+### Environment Variables Required:
+- `RESEND_API_KEY` - Your Resend API key for email functionality
+- `EMAIL_FROM` - Email address for sending emails (e.g., onboarding@resend.dev)
+
+### Deployment Steps:
+1. Connect your GitHub repository to Vercel
+2. Set the framework preset to **Vite**
+3. Add the environment variables in Vercel dashboard
+4. Deploy!
+
+The contact form will automatically use the `/api/contact` endpoint.
+
 ## 📁 Project Structure
 
 ```

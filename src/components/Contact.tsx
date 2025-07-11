@@ -57,7 +57,7 @@ const Contact = () => {
     }, 15000); // 15 seconds
     
     try {
-      const res = await fetch('https://my-portfolio-2-rsl8.onrender.com/api/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
