@@ -29,7 +29,7 @@ function FlipCard({ front, back }: { front: React.ReactNode; back: React.ReactNo
           {front}
         </div>
         <div
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full z-10"
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', zIndex: flipped ? 2 : 0 }}
         >
           {back}
