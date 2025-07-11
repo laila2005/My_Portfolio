@@ -6,31 +6,20 @@ export function useMobile() {
   useEffect(() => {
     const checkMobile = () => {
       try {
-        // Check for touch capability
-        const hasTouch = 'ontouchstart' in window || 
-                        (navigator.maxTouchPoints && navigator.maxTouchPoints > 0) ||
-                        (navigator as any).msMaxTouchPoints > 0;
-        
-        // Check for mobile user agent
-        const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
-        const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-        
-        setIsMobile(hasTouch || isMobileUA);
+        // Simple and safe mobile detection
+        const isTouchDevice = 'ontouchstart' in window;
+        setIsMobile(isTouchDevice);
       } catch (error) {
         console.warn('Mobile detection failed:', error);
-        // Fallback to screen size
-        setIsMobile(window.innerWidth <= 768);
+        // Safe fallback
+        setIsMobile(false);
       }
     };
 
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    window.addEventListener('orientationchange', checkMobile);
+    // Delay the check to ensure window is fully loaded
+    const timer = setTimeout(checkMobile, 100);
     
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-      window.removeEventListener('orientationchange', checkMobile);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   return isMobile;

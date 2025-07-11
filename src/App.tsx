@@ -17,7 +17,8 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <CustomCursor />
+        {/* Temporarily disabled for mobile debugging */}
+        {/* <CustomCursor /> */}
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -25,7 +26,8 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-        <ChatbotWidget />
+        {/* Temporarily disabled for mobile debugging */}
+        {/* <ChatbotWidget /> */}
       </TooltipProvider>
     </QueryClientProvider>
   </ErrorBoundary>
