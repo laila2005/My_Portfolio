@@ -26,8 +26,25 @@ function useCursorHover() {
 
 const CustomCursor: React.FC = () => {
   const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
   const hovered = useCursorHover();
   const cursorRef = useRef<HTMLDivElement>(null);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768 || 'ontouchstart' in window);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Don't render cursor on mobile devices
+  if (isMobile) {
+    return null;
+  }
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
