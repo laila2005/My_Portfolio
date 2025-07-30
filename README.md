@@ -3,7 +3,7 @@
 A modern, interactive developer portfolio built with React, TypeScript, and Tailwind CSS. Features smooth animations, interactive project cards, and a functional contact form.
 
 ## ✨ Live Demo
-[View Portfolio](https://laila-portfolio.vercel.app)
+[View Portfolio](https://my-portfolio-mm2c.vercel.app/)
 
 ## 🛠️ Tech Stack
 
