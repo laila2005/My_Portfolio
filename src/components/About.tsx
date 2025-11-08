@@ -1,20 +1,26 @@
 
-import { GraduationCap, Award, Heart } from 'lucide-react';
+import { GraduationCap, Award, Heart, Users } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 const About = () => {
   const achievements = [
     {
       icon: <GraduationCap className="text-primary" size={24} />,
-      title: "Egyptian Russian University",
-      description: "Bachelor of Software Engineering, GPA: 3.4/4.0",
-      year: "2023 - 2027"
+      title: "El Sewedy University of Technology",
+      description: "Bachelor of Computer Science (Polytechnic of Egypt) - Transferred from Egyptian Russian University",
+      year: "2025 - 2028"
     },
     {
       icon: <Award className="text-purple-medium" size={24} />,
       title: "ALX Africa Graduate",
       description: "Full-stack Software Engineering Program",
       year: "2023 - 2025"
+    },
+    {
+      icon: <Users className="text-blue-600" size={24} />,
+      title: "IEEE Technical Team Member",
+      description: "Active member contributing to technical initiatives and projects",
+      year: "2024 - Present"
     },
     {
       icon: <Heart className="text-accent" size={24} />,
@@ -45,13 +51,13 @@ const About = () => {
             </h3>
             <div className="space-y-4 text-gray-600 font-inter">
               <p className="text-lg leading-relaxed">
-                I'm a passionate software engineering student at the Egyptian Russian University, currently diving deep into systems programming, algorithms, and full-stack development. My growth really took off through the intensive ALX Africa program, where I built everything from low-level C programs to dynamic web apps—bridging the gap between the fundamentals and modern tech.
+                I'm a passionate Computer Science student at El Sewedy University (Polytechnic of Egypt), deeply exploring systems programming, algorithms, and full-stack development. My growth accelerated through the ALX Africa Software Engineering Program, where I built everything from low-level C programs to dynamic web applications—bridging the gap between core fundamentals and modern technologies.
               </p>
               <p className="text-lg leading-relaxed">
-                What makes me different is how I blend logic with creativity. Whether I’m developing a 3D raycasting game in C, crafting engaging user interfaces with React, or sketching illustrations by hand—I love building things that not only work well but feel good and look beautiful.
+                What sets me apart is how I blend logic with creativity. Whether I'm developing a 3D raycasting game in C, crafting engaging user interfaces with React and Next.js, or sketching illustrations by hand, I strive to build solutions that are both functional and visually appealing.
               </p>
               <p className="text-lg leading-relaxed">
-                As both a developer and an artist, I’m always exploring new ways to make technology more human, expressive, and inspiring.
+                As both a developer and an artist, I'm constantly exploring ways to make technology more human, expressive, and inspiring.
               </p>
             </div>
 
