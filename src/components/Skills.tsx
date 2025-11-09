@@ -24,9 +24,11 @@ const Skills = () => {
       title: "Backend & Databases",
       skills: [
         { name: "Node.js", level: 75 },
+        { name: "NestJS", level: 80 },
         { name: "Python", level: 85 },
         { name: "Java", level: 80 },
         { name: "MySQL", level: 85 },
+        { name: "PostgreSQL", level: 80 },
         { name: "MongoDB", level: 70 }
       ]
     },
