@@ -180,10 +180,10 @@ const Projects = () => {
       featured: true
     },
     {
-      title: "Tech-Road (In Progress)",
-      description: "AI-powered career guidance platform addressing youth unemployment in Egypt. Leading a development team as Team Leader & Backend Developer, architecting Flask API with microservice design, implementing JWT authentication, MongoDB integration, and Cloudinary media handling. Designed scalable backend for future AI/ML integration with personalized learning maps and career discovery features.",
-      image: "/techroad-logo.png",
-      tech: ["Flask", "Python", "MongoDB", "JWT", "Cloudinary", "REST API", "Team Leadership"],
+      title: "TechRoad (In Progress)",
+      description: "AI-powered career guidance platform. Leading development as Team Leader & Backend Developer with Flask API, JWT auth, and MongoDB.",
+      image: "/techroad-logo.svg",
+      tech: ["Flask", "Python", "MongoDB", "Team Leadership"],
       languages: ["Python", "JavaScript"],
       github: "https://github.com/laila2005/Tech-Road",
       featured: true,
@@ -250,12 +250,13 @@ const Projects = () => {
               front={
                 <Card className="border-0 shadow-lg hover-lift overflow-hidden animate-fade-in h-full sm:shadow-xl sm:animate-slide-up sm:min-h-[380px]" style={{ animationDelay: `${index * 0.2}s`, minHeight: '260px' }}>
                   <div className="relative overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full object-cover transition-transform duration-300 hover:scale-110"
-                      style={{ height: '160px' }}
-                    />
+                    <div className="w-full h-40 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="max-w-full max-h-full object-contain transition-transform duration-300 hover:scale-110 p-4"
+                      />
+                    </div>
                     <div className="absolute top-4 left-4 sm:block hidden flex flex-col gap-2">
                       <span className="bg-purple-gradient text-white px-3 py-1 rounded-full text-sm font-medium">
                         Featured
@@ -338,12 +339,13 @@ const Projects = () => {
               front={
                 <Card className="border-0 shadow-lg hover-lift overflow-hidden animate-fade-in h-full" style={{ animationDelay: `${(index + 2) * 0.1}s`, minHeight: 260 }}>
                   <div className="relative overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full object-cover transition-transform duration-300 hover:scale-110"
-                      style={{ height: '160px' }}
-                    />
+                    <div className="w-full h-40 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="max-w-full max-h-full object-contain transition-transform duration-300 hover:scale-110 p-4"
+                      />
+                    </div>
                   </div>
                   <CardContent className="p-5 flex flex-col items-center justify-center min-h-[80px]">
                     <h4
