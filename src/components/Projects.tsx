@@ -185,7 +185,7 @@ const Projects = () => {
       image: "/techroad-logo.png",
       tech: ["Flask", "Python", "MongoDB", "JWT", "Cloudinary", "REST API", "Team Leadership"],
       languages: ["Python", "JavaScript"],
-      github: "#", // Add actual GitHub link when available
+      github: "https://github.com/laila2005/Tech-Road",
       featured: true,
       status: "In Progress"
     },

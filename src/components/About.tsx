@@ -36,7 +36,7 @@ const About = () => {
       icon: <Shield className="text-green-600" size={24} />,
       title: "Green Digital Certificate",
       description: "Certification in sustainable development awareness and green technology principles",
-      year: "2024",
+      year: "2025",
       credential: "https://learning.inco-group.co/pluginfile.php/1/tool_certificate/issues/1760401251/6235986483LF.pdf"
     }
   ];
