@@ -172,12 +172,22 @@ const Projects = () => {
     {
       title: "Bagi Job Platform",
       description: "Professional freelance project developed as a full-stack developer through Mostaqel platform. Complete job portal with modern React frontend and robust backend architecture.",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80",
+      image: "/bagijob-logo.png",
       tech: ["React.js", "Full-Stack", "Web Development", "Freelance"],
       languages: ["JavaScript", "React"],
       github: "#", // No public repo for client work
       live: "https://bagijob.com",
       featured: true
+    },
+    {
+      title: "Tech-Road (In Progress)",
+      description: "AI-powered career guidance platform addressing youth unemployment in Egypt. Leading a development team as Team Leader & Backend Developer, architecting Flask API with microservice design, implementing JWT authentication, MongoDB integration, and Cloudinary media handling. Designed scalable backend for future AI/ML integration with personalized learning maps and career discovery features.",
+      image: "/techroad-logo.png",
+      tech: ["Flask", "Python", "MongoDB", "JWT", "Cloudinary", "REST API", "Team Leadership"],
+      languages: ["Python", "JavaScript"],
+      github: "#", // Add actual GitHub link when available
+      featured: true,
+      status: "In Progress"
     },
     {
       title: "Audio Visualization Tool",
@@ -246,10 +256,15 @@ const Projects = () => {
                       className="w-full object-cover transition-transform duration-300 hover:scale-110"
                       style={{ height: '160px' }}
                     />
-                    <div className="absolute top-4 left-4 sm:block hidden">
+                    <div className="absolute top-4 left-4 sm:block hidden flex flex-col gap-2">
                       <span className="bg-purple-gradient text-white px-3 py-1 rounded-full text-sm font-medium">
                         Featured
                       </span>
+                      {project.status && (
+                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+                          {project.status}
+                        </span>
+                      )}
                     </div>
                   </div>
                   <CardContent className="p-5 flex flex-col items-center justify-center min-h-[80px] sm:p-8 sm:min-h-[120px]">
