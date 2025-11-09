@@ -71,7 +71,7 @@ const knowledgeBase = {
   
   goals: {
     shortTerm: "Enhance full-stack development skills and contribute to impactful open-source projects.",
-    longTerm: "Become a senior software engineer or AI-focused developer and mentor others in tech."
+    longTerm: "To grow into a successful woman who leads with empathy and balance — thriving as a software engineer while nurturing a happy and grounded life beyond work."
   },
   
   personalInterests: [
