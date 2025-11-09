@@ -12,46 +12,52 @@ const Skills = () => {
       icon: <Globe className="text-primary" size={24} />,
       title: "Frontend Development",
       skills: [
-        { name: "React.js", level: 85 },
-        { name: "JavaScript", level: 90 },
-        { name: "HTML5 & CSS3", level: 95 },
-        { name: "Bootstrap", level: 80 },
-        { name: "Responsive Design", level: 90 }
+        "React.js",
+        "JavaScript (ES6+)",
+        "HTML5 & CSS3",
+        "Next.js",
+        "Bootstrap",
+        "Responsive Design",
+        "TailwindCSS"
       ]
     },
     backend: {
       icon: <Database className="text-purple-medium" size={24} />,
       title: "Backend & Databases",
       skills: [
-        { name: "Node.js", level: 75 },
-        { name: "NestJS", level: 80 },
-        { name: "Python", level: 85 },
-        { name: "Java", level: 80 },
-        { name: "MySQL", level: 85 },
-        { name: "PostgreSQL", level: 80 },
-        { name: "MongoDB", level: 70 }
+        "Node.js",
+        "NestJS",
+        "Python",
+        "Java",
+        "MySQL",
+        "PostgreSQL",
+        "MongoDB",
+        "RESTful APIs"
       ]
     },
     systems: {
       icon: <Code className="text-accent" size={24} />,
       title: "Systems Programming",
       skills: [
-        { name: "C Programming", level: 90 },
-        { name: "C++", level: 80 },
-        { name: "Data Structures", level: 85 },
-        { name: "Algorithms", level: 85 },
-        { name: "Operating Systems", level: 75 }
+        "C Programming",
+        "C++",
+        "Data Structures",
+        "Algorithms",
+        "Operating Systems",
+        "Memory Management"
       ]
     },
     tools: {
       icon: <Cog className="text-gray-600" size={24} />,
       title: "Tools & Technologies",
       skills: [
-        { name: "Git & GitHub", level: 90 },
-        { name: "Linux/Ubuntu", level: 80 },
-        { name: "VSCode", level: 95 },
-        { name: "MATLAB", level: 75 },
-        { name: "SDL2", level: 70 }
+        "Git & GitHub",
+        "Linux/Ubuntu",
+        "VSCode",
+        "MATLAB",
+        "SDL2",
+        "Docker",
+        "Postman"
       ]
     }
   };
@@ -66,7 +72,8 @@ const Skills = () => {
             Technical <span className="text-gradient">Skills</span>
           </h2>
           <p className="font-inter text-lg text-gray-600 max-w-3xl mx-auto">
-            A comprehensive skill set spanning from low-level systems programming to modern web development.
+            Demonstrated expertise across full-stack development, systems programming, and modern technologies. 
+            Proficiency validated through hands-on projects and professional experience.
           </p>
         </div>
 
@@ -122,20 +129,21 @@ const Skills = () => {
                     </h3>
                   </div>
 
-                  <div className="grid gap-6">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {skillCategories[activeCategory].skills.map((skill, index) => (
-                      <div key={skill.name} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="font-inter font-medium text-gray-700">{skill.name}</span>
-                          <span className="text-primary font-semibold">{skill.level}%</span>
+                      <motion.div 
+                        key={skill} 
+                        className="group"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1, duration: 0.3 }}
+                      >
+                        <div className="bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 rounded-lg p-4 text-center transition-all duration-300 hover:shadow-md hover:scale-105 hover:border-purple-200">
+                          <span className="font-inter font-medium text-gray-800 text-sm group-hover:text-purple-700 transition-colors duration-300">
+                            {skill}
+                          </span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-3">
-                          <div 
-                            className="h-3 bg-purple-gradient rounded-full transition-all duration-1000 ease-out"
-                            style={{ width: `${skill.level}%` }}
-                          ></div>
-                        </div>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
                 </motion.div>
