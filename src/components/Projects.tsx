@@ -170,6 +170,16 @@ const Projects = () => {
       featured: true
     },
     {
+      title: "Bagi Job Platform",
+      description: "Professional freelance project developed as a full-stack developer through Mostaqel platform. Complete job portal with modern React frontend and robust backend architecture.",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=600&q=80",
+      tech: ["React.js", "Full-Stack", "Web Development", "Freelance"],
+      languages: ["JavaScript", "React"],
+      github: "#", // No public repo for client work
+      live: "https://bagijob.com",
+      featured: true
+    },
+    {
       title: "Audio Visualization Tool",
       description: "Real-time MATLAB tool for pitch modification and waveform visualization with advanced signal processing capabilities.",
       image: "/Audiovisualization.png", // User's uploaded image
@@ -194,6 +204,15 @@ const Projects = () => {
       tech: ["C", "Unix", "System Programming", "Shell"],
       languages: ["C"],
       github: "https://github.com/laila2005/simple_shell",
+      featured: false
+    },
+    {
+      title: "Qayedny Landing Page",
+      description: "Modern and responsive landing page designed and developed as a front-end developer, featuring clean UI/UX design and optimized user experience.",
+      image: "/538shots_so.png",
+      tech: ["HTML5", "CSS3", "Responsive Design", "Frontend"],
+      languages: ["HTML", "CSS"],
+      github: "https://github.com/laila2005/Qayedny",
       featured: false
     }
   ];
@@ -272,12 +291,21 @@ const Projects = () => {
                       </div>
                     </div>
                     <div className="flex gap-2 justify-center mt-2 items-center w-full sm:gap-3 sm:mt-4">
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1">
-                        <Button variant="outline" size="sm" className="w-full text-xs py-1 sm:text-base sm:py-2">
-                          <Github size={12} className="mr-1 sm:mr-2" />
-                          Code
-                        </Button>
-                      </a>
+                      {project.live ? (
+                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex-1">
+                          <Button variant="outline" size="sm" className="w-full text-xs py-1 sm:text-base sm:py-2">
+                            <ExternalLink size={12} className="mr-1 sm:mr-2" />
+                            Live Site
+                          </Button>
+                        </a>
+                      ) : (
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1">
+                          <Button variant="outline" size="sm" className="w-full text-xs py-1 sm:text-base sm:py-2">
+                            <Github size={12} className="mr-1 sm:mr-2" />
+                            Code
+                          </Button>
+                        </a>
+                      )}
                       <HeartReaction projectTitle={project.title} />
                     </div>
                   </CardContent>
@@ -344,12 +372,21 @@ const Projects = () => {
                       </div>
                     </div>
                     <div className="flex gap-2 justify-center mt-2 items-center">
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1">
-                        <Button variant="outline" size="sm" className="w-full text-xs py-1">
-                          <Github size={12} className="mr-1" />
-                          Code
-                        </Button>
-                      </a>
+                      {project.live ? (
+                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex-1">
+                          <Button variant="outline" size="sm" className="w-full text-xs py-1">
+                            <ExternalLink size={12} className="mr-1" />
+                            Live Site
+                          </Button>
+                        </a>
+                      ) : (
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1">
+                          <Button variant="outline" size="sm" className="w-full text-xs py-1">
+                            <Github size={12} className="mr-1" />
+                            Code
+                          </Button>
+                        </a>
+                      )}
                       <HeartReaction projectTitle={project.title} />
                     </div>
                   </CardContent>
