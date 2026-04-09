@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useMobile } from '@/hooks/use-mobile';
 
-// Utility to detect if hovering a link or button
 function useCursorHover() {
   const [hovered, setHovered] = useState(false);
   useEffect(() => {
@@ -31,32 +29,25 @@ const CustomCursor: React.FC = () => {
   const hovered = useCursorHover();
   const cursorRef = useRef<HTMLDivElement>(null);
 
-  // Check if device is mobile
   useEffect(() => {
     const checkMobile = () => {
       try {
-        // Only hide on actual touch devices
         const isTouchDevice = 'ontouchstart' in window;
         setIsMobile(isTouchDevice);
       } catch (error) {
-        // Safe fallback - show cursor on desktop
         setIsMobile(false);
       }
     };
-    
-    // Delay the check to ensure everything is loaded
     const timer = setTimeout(checkMobile, 100);
     return () => clearTimeout(timer);
   }, []);
 
-  // Don't render cursor on mobile devices
   if (isMobile) {
     return null;
   }
 
   useEffect(() => {
-    if (isMobile) return; // Don't add mouse listeners on mobile
-    
+    if (isMobile) return;
     const move = (e: MouseEvent) => {
       setPos({ x: e.clientX, y: e.clientY });
     };
@@ -64,10 +55,8 @@ const CustomCursor: React.FC = () => {
     return () => window.removeEventListener('mousemove', move);
   }, [isMobile]);
 
-  // Hide cursor on text input/textarea
   useEffect(() => {
-    if (isMobile) return; // Don't add mouse listeners on mobile
-    
+    if (isMobile) return;
     const onMove = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
       if (el.closest('input,textarea,select')) {
@@ -80,113 +69,31 @@ const CustomCursor: React.FC = () => {
     return () => document.removeEventListener('mousemove', onMove);
   }, [isMobile]);
 
-  // After rotation, tip is at (8,8) but visually up/right, so offset by 8
-  const offset = 8;
-
   return (
-    <AnimatePresence>
+    <>
+      <motion.div
+        className="fixed top-0 left-0 w-2 h-2 bg-primary rounded-full pointer-events-none z-[9999]"
+        animate={{
+          x: pos.x - 4,
+          y: pos.y - 4,
+          opacity: hovered ? 0 : 1
+        }}
+        transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
+      />
+      
       <motion.div
         ref={cursorRef}
-        key="cursor"
-        initial={false}
+        className="fixed top-0 left-0 flex items-center justify-center rounded-full pointer-events-none z-[9998] border border-primary/40 backdrop-blur-sm"
         animate={{
-          x: pos.x - offset,
-          y: pos.y - offset,
-          scale: hovered ? 1.18 : 1,
-          filter: hovered ? 'drop-shadow(0 0 12px #c4b5fd)' : 'drop-shadow(0 0 8px #a78bfa)',
+          x: pos.x - (hovered ? 24 : 16),
+          y: pos.y - (hovered ? 24 : 16),
+          width: hovered ? 48 : 32,
+          height: hovered ? 48 : 32,
+          backgroundColor: hovered ? "rgba(167, 139, 250, 0.1)" : "transparent",
         }}
-        transition={{ type: 'spring', stiffness: 900, damping: 30 }}
-        style={{
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          width: 32,
-          height: 32,
-          pointerEvents: 'none',
-          zIndex: 9999,
-          mixBlendMode: 'normal',
-        }}
-      >
-        {hovered ? (
-          // Glowing purple ring with animated outline
-          <motion.svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <defs>
-              <radialGradient id="ring" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#c084fc" stopOpacity="0.7" />
-                <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.3" />
-              </radialGradient>
-              <linearGradient id="outline" x1="0" y1="0" x2="32" y2="32">
-                <stop stopColor="#a78bfa" />
-                <stop offset="0.5" stopColor="#c084fc" />
-                <stop offset="1" stopColor="#a78bfa" />
-              </linearGradient>
-            </defs>
-            <circle
-              cx="16"
-              cy="16"
-              r="10"
-              fill="none"
-              stroke="url(#outline)"
-              strokeWidth="4"
-              style={{ filter: 'blur(1.5px)' }}
-            />
-            <circle
-              cx="16"
-              cy="16"
-              r="8.5"
-              fill="url(#ring)"
-              stroke="none"
-              opacity={0.7}
-            />
-            <motion.circle
-              cx="16"
-              cy="16"
-              r="12"
-              fill="none"
-              stroke="url(#outline)"
-              strokeWidth="2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ repeat: Infinity, duration: 1.2, ease: 'easeInOut' }}
-            />
-          </motion.svg>
-        ) : (
-          // Purple teardrop pointer, tip at (8,8), rotated 45deg for pointer up/right
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" style={{ transform: 'rotate(150deg)' }}>
-            <defs>
-              <linearGradient id="grad" x1="0" y1="0" x2="32" y2="32">
-                <stop offset="0%" stopColor="#a78bfa" />
-                <stop offset="60%" stopColor="#c084fc" />
-                <stop offset="100%" stopColor="#a78bfa" />
-              </linearGradient>
-              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
-                <feMerge>
-                  <feMergeNode in="coloredBlur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-            <path
-              d="M8 8 Q16 2, 24 8 Q30 16, 16 30 Q2 16, 8 8Z"
-              fill="url(#grad)"
-              filter="url(#glow)"
-              stroke="#a78bfa"
-              strokeWidth="2"
-              style={{ transition: 'all 0.3s' }}
-            />
-            <ellipse
-              cx="14"
-              cy="13"
-              rx="2.5"
-              ry="1.2"
-              fill="#fff"
-              opacity="0.18"
-            />
-          </svg>
-        )}
-      </motion.div>
-    </AnimatePresence>
+        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.5 }}
+      />
+    </>
   );
 };
 

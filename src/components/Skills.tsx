@@ -1,156 +1,161 @@
-
-import { useState } from 'react';
-import { Code, Database, Globe, Cog } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Layers, Database, Terminal, Cloud } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Skills = () => {
-  const [activeCategory, setActiveCategory] = useState('frontend');
-
-  const skillCategories = {
-    frontend: {
-      icon: <Globe className="text-primary" size={24} />,
-      title: "Frontend Development",
-      skills: [
-        "React.js",
-        "JavaScript (ES6+)",
-        "HTML5 & CSS3",
-        "Next.js",
-        "Bootstrap",
-        "Responsive Design",
-        "TailwindCSS"
-      ]
-    },
-    backend: {
-      icon: <Database className="text-purple-medium" size={24} />,
-      title: "Backend & Databases",
-      skills: [
-        "Node.js",
-        "NestJS",
-        "Python",
-        "Java",
-        "MySQL",
-        "PostgreSQL",
-        "MongoDB",
-        "RESTful APIs"
-      ]
-    },
-    systems: {
-      icon: <Code className="text-accent" size={24} />,
-      title: "Systems Programming",
-      skills: [
-        "C Programming",
-        "C++",
-        "Data Structures",
-        "Algorithms",
-        "Operating Systems",
-        "Memory Management"
-      ]
-    },
-    tools: {
-      icon: <Cog className="text-gray-600" size={24} />,
-      title: "Tools & Technologies",
-      skills: [
-        "Git & GitHub",
-        "Linux/Ubuntu",
-        "VSCode",
-        "MATLAB",
-        "SDL2",
-        "Docker",
-        "Postman"
-      ]
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
     }
   };
 
-  const tabKeys = Object.keys(skillCategories);
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: 20 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } }
+  };
 
   return (
-    <section id="skills" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="font-poppins font-bold text-4xl sm:text-5xl mb-6">
-            Technical <span className="text-gradient">Skills</span>
-          </h2>
-          <p className="font-inter text-lg text-gray-600 max-w-3xl mx-auto">
-            Demonstrated expertise across full-stack development, systems programming, and modern technologies. 
-            Proficiency validated through hands-on projects and professional experience.
-          </p>
+    <section id="skills" className="py-32 bg-white relative overflow-hidden">
+      {/* Decorative background grid pattern */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 mix-blend-overlay pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-purple-100/40 rounded-full blur-[120px] opacity-60 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-20">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-poppins font-black text-4xl sm:text-5xl lg:text-6xl mb-6 text-gray-900 tracking-tight"
+          >
+            SaaS & <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Full-Stack</span> Mastery
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="font-inter text-lg md:text-xl text-gray-600 max-w-3xl mx-auto"
+          >
+            Specialized in architecting scalable backend systems and delivering end-to-end SaaS platforms.
+          </motion.p>
         </div>
 
-        {/* Category tabs with animated underline */}
-        <div className="relative flex flex-wrap justify-center gap-4 mb-12 animate-slide-up">
-          {tabKeys.map((key, idx) => {
-            const category = skillCategories[key];
-            const isActive = activeCategory === key;
-            return (
-              <motion.button
-                key={key}
-                onClick={() => setActiveCategory(key)}
-                className={`relative flex items-center gap-3 px-6 py-3 rounded-full font-medium transition-all duration-300 focus:outline-none group ${
-                  isActive
-                    ? 'text-white shadow-lg'
-                    : 'text-gray-600 hover:text-primary'
-                }`}
-                style={{ background: isActive ? 'linear-gradient(90deg, #a78bfa 0%, #f472b6 100%)' : '#f3f4f6' }}
-                whileHover={{ scale: 1.08, boxShadow: isActive ? '0 4px 24px #f472b6aa' : '0 2px 8px #a78bfa44' }}
-                whileTap={{ scale: 0.97 }}
-              >
-                {category.icon}
-                <span className="hidden sm:inline">{category.title}</span>
-                {isActive && (
-                  <motion.span
-                    layoutId="tab-underline"
-                    className="absolute left-4 right-4 -bottom-1 h-1 rounded-full bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed]"
-                    style={{ zIndex: 1 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  />
-                )}
-              </motion.button>
-            );
-          })}
-        </div>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-4 gap-6 md:auto-rows-[minmax(240px,auto)]"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {/* Main Card: Full-Stack SaaS Systems */}
+          <motion.div
+            variants={itemVariants}
+            whileHover={{ y: -5 }}
+            className="md:col-span-2 md:row-span-2 rounded-[2rem] p-8 sm:p-10 shadow-2xl relative group overflow-hidden bg-gray-900 text-white border border-gray-800 flex flex-col justify-between"
+          >
+            <div className="absolute top-0 right-0 p-32 bg-purple-500/20 blur-[100px] rounded-full group-hover:bg-purple-500/30 transition-colors duration-700 pointer-events-none" />
+            
+            <div className="relative z-10">
+              <div className="mb-6 inline-flex p-4 rounded-2xl bg-white/10 backdrop-blur-md shadow-inner ring-1 ring-white/20">
+                <Layers className="text-purple-300" size={36} />
+              </div>
+              <h3 className="font-poppins font-bold text-3xl mb-4 leading-tight">
+                Full-Stack SaaS<br/>Architecture
+              </h3>
+              <p className="font-inter text-gray-400 mb-8 max-w-md text-sm sm:text-base leading-relaxed">
+                Expertise in building scalable, multi-tenant Software-as-a-Service solutions. From database schema design and secure authentication to dynamic, highly responsive frontend dashboards.
+              </p>
+            </div>
 
-        {/* Skills display with animated content transition */}
-        <div className="max-w-4xl mx-auto">
-          <Card className="border-0 shadow-lg hover-lift">
-            <CardContent className="p-8">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeCategory}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -30 }}
-                  transition={{ duration: 0.5, ease: 'easeInOut' }}
-                >
-                  <div className="flex items-center gap-3 mb-8">
-                    {skillCategories[activeCategory].icon}
-                    <h3 className="font-poppins font-semibold text-2xl text-gray-dark">
-                      {skillCategories[activeCategory].title}
-                    </h3>
-                  </div>
+            <div className="flex flex-wrap gap-2 relative z-10 mt-auto">
+              {['React / Next.js', 'Node.js', 'NestJS', 'RESTful APIs', 'JWT Auth', 'Stripe / Payments', 'Microservices'].map(skill => (
+                <span key={skill} className="text-xs sm:text-sm font-semibold px-4 py-2 rounded-full bg-gray-800 border border-gray-700 text-purple-200">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </motion.div>
 
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {skillCategories[activeCategory].skills.map((skill, index) => (
-                      <motion.div 
-                        key={skill} 
-                        className="group"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1, duration: 0.3 }}
-                      >
-                        <div className="bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 rounded-lg p-4 text-center transition-all duration-300 hover:shadow-md hover:scale-105 hover:border-purple-200">
-                          <span className="font-inter font-medium text-gray-800 text-sm group-hover:text-purple-700 transition-colors duration-300">
-                            {skill}
-                          </span>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </CardContent>
-          </Card>
-        </div>
+          {/* Card: Backend & Databases */}
+          <motion.div
+            variants={itemVariants}
+            whileHover={{ y: -5 }}
+            className="md:col-span-2 md:row-span-1 rounded-[2rem] p-8 shadow-xl relative group overflow-hidden bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex flex-col justify-between"
+          >
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none" />
+            
+            <div className="flex items-start justify-between relative z-10 mb-6">
+              <div>
+                <h3 className="font-poppins font-bold text-2xl mb-2">Backend & Databases</h3>
+                <p className="font-inter text-indigo-100 text-sm max-w-xs">
+                  Robust data processing, complex queries, and optimized API development.
+                </p>
+              </div>
+              <div className="inline-flex p-3 rounded-2xl bg-white/20 backdrop-blur-md ring-1 ring-white/30 hidden sm:flex">
+                <Database className="text-white" size={28} />
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2 relative z-10">
+              {['PostgreSQL', 'MongoDB', 'MySQL', 'Python / Flask', 'Prisma ORM'].map(skill => (
+                <span key={skill} className="text-[11px] sm:text-xs font-bold px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-white border border-white/20">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Card: Systems & Security */}
+          <motion.div
+            variants={itemVariants}
+            whileHover={{ y: -5 }}
+            className="md:col-span-1 md:row-span-1 rounded-[2rem] p-8 shadow-lg relative group overflow-hidden bg-gray-50 border border-gray-100 flex flex-col justify-between"
+          >
+            <div className="mb-4 inline-flex p-3 rounded-xl bg-indigo-100 text-indigo-700">
+              <Terminal size={24} />
+            </div>
+            <div>
+              <h3 className="font-poppins font-bold text-xl mb-2 text-gray-900">Systems & Logic</h3>
+              <p className="font-inter text-gray-500 text-xs mb-6">
+                Low-level systems programming and complex algorithmic problem solving.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {['C / C++', 'Java', 'OS Concepts', 'Data Structures'].map(skill => (
+                <span key={skill} className="text-[10px] sm:text-xs font-semibold px-2 py-1 rounded bg-white border border-gray-200 text-gray-600 shadow-sm">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Card: Cloud & DevOps */}
+          <motion.div
+            variants={itemVariants}
+            whileHover={{ y: -5 }}
+            className="md:col-span-1 md:row-span-1 rounded-[2rem] p-8 shadow-lg relative group overflow-hidden bg-pink-50/50 border border-pink-100 flex flex-col justify-between"
+          >
+            <div className="mb-4 inline-flex p-3 rounded-xl bg-pink-100 text-pink-600">
+              <Cloud size={24} />
+            </div>
+            <div>
+              <h3 className="font-poppins font-bold text-xl mb-2 text-gray-900">Cloud & DevOps</h3>
+              <p className="font-inter text-gray-500 text-xs mb-6">
+                Deploying and scaling applications with modern infrastructure.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {['Docker', 'Git / GitHub', 'Linux', 'Vercel / AWS'].map(skill => (
+                <span key={skill} className="text-[10px] sm:text-xs font-semibold px-2 py-1 rounded bg-white border border-pink-100 text-pink-700 shadow-sm">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+
+        </motion.div>
       </div>
     </section>
   );

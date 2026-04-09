@@ -1,111 +1,129 @@
-
-import { GraduationCap, Award, Heart, Users, Shield, ExternalLink } from 'lucide-react';
+import { GraduationCap, Award, Users, Shield, ExternalLink } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { motion } from 'framer-motion';
 
 const About = () => {
   const achievements = [
     {
-      icon: <GraduationCap className="text-primary" size={24} />,
+      icon: <GraduationCap className="text-purple-600" size={24} />,
       title: "El Sewedy University of Technology",
-      description: "Bachelor of Computer Science (Polytechnic of Egypt) - Transferred from Egyptian Russian University",
+      description: "Bachelor of Computer Science (Polytechnic of Egypt)",
       year: "2025 - 2028"
     },
     {
-      icon: <Award className="text-purple-medium" size={24} />,
+      icon: <Award className="text-pink-600" size={24} />,
       title: "ALX Africa Graduate",
-      description: "Full-stack Software Engineering Program",
+      description: "Intensive Full-Stack Software Engineering Program",
       year: "2023 - 2025",
       credential: "https://savanna.alxafrica.com/certificates/59enB3JY6M"
     },
     {
-      icon: <Users className="text-blue-600" size={24} />,
-      title: "IEEE Technical Team Member",
-      description: "Active member contributing to technical initiatives and projects",
+      icon: <Users className="text-indigo-600" size={24} />,
+      title: "IEEE Technical Team",
+      description: "Active contributor to technical initiatives and core project developments.",
       year: "2024 - Present"
-    },
-    {
-      icon: <Heart className="text-accent" size={24} />,
-      title: "Community Leader",
-      description: "HR Team at Computality Community (worked for one year)",
-      year: "2024"
     }
   ];
 
   const certifications = [
     {
-      icon: <Shield className="text-green-600" size={24} />,
+      icon: <Shield className="text-emerald-600" size={24} />,
       title: "Green Digital Certificate",
-      description: "Certification in sustainable development awareness and green technology principles",
+      description: "Certification in sustainable development and green technology principles.",
       year: "2025",
       credential: "https://learning.inco-group.co/pluginfile.php/1/tool_certificate/issues/1760401251/6235986483LF.pdf"
     }
   ];
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-b from-white to-purple-light/30">
+    <section id="about" className="py-24 bg-gradient-to-b from-white to-gray-50/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="font-poppins font-bold text-4xl sm:text-5xl mb-6">
-            About <span className="text-gradient">Me</span>
-          </h2>
-          <p className="font-inter text-lg text-gray-600 max-w-3xl mx-auto">
-            A passionate software engineer with a unique blend of technical expertise and creative problem-solving. 
-            I love building solutions that make a difference.
-          </p>
+        <div className="text-center mb-20">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-poppins font-black text-4xl sm:text-5xl mb-6 text-gray-900"
+          >
+            Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Background</span>
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="font-inter text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          >
+            A software engineer specializing in scalable backend architectures, full-stack systems, and robust web applications.
+          </motion.p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid lg:grid-cols-12 gap-16 items-start">
           {/* Text content */}
-          <div className="animate-slide-up">
-            <h3 className="font-poppins font-semibold text-2xl mb-6 text-gray-dark">
-              My Journey in Tech
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7"
+          >
+            <h3 className="font-poppins font-bold text-2xl mb-6 text-gray-900">
+              My Engineering Philosophy
             </h3>
-            <div className="space-y-4 text-gray-600 font-inter">
-              <p className="text-lg leading-relaxed">
-                I'm a passionate Computer Science student at El Sewedy University (Polytechnic of Egypt), deeply exploring systems programming, algorithms, and full-stack development. My growth accelerated through the ALX Africa Software Engineering Program, where I built everything from low-level C programs to dynamic web applications—bridging the gap between core fundamentals and modern technologies.
+            
+            <div className="space-y-5 text-gray-600 font-inter">
+              <p className="text-lg leading-relaxed font-medium text-gray-800 border-l-4 border-purple-500 pl-4 bg-purple-50/30 py-2">
+                I build and architect scalable SaaS applications from the database up.
               </p>
-              <p className="text-lg leading-relaxed">
-                What sets me apart is how I blend logic with creativity. Whether I'm developing a 3D raycasting game in C, crafting engaging user interfaces with React and Next.js, or sketching illustrations by hand, I strive to build solutions that are both functional and visually appealing.
+              
+              <p className="text-base leading-relaxed">
+                Currently pursuing a Computer Science degree at El Sewedy University of Technology, my foundation is deeply rooted in systems programming, advanced algorithms, and low-level resource management. 
               </p>
-              <p className="text-lg leading-relaxed">
-                As both a developer and an artist, I'm constantly exploring ways to make technology more human, expressive, and inspiring.
+              
+              <p className="text-base leading-relaxed">
+                My technical capabilities were forged in the rigorous ALX Africa Software Engineering Program. There, I mastered the process of bridging complex backend infrastructure with seamless, high-performance UIs. From developing custom C-based 3D engines to deploying cloud-native React and Node.js ecosystems, I focus entirely on shipping production-ready systems.
+              </p>
+
+              <p className="text-base leading-relaxed">
+                My approach is pragmatic and systematic. I don't just write code—I engineer long-term solutions that solve actual business logic problems, focusing on clean architecture, minimal technical debt, and beautiful user experiences.
               </p>
             </div>
 
-            <div className="mt-8 grid grid-cols-2 gap-6">
-              <div>
-                <h4 className="font-poppins font-semibold text-primary mb-2">Languages</h4>
-                <p className="text-gray-600 text-sm">Arabic (Native), English (Fluent), Turkish & Russian (Conversational)</p>
+            <div className="mt-10 p-6 bg-white border border-gray-100 rounded-2xl shadow-sm flex flex-col sm:flex-row gap-8">
+              <div className="flex-1">
+                <h4 className="font-poppins font-bold text-gray-900 mb-2">Languages</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">Arabic (Native), English (Fluent), Turkish & Russian (Conversational)</p>
               </div>
-              <div>
-                <h4 className="font-poppins font-semibold text-primary mb-2">Location</h4>
-                <p className="text-gray-600 text-sm">Cairo, Egypt</p>
+              <div className="w-px bg-gray-200 hidden sm:block"></div>
+              <div className="flex-1">
+                <h4 className="font-poppins font-bold text-gray-900 mb-2">Location</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">Cairo, Egypt &bull; Open to Remote Collaboration</p>
               </div>
             </div>
 
             {/* Certifications Section */}
-            <div className="mt-10">
-              <h4 className="font-poppins font-semibold text-xl mb-4 text-gray-dark">
-                Certifications & Specializations
+            <div className="mt-12">
+              <h4 className="font-poppins font-bold text-xl mb-6 text-gray-900 tracking-tight">
+                Certifications
               </h4>
               <div className="space-y-4">
                 {certifications.map((cert, index) => (
-                  <Card key={index} className="hover-lift border-0 shadow-sm bg-gradient-to-r from-green-50 to-emerald-50">
-                    <CardContent className="p-4">
-                      <div className="flex items-start gap-3">
-                        <div className="p-2 bg-green-100 rounded-lg">
+                  <Card key={index} className="border border-emerald-100 shadow-sm bg-gradient-to-br from-white to-emerald-50/30 hover:border-emerald-300 transition-colors">
+                    <CardContent className="p-5">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-emerald-100/50 rounded-xl">
                           {cert.icon}
                         </div>
                         <div className="flex-1">
                           <div className="flex justify-between items-start mb-1">
-                            <h5 className="font-poppins font-semibold text-gray-dark text-sm">
+                            <h5 className="font-poppins font-bold text-gray-900 text-base">
                               {cert.title}
                             </h5>
-                            <span className="text-xs text-green-600 font-medium">
+                            <span className="text-[10px] uppercase font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
                               {cert.year}
                             </span>
                           </div>
-                          <p className="text-gray-600 font-inter text-xs mb-2">
+                          <p className="text-gray-600 font-inter text-sm mb-3">
                             {cert.description}
                           </p>
                           {cert.credential && (
@@ -113,10 +131,10 @@ const About = () => {
                               href={cert.credential} 
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs text-green-600 hover:text-green-800 font-medium transition-colors duration-200"
+                              className="inline-flex items-center gap-1.5 text-xs text-emerald-600 hover:text-emerald-800 font-bold transition-colors w-fit bg-white px-3 py-1.5 rounded-lg border border-emerald-100 shadow-sm"
                             >
-                              <ExternalLink size={10} />
-                              Verify Certificate
+                              <ExternalLink size={14} />
+                              Verify Credential
                             </a>
                           )}
                         </div>
@@ -126,49 +144,60 @@ const About = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Education & Experience cards */}
-          <div className="space-y-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <h3 className="font-poppins font-semibold text-xl mb-4 text-gray-dark">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-5 space-y-6"
+          >
+            <h3 className="font-poppins font-bold text-2xl mb-6 text-gray-900">
               Education & Experience
             </h3>
-            {achievements.map((achievement, index) => (
-              <Card key={index} className="hover-lift border-0 shadow-md">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-purple-light rounded-lg">
-                      {achievement.icon}
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-poppins font-semibold text-gray-dark">
-                          {achievement.title}
-                        </h4>
-                        <span className="text-sm text-primary font-medium">
-                          {achievement.year}
-                        </span>
-                      </div>
-                      <p className="text-gray-600 font-inter text-sm mb-2">
-                        {achievement.description}
-                      </p>
-                      {achievement.credential && (
-                        <a 
-                          href={achievement.credential} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-purple-600 hover:text-purple-800 font-medium transition-colors duration-200"
-                        >
-                          <ExternalLink size={12} />
-                          View Certificate
-                        </a>
-                      )}
+            
+            <div className="relative border-l-2 border-purple-100 ml-4 space-y-8 pb-4">
+              {achievements.map((achievement, index) => (
+                <div key={index} className="relative pl-8">
+                  <div className="absolute -left-[21px] top-1 w-10 h-10 bg-white border-2 border-purple-100 rounded-full flex items-center justify-center z-10 shadow-sm">
+                    <div className="w-6 h-6 flex items-center justify-center">
+                       {achievement.icon}
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  
+                  <Card className="border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 bg-white rounded-2xl group">
+                    <CardContent className="p-6">
+                      <div className="flex flex-col">
+                        <span className="text-[10px] uppercase font-bold text-purple-600 mb-2 tracking-wider">
+                          {achievement.year}
+                        </span>
+                        <h4 className="font-poppins font-bold text-gray-900 text-lg mb-2 group-hover:text-purple-700 transition-colors">
+                          {achievement.title}
+                        </h4>
+                        <p className="text-gray-500 font-inter text-sm mb-4 leading-relaxed">
+                          {achievement.description}
+                        </p>
+                        
+                        {achievement.credential && (
+                          <a 
+                            href={achievement.credential} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs text-purple-600 hover:text-purple-800 font-bold transition-colors w-fit border border-purple-100 bg-purple-50 hover:bg-purple-100 px-3 py-1.5 rounded-lg"
+                          >
+                            <ExternalLink size={14} />
+                            View Certificate
+                          </a>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
