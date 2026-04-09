@@ -8,7 +8,7 @@ const About = () => {
       icon: <GraduationCap className="text-purple-600" size={24} />,
       title: "El Sewedy University of Technology",
       description: "Bachelor of Computer Science (Polytechnic of Egypt)",
-      year: "2025 - 2028"
+      year: "Expected Graduation: 2028"
     },
     {
       icon: <Award className="text-pink-600" size={24} />,

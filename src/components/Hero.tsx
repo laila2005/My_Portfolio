@@ -31,7 +31,7 @@ const Hero = () => {
           className="text-left w-full lg:w-1/2"
         >
           <h1 className="font-clash text-5xl sm:text-6xl lg:text-7xl mb-4 text-gray-dark font-black">
-            Laila <span className="text-gradient">Fikry</span>
+            Laila <span className="text-gradient">Mohamed</span>
           </h1>
           <span className="block font-outfit text-2xl text-purple-600 mb-6 min-h-[2.5rem] font-bold">
             <Typewriter

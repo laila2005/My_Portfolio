@@ -114,20 +114,30 @@ function HeartReaction({ projectTitle }: { projectTitle: string }) {
 const Projects = () => {
   const projects = [
     {
-      title: "R-SkyOrb Mission Dashboard",
-      description: "Comprehensive front-end dashboard for monitoring and controlling high-altitude balloon systems with real-time telemetry visualization and interactive controls.",
-      image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80", 
+      title: "TechHub Electronics Platform",
+      description: "A premium, fully-responsive e-commerce platform built from scratch. Implements secure password hashing, prepared SQL statements, session management, and a robust relational database schema.",
+      image: "https://images.unsplash.com/photo-1491933382434-500287f9b54b?auto=format&fit=crop&w=600&q=80",
       video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-      tech: ["React.js", "TypeScript", "Real-time Data", "WebSocket"],
-      languages: ["JavaScript"],
-      github: "https://github.com/laila2005/R-SkyOrb-dashboard",
-      featured: false
+      tech: ["PHP 8", "MySQL", "Security", "Bootstrap"],
+      languages: ["PHP", "SQL"],
+      github: "https://github.com/laila2005/Online_Phones_Store",
+      live: "https://techhub-electronics.atwebpages.com/index.php",
+      featured: true
+    },
+    {
+      title: "Real-time Encrypted Messaging",
+      description: "A secure, multi-threaded TCP messaging system featuring military-grade AES-256 encryption, an integrated SQLite database architecture, and both CLI and GUI interfaces.",
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
+      video: "https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+      tech: ["Python", "TCP/IP", "AES-256", "Multi-threading", "SQLite"],
+      languages: ["Python"],
+      github: "https://github.com/laila2005/messaging-system",
+      featured: true
     },
     {
       title: "DishCraft",
       description: "Full-stack culinary platform featuring comprehensive UI/UX design, secure JWT user authentication, and seamless database integration using Node.js.",
       image: "/dishcraft.PNG",
-      video: "https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
       tech: ["React.js", "Node.js", "MongoDB", "Express", "JWT"],
       languages: ["TypeScript", "Node.js"],
       github: "https://github.com/laila2005/DishCraft/tree/combined-branch",
@@ -137,7 +147,6 @@ const Projects = () => {
       title: "3D Raycasting Maze Game",
       description: "Low-level graphics engine built in C using SDL2. Features complex collision detection, player movement physics, enemy AI, and dynamic maze texture rendering.",
       image: "/MazeGame.png", 
-      video: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
       tech: ["C", "SDL2", "Raycasting", "Algorithms", "Memory Management"],
       languages: ["C"],
       github: "https://github.com/walid-mehelba/The_Maze",
@@ -147,7 +156,6 @@ const Projects = () => {
       title: "Bagi Job Platform",
       description: "Professional freelance job portal developed entirely from scratch. Engineered a scalable React frontend coupled with robust backend server architecture.",
       image: "/bagijob-logo.png",
-      video: "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
       tech: ["React.js", "Redux", "REST API", "PostgreSQL"],
       languages: ["JavaScript"],
       github: "#", 
@@ -163,38 +171,10 @@ const Projects = () => {
       github: "https://github.com/laila2005/Tech-Road",
       featured: true,
       status: "In Progress"
-    },
-    {
-      title: "Audio Visualization Tool",
-      description: "Real-time MATLAB tool for pitch modification and waveform visualization with advanced signal processing capabilities.",
-      image: "/Audiovisualization.png", 
-      tech: ["MATLAB", "Signal Processing", "GUI", "Audio"],
-      languages: ["MATLAB"],
-      github: "https://github.com/laila2005/Audio-Visualization-and-Pitch-Modification",
-      featured: false
-    },
-    {
-      title: "Project Management System",
-      description: "Comprehensive enterprise task manager built in Java with SQL Server backend, featuring role-based access control and progress visualization.",
-      image: "/project managment system.webp", 
-      tech: ["Java", "SQL Server", "JDBC", "Desktop App"],
-      languages: ["Java", "SQL"],
-      github: "https://github.com/laila2005/FinalProjectManagmentSystem",
-      featured: false
-    },
-    {
-      title: "Simple Shell",
-      description: "Unix-like shell implementation in C handling built-in commands, child process control, meticulous memory handling, and comprehensive error feedback.",
-      image: "/shell.jpg", 
-      tech: ["C", "Unix", "System Programming", "Shell"],
-      languages: ["C"],
-      github: "https://github.com/laila2005/simple_shell",
-      featured: false
     }
   ];
 
   const featuredProjects = projects.filter(p => p.featured);
-  const otherProjects = projects.filter(p => !p.featured);
 
   return (
     <section id="projects" className="py-32 bg-[#fafafa] relative overflow-hidden">
@@ -291,63 +271,6 @@ const Projects = () => {
                     </a>
                   )}
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Other Projects Section */}
-        <div className="text-center mb-12">
-          <h3 className="font-poppins font-bold text-2xl text-gray-800 flex items-center justify-center gap-3">
-            More <span className="text-purple-600">Experiments & Systems</span>
-          </h3>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {otherProjects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: (index % 3) * 0.1, duration: 0.5 }}
-              className="group flex flex-col bg-white border border-gray-200 hover:border-purple-200 shadow-sm hover:shadow-xl rounded-2xl overflow-hidden transition-all duration-300"
-            >
-              <div className="relative overflow-hidden h-48 flex-shrink-0 bg-gray-50 border-b border-gray-100">
-                <ParallaxMedia image={project.image} alt={project.title} />
-              </div>
-              <CardContent className="p-6 flex flex-col flex-1 bg-white">
-                <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-poppins font-bold text-lg text-gray-900 group-hover:text-purple-600 transition-colors line-clamp-1">
-                    {project.title}
-                  </h4>
-                </div>
-                <p className="text-sm text-gray-500 line-clamp-3 mb-4 leading-relaxed flex-1">
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-1.5 mt-auto">
-                  {project.tech.slice(0, 3).map((tech) => (
-                    <span key={tech} className="bg-purple-50 text-purple-700 border border-purple-100 px-2 py-0.5 rounded text-[10px] font-bold">
-                      {tech}
-                    </span>
-                  ))}
-                  {project.tech.length > 3 && (
-                    <span className="text-gray-400 text-[10px] font-bold px-1 py-0.5">+{project.tech.length - 3}</span>
-                  )}
-                </div>
-              </CardContent>
-              
-              <div className="bg-gray-50/80 p-3 px-6 border-t border-gray-100 flex items-center justify-between">
-                 <HeartReaction projectTitle={project.title} />
-                 
-                 {project.github !== "#" && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <Button variant="ghost" size="sm" className="h-8 text-xs font-bold text-gray-600 hover:text-purple-700 hover:bg-purple-50">
-                        View Source <ArrowRight size={12} className="ml-1" />
-                      </Button>
-                    </a>
-                  )}
               </div>
             </motion.div>
           ))}
