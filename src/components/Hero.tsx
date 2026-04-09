@@ -85,7 +85,7 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          <div className="flex flex-col gap-6 justify-start items-start mb-6 sm:mb-12 w-full mt-6">
+          <div className="flex flex-col gap-6 justify-center items-center lg:items-start mb-6 sm:mb-12 w-full mt-6">
             <div className="flex flex-row gap-3 sm:gap-4 justify-center sm:justify-start w-full lg:w-auto">
               <MagneticButton className="w-1/2 sm:w-auto">
                 <Button 
@@ -168,7 +168,8 @@ const Hero = () => {
             ></iframe>
           </div>
 
-          <div className="absolute bottom-5 right-5 z-20 bg-white/60 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold text-purple-900 shadow-xl border border-white/40 pointer-events-none uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          {/* UI overlay strategically placed to hide the Spline watermark */}
+          <div className="absolute bottom-[2px] right-[2px] sm:bottom-2 sm:right-2 z-20 bg-white/90 backdrop-blur-xl px-4 py-2 rounded-xl text-[10px] font-bold text-purple-900 shadow-xl border border-white/40 pointer-events-none uppercase tracking-wider flex items-center justify-center min-w-[130px] min-h-[35px]">
             Interactive 3D Robot
           </div>
         </motion.div>
