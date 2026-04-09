@@ -44,6 +44,11 @@ const knowledgeBase = {
   
   focus: "Currently researching distributed systems, microservices architectures, and deep backend optimization.",
   
+  funFacts: {
+    favoriteColor: "Purple, which heavily influences her vibrant UI designs.",
+    hobbies: ["Programming and problem solving", "UI/UX aesthetics", "Drawing realistic portraits", "Interior design rendering"]
+  },
+  
   contact: {
     email: "laila.mohamed.fikry@gmail.com",
     linkedin: "https://linkedin.com/in/laila-mohamed23/",
@@ -122,6 +127,14 @@ function getBotResponse(input: string): string {
   
   if (text.match(/\b(techroad|ai|coach)\b/)) {
     return `[PROJECT]: ${knowledgeBase.projects.techroad.name} - ${knowledgeBase.projects.techroad.description}`;
+  }
+  
+  if (text.match(/\b(color|favourite color|favorite color|purple|pink)\b/)) {
+    return `Laila's signature color is purple! It reflects her blend of technical precision and creative design exactly like this portfolio.`;
+  }
+  
+  if (text.match(/\b(like|likes|love|loves|hobby|hobbies|interests|passion|fun|facts|fact|draw|drawing|art|artist|sketch)\b/)) {
+    return `Beyond scalable backends, Laila deeply loves programming, UI/UX design, and blending creative aesthetics with robust code. Fun fact: she is an artist and has a massive talent for drawing realistic portraits!`;
   }
   
   if (text.match(/\b(projects|portfolio|work|built|created|systems)\b/)) {
