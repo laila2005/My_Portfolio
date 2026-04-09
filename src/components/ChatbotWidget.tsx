@@ -1,122 +1,72 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X } from 'lucide-react';
+import { X, Terminal } from 'lucide-react';
 
-// Comprehensive Knowledge Base about Laila
+// Enterprise Knowledge Base about Laila
 const knowledgeBase = {
   personal: {
-    name: "Laila Mohamed Fikry",
-    nickname: "Lulu",
-    title: "Software Engineer / Full Stack Developer",
+    name: "Laila Mohamed",
+    title: "Software Engineer & Backend Architect",
     location: "Cairo, Egypt",
-    dateOfBirth: "September 28, 2005",
-    languages: ["Arabic (native)", "English (fluent)", "German (beginner)"],
+    languages: ["Arabic (Native)", "English (Professional Working Proficiency)", "German (Beginner)"],
     personality: {
-      keywords: ["passionate", "detail-oriented", "curious", "empathetic", "growth-driven"],
-      tone: "friendly, professional, and inspiring",
-      values: ["honesty", "kindness", "continuous learning", "balance between career and life"]
+      keywords: ["analytical", "detail-oriented", "scalable", "systematic", "performance-driven"],
+      tone: "professional, concise, and technical",
     }
   },
-  careerSummary: "Laila Mohamed Fikry is a passionate Software Engineer from Cairo, Egypt. She specializes in full-stack development using Python, JavaScript, React.js, Node.js, and MongoDB. A graduate of the ALX Africa & Holberton School Software Engineering program, she combines clean code, logical thinking, and creativity to build impactful digital experiences. Laila is known for her PEP 8–compliant, readable, and modular code style.",
+  careerSummary: "Laila Mohamed is a specialized Software Engineer focusing on scalable backend architectures and robust full-stack systems. With expertise honed at the ALX Africa & Holberton School Software Engineering program, she designs resilient systems utilizing Python, Node.js, and modern JavaScript frameworks. She emphasizes clean architectures, PEP 8 compliance, and modular implementations.",
   
   education: [
-    "ALX Africa & Holberton School – Software Engineering Program (Foundations + Advanced Certificates)",
-    "Sololearn – Introduction to SQL"
+    "ALX Africa & Holberton School – Advanced Software Engineering Program",
   ],
   
   skills: {
-    programmingLanguages: ["Python", "C++", "JavaScript", "SQL"],
-    frameworksAndLibraries: ["React.js", "Node.js", "Express.js", "Bootstrap", "Tailwind CSS"],
-    databases: ["MongoDB", "MySQL"],
-    tools: ["Git", "GitHub", "VS Code", "Figma", "Notion", "Postman"],
-    other: ["REST APIs", "Authentication", "Data Structures & Algorithms", "OOP", "SDLC"],
-    softSkills: ["Problem-solving", "Collaboration", "Adaptability", "Leadership", "Emotional intelligence"]
+    programmingLanguages: ["Python", "C/C++", "JavaScript", "TypeScript", "SQL"],
+    frameworksAndLibraries: ["React.js", "Node.js", "Express.js", "Tailwind CSS"],
+    databases: ["MySQL", "MongoDB", "PostgreSQL"],
+    tools: ["Git/GitHub", "Docker", "RESTful APIs", "Linux/Bash", "System Design"],
+    capabilities: ["Software Architecture", "Database Optimization", "Secure Authentication", "Scalability Planning"]
   },
   
   projects: {
-    dishcraft: {
-      name: "DishCraft - Smart Recipe Generator & Meal Planner (AI-Assisted)",
-      description: "A 3-week MVP web app that generates personalized recipes using user ingredients and preferences. Built with React.js, Node.js, and MongoDB."
+    techhub: {
+      name: "TechHub Electronics Platform",
+      description: "A production-grade e-commerce system built with PHP and MySQL, featuring secure session management, optimized product indexing, and a robust cart architecture."
     },
-    mazegame3D: {
-      name: "3D Maze Game (Raycasting with SDL2)",
-      description: "A C-based 3D game engine featuring jungle-themed textures, player movement, lighting, and collision detection."
-    },
-    moviesApp: {
-      name: "Movies App (Bootstrap Rebuild)",
-      description: "A responsive and animated movie catalog built with HTML, CSS, and Bootstrap."
+    messaging: {
+      name: "Encrypted Messaging System",
+      description: "A real-time communication platform built with Python, featuring AES-256 encryption, secure socket layering, and a multi-threaded server architecture."
     },
     techroad: {
-      name: "TechRoad - AI Career Coach",
-      description: "An AI-powered career coach competition project helping students improve skills and job readiness through personalized recommendations."
+      name: "TechRoad - Career Infrastructure",
+      description: "An AI-powered pipeline tool for career coaching, delivering personalized data-driven recommendations."
     }
   },
   
-  volunteering: [
-    {
-      role: "HR Volunteer",
-      organization: "Computality Community",
-      description: "Streamlined data management and improved internal processes."
-    },
-    {
-      role: "Participant",
-      organization: "Value and Technology Ambassadors Initiatives",
-      description: "Trained in Emotional Intelligence, Freelancing, Leadership, and CV enhancement with the Hayah Karima Foundation."
-    }
-  ],
-  
-  learningFocus: {
-    currentlyLearning: ["React.js advanced concepts", "Backend optimization", "German language"],
-    learningStyle: "self-paced and project-based through Notion plans and free online resources"
-  },
-  
-  goals: {
-    shortTerm: "Enhance full-stack development skills and contribute to impactful open-source projects.",
-    longTerm: "To grow into a successful woman who leads with empathy and balance — thriving as a software engineer while nurturing a happy and grounded life beyond work."
-  },
-  
-  personalInterests: [
-    "AI and creative technology",
-    "UI/UX design and visualization", 
-    "Interior design rendering using Blender, SketchUp, and Lumion",
-    "Writing technical blogs and learning new languages"
-  ],
-  
-  funFacts: [
-    "Friends call her 'Lulu' 🌸",
-    "She loves Python and React — they're her comfort zone.",
-    "She enjoys building clean UIs as much as solving backend challenges.",
-    "She's an artist too and can draw realistic portraits! 🎨",
-    "She believes every bug teaches something valuable."
-  ],
+  focus: "Currently researching distributed systems, microservices architectures, and deep backend optimization.",
   
   contact: {
     email: "laila.mohamed.fikry@gmail.com",
-    linkedin: "https://www.linkedin.com/in/laila-mohamed23/",
+    linkedin: "https://linkedin.com/in/laila-mohamed23/",
     github: "https://github.com/laila2005",
-    availability: "Currently available for work and open to new opportunities"
+    status: "Open to challenging enterprise roles and backend engineering positions."
   }
 };
 
 const responses = {
   greetings: [
-    "Hi! I'm Lulu's AI assistant 👩‍💻. I can tell you all about her work, skills, and projects!",
-    "Hello! I'm here to help you learn about Laila Mohamed Fikry (friends call her Lulu 🌸). What would you like to know?",
-    "Hey there! I'm Lulu's portfolio assistant. She loves learning new tech — she's always working on something creative!"
+    "Terminal connected. I am L.M. Assistant, an automated AI designed to provide technical specifications on Laila's engineering portfolio. How may I assist you?",
+    "System online. I can provide detailed insights into Laila's software architecture, projects, and technical stack. What would you like to query?",
+    "Hello. I represent Laila Mohamed's digital portfolio. You may ask me about her backend capabilities, deployment history, or contact metrics."
   ],
   thanks: [
-    "You're very welcome! Laila believes every interaction teaches something valuable 😊",
-    "My pleasure! Feel free to ask anything else about Lulu's journey in tech!"
+    "Acknowledgment received. I am here if you require further technical details.",
+    "You are welcome. Standing by for additional queries."
   ],
   goodbye: [
-    "Goodbye! Thanks for your interest in Laila's work! 🌸",
-    "Have a great day! Don't hesitate to reach out to Lulu directly - she's always excited to connect!"
+    "Session terminated. Thank you for visiting Laila's portfolio.",
+    "Goodbye. Feel free to initiate contact directly via email or LinkedIn for formal inquiries."
   ],
-  default: "I can tell you about Laila's skills, amazing projects, goals, or even some fun facts! What interests you most?",
-  friendlyResponses: [
-    "Laila loves learning new tech — she's always working on something creative!",
-    "She believes great code should feel as elegant as it looks.",
-    "Her projects mix logic, design, and human touch — just like her personality."
-  ]
+  default: "Unrecognized query parameters. I am optimized to discuss Laila's Tech Stack, Project Architecture (e.g., TechHub, Encrypted Messaging), and Engineering Background. Please refine your input."
 };
 
 function getRandomResponse(responses: string[]): string {
@@ -126,130 +76,75 @@ function getRandomResponse(responses: string[]): string {
 function getBotResponse(input: string): string {
   const text = input.toLowerCase();
   
-  // Greetings
-  if (text.match(/\b(hello|hi|hey|greetings)\b/)) {
+  if (text.match(/\b(hello|hi|hey|greetings|start|init)\b/)) {
     return getRandomResponse(responses.greetings);
   }
   
-  // Name and personal info
-  if (text.match(/\b(name|who is|who are you|lulu|laila)\b/)) {
-    return `I'm ${knowledgeBase.personal.name}, but friends call me ${knowledgeBase.personal.nickname} 🌸! I'm a ${knowledgeBase.personal.title} based in ${knowledgeBase.personal.location}. ${getRandomResponse(responses.friendlyResponses)}`;
+  if (text.match(/\b(name|who is|who are you|laila|owner)\b/)) {
+    return `I am querying data for ${knowledgeBase.personal.name}, a ${knowledgeBase.personal.title}. She builds high-performance digital systems.`;
   }
   
-  // Education
-  if (text.match(/\b(education|university|school|study|student|degree|alx|holberton)\b/)) {
-    return `Laila graduated from ${knowledgeBase.education.join(' and ')}. She's passionate about continuous learning and currently focusing on ${knowledgeBase.learningFocus.currentlyLearning.join(', ')}.`;
+  if (text.match(/\b(education|university|school|degree|alx|holberton)\b/)) {
+    return `Laila holds an engineering certification from ${knowledgeBase.education[0]}, focusing on rigorous low-level programming and high-level system design.`;
   }
   
-  // Career summary
   if (text.match(/\b(career|background|experience|summary|about)\b/)) {
     return knowledgeBase.careerSummary;
   }
   
-  // Skills - Programming Languages
-  if (text.match(/\b(programming languages|languages|python|javascript|c\+\+|sql)\b/)) {
-    return `Laila's programming languages include: ${knowledgeBase.skills.programmingLanguages.join(', ')}. She loves Python and React — they're her comfort zone! 💻`;
+  if (text.match(/\b(languages|code|python|javascript|c\+\+|sql|typescript)\b/)) {
+    return `Core Technical Languages: ${knowledgeBase.skills.programmingLanguages.join(', ')}. Engineered for type safety, performance, and scalability.`;
   }
   
-  // Skills - Frameworks and Libraries
-  if (text.match(/\b(frameworks|libraries|react|node|express|bootstrap|tailwind)\b/)) {
-    return `For frameworks and libraries, Laila works with: ${knowledgeBase.skills.frameworksAndLibraries.join(', ')}. She enjoys building clean UIs as much as solving backend challenges!`;
+  if (text.match(/\b(frameworks|libraries|react|node|express|tailwind)\b/)) {
+    return `Framework Infrastructure: ${knowledgeBase.skills.frameworksAndLibraries.join(', ')}. Deployed on strict modern standards.`;
   }
   
-  // Skills - Databases
-  if (text.match(/\b(database|databases|mongodb|mysql|data)\b/)) {
-    return `Laila has experience with databases: ${knowledgeBase.skills.databases.join(', ')}. She's comfortable with both SQL and NoSQL databases!`;
+  if (text.match(/\b(database|databases|mongodb|mysql|postgres|data)\b/)) {
+    return `Database Architecture: ${knowledgeBase.skills.databases.join(', ')}. Optimized for ACID compliance and read/write scaling.`;
   }
   
-  // Skills - Tools
-  if (text.match(/\b(tools|git|github|vscode|figma|notion|postman)\b/)) {
-    return `Laila's development tools include: ${knowledgeBase.skills.tools.join(', ')}. She believes great code should feel as elegant as it looks!`;
+  if (text.match(/\b(tools|git|github|docker|linux|bash)\b/)) {
+    return `DevOps & Systems Tooling: ${knowledgeBase.skills.tools.join(', ')}.`;
   }
   
-  // General skills
-  if (text.match(/\b(skills|technologies|tech stack|technical)\b/)) {
-    return `Laila has a comprehensive skill set! Programming languages: ${knowledgeBase.skills.programmingLanguages.join(', ')}. Frameworks: ${knowledgeBase.skills.frameworksAndLibraries.slice(0,3).join(', ')}, and more. Check out her Skills section for the complete list!`;
+  if (text.match(/\b(skills|technologies|tech stack|technical|stack)\b/)) {
+    return `Laila operates a comprehensive stack: ${knowledgeBase.skills.programmingLanguages.join(', ')} backed by ${knowledgeBase.skills.databases.join(', ')}. Specialized capabilities include: ${knowledgeBase.skills.capabilities.join(', ')}.`;
   }
   
-  // Specific projects
-  if (text.match(/\b(dishcraft|dish craft|recipe|meal planner)\b/)) {
-    return `${knowledgeBase.projects.dishcraft.name} is amazing! ${knowledgeBase.projects.dishcraft.description}`;
+  if (text.match(/\b(techhub|electronics|ecommerce|e-commerce|store)\b/)) {
+    return `[PROJECT]: ${knowledgeBase.projects.techhub.name} - ${knowledgeBase.projects.techhub.description}`;
   }
   
-  if (text.match(/\b(maze game|raycasting|3d game|sdl2)\b/)) {
-    return `The ${knowledgeBase.projects.mazegame3D.name} is impressive! ${knowledgeBase.projects.mazegame3D.description}`;
+  if (text.match(/\b(messaging|chat|encrypted|security|aes)\b/)) {
+    return `[PROJECT]: ${knowledgeBase.projects.messaging.name} - ${knowledgeBase.projects.messaging.description}`;
   }
   
-  if (text.match(/\b(techroad|tech road|skillsnap|career coach|ai coach)\b/)) {
-    return `${knowledgeBase.projects.techroad.name} is innovative! ${knowledgeBase.projects.techroad.description}`;
+  if (text.match(/\b(techroad|ai|coach)\b/)) {
+    return `[PROJECT]: ${knowledgeBase.projects.techroad.name} - ${knowledgeBase.projects.techroad.description}`;
   }
   
-  if (text.match(/\b(movies app|movie|bootstrap)\b/)) {
-    return `The ${knowledgeBase.projects.moviesApp.name} showcases her frontend skills! ${knowledgeBase.projects.moviesApp.description}`;
+  if (text.match(/\b(projects|portfolio|work|built|created|systems)\b/)) {
+    return `Notable engineering systems include the ${knowledgeBase.projects.techhub.name} and the ${knowledgeBase.projects.messaging.name}. You may ask for specifics on "messaging" or "ecommerce".`;
   }
   
-  // General projects
-  if (text.match(/\b(projects|portfolio|work|built|created)\b/)) {
-    return `Laila has built amazing projects! Including ${knowledgeBase.projects.dishcraft.name}, ${knowledgeBase.projects.mazegame3D.name}, ${knowledgeBase.projects.techroad.name}, and ${knowledgeBase.projects.moviesApp.name}. Her projects mix logic, design, and human touch — just like her personality!`;
+  if (text.match(/\b(goals|future|focus|learning)\b/)) {
+    return `Current Engineering Focus: ${knowledgeBase.focus}`;
   }
   
-  // Goals
-  if (text.match(/\b(goals|future|plans|ambitions)\b/)) {
-    return `Laila's short-term goal: ${knowledgeBase.goals.shortTerm} Her long-term vision: ${knowledgeBase.goals.longTerm}`;
-  }
-  
-  // Learning
-  if (text.match(/\b(learning|studying|currently learning|german)\b/)) {
-    return `Laila is currently learning: ${knowledgeBase.learningFocus.currentlyLearning.join(', ')}. Her learning style is ${knowledgeBase.learningFocus.learningStyle}. She believes every bug teaches something valuable!`;
-  }
-  
-  // Volunteering
-  if (text.match(/\b(volunteer|volunteering|community|computality|hr)\b/)) {
-    return `Laila has volunteering experience! She was an ${knowledgeBase.volunteering[0].role} at ${knowledgeBase.volunteering[0].organization} where she ${knowledgeBase.volunteering[0].description.toLowerCase()}. She also participated in ${knowledgeBase.volunteering[1].organization}.`;
-  }
-  
-  // Personal interests
-  if (text.match(/\b(interests|hobbies|personal|ai|blender|interior design|blogs)\b/)) {
-    return `Laila's personal interests include: ${knowledgeBase.personalInterests.join(', ')}. She's passionate about AI and creative technology!`;
-  }
-  
-  // Fun facts
-  if (text.match(/\b(fun facts|fun|facts|interesting)\b/)) {
-    return `Here are some fun facts about Laila: ${knowledgeBase.funFacts.join(' • ')}`;
-  }
-  
-  // Contact and availability
   if (text.match(/\b(contact|email|reach|hire|available|work|linkedin|github)\b/)) {
-    return `${knowledgeBase.contact.availability}! You can contact Laila at ${knowledgeBase.contact.email} or connect on LinkedIn: ${knowledgeBase.contact.linkedin}. Her GitHub is ${knowledgeBase.contact.github}. She's always excited to connect!`;
+    return `Status: ${knowledgeBase.contact.status} | Email: ${knowledgeBase.contact.email} | LinkedIn: ${knowledgeBase.contact.linkedin}`;
   }
   
-  // Languages
-  if (text.match(/\b(languages|speak|arabic|english|german)\b/)) {
-    return `Laila speaks multiple languages: ${knowledgeBase.personal.languages.join(', ')}. This helps her work with international teams!`;
-  }
-  
-  // Location
-  if (text.match(/\b(location|where|cairo|egypt)\b/)) {
-    return `Laila is based in ${knowledgeBase.personal.location}. She's open to both local and remote opportunities!`;
-  }
-  
-  // Personality
-  if (text.match(/\b(personality|values|passionate|empathetic)\b/)) {
-    return `Laila is ${knowledgeBase.personal.personality.keywords.join(', ')}. Her core values are ${knowledgeBase.personal.personality.values.join(', ')}. Her tone is ${knowledgeBase.personal.personality.tone}.`;
-  }
-  
-  // Thanks
-  if (text.match(/\b(thank|thanks)\b/)) {
+  if (text.match(/\b(thank|thanks|acknowledged)\b/)) {
     return getRandomResponse(responses.thanks);
   }
   
-  // Goodbye
-  if (text.match(/\b(bye|goodbye|see you|farewell)\b/)) {
+  if (text.match(/\b(bye|goodbye|exit|quit|close)\b/)) {
     return getRandomResponse(responses.goodbye);
   }
   
-  // Default response with suggestions
-  return `${responses.default} You can ask about:\n• Her skills and technologies\n• Projects like DishCraft or TechRoad\n• Her goals and learning journey\n• Fun facts and personal interests\n• How to contact her`;
+  return responses.default;
 }
 
 export default function ChatbotWidget() {
@@ -260,7 +155,6 @@ export default function ChatbotWidget() {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
-  // Check if it's a mobile device
   const isMobile = typeof window !== 'undefined' && 'ontouchstart' in window;
 
   useEffect(() => {
@@ -283,54 +177,60 @@ export default function ChatbotWidget() {
     <div>
       {/* Floating button */}
       <button
-        className={`fixed z-50 bg-gradient-to-r from-[#a78bfa] to-[#f472b6] text-white rounded-full shadow-xl transition-all ${
+        className={`fixed z-50 bg-[#1e143c] text-white rounded-full shadow-2xl transition-all border border-purple-500/30 ${
           isMobile 
             ? 'bottom-4 right-4 p-3' 
-            : 'bottom-8 right-8 p-4 hover:scale-110'
+            : 'bottom-8 right-8 p-4 hover:scale-110 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]'
         }`}
         onClick={() => setOpen(o => !o)}
-        aria-label={open ? 'Close chatbot' : 'Open chatbot'}
+        aria-label={open ? 'Close terminal' : 'Open terminal'}
       >
-        {open ? <X size={isMobile ? 24 : 28} /> : <MessageCircle size={isMobile ? 24 : 28} />}
+        {open ? <X size={isMobile ? 24 : 28} className="text-pink-300" /> : <Terminal size={isMobile ? 24 : 28} className="text-purple-300" />}
       </button>
+
       {/* Chatbot window */}
       {open && (
-        <div className={`fixed z-50 bg-white rounded-2xl shadow-2xl border border-purple-100 flex flex-col overflow-hidden animate-fade-in ${
+        <div className={`fixed z-50 bg-[#0f0a1c]/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 flex flex-col overflow-hidden animate-fade-in ${
           isMobile 
             ? 'bottom-20 right-4 left-4 w-auto' 
-            : 'bottom-24 right-8 w-80 max-w-[90vw]'
+            : 'bottom-24 right-8 w-[350px]'
         }`}>
-          <div className="bg-gradient-to-r from-[#a78bfa] to-[#f472b6] text-white px-4 py-3 font-bold text-lg flex items-center gap-2">
-            <MessageCircle size={20} /> Talk to Laila
+          <div className="bg-gradient-to-r from-[#1e143c] to-[#2d1b4e] text-white px-4 py-3 font-mono font-bold text-sm flex items-center gap-2 border-b border-white/10 shadow-lg">
+            <Terminal size={14} className="text-purple-400" /> 
+            <span className="tracking-widest uppercase">L.M. Assistant Terminal</span>
           </div>
-          <div className="flex-1 p-4 overflow-y-auto space-y-2 bg-white" style={{ minHeight: 220, maxHeight: 320 }}>
+          <div className="flex-1 p-4 overflow-y-auto space-y-3 custom-scrollbar" style={{ minHeight: 250, maxHeight: 350 }}>
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.from === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`px-4 py-2 rounded-2xl max-w-[80%] text-sm ${msg.from === 'user' ? 'bg-purple-100 text-gray-900' : 'bg-gradient-to-r from-[#a78bfa] to-[#f472b6] text-white'}`}>
+                <div className={`px-4 py-2.5 rounded-2xl max-w-[85%] text-sm font-inter leading-relaxed ${
+                  msg.from === 'user' 
+                  ? 'bg-purple-600/80 text-white rounded-br-sm shadow-md' 
+                  : 'bg-white/10 text-gray-200 rounded-bl-sm border border-white/5 backdrop-blur-sm'
+                }`}>
                   {msg.text}
                 </div>
               </div>
             ))}
             <div ref={messagesEndRef} />
           </div>
-          <form onSubmit={sendMessage} className="flex items-center gap-2 p-3 border-t bg-gray-50">
+          <form onSubmit={sendMessage} className="flex items-center gap-2 p-3 border-t border-white/10 bg-[#0a0614]/80">
             <input
-              className="flex-1 rounded-xl px-3 py-2 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300 text-sm"
-              placeholder="Ask me anything..."
+              className="flex-1 rounded-xl px-4 py-2.5 bg-white/5 border border-white/10 focus:outline-none focus:border-purple-400 text-sm text-white placeholder-gray-500 font-mono"
+              placeholder="Enter query..."
               value={input}
               onChange={e => setInput(e.target.value)}
               autoFocus
             />
             <button
               type="submit"
-              className="bg-gradient-to-r from-[#a78bfa] to-[#f472b6] text-white px-3 py-2 rounded-xl font-bold hover:scale-105 transition-all"
+              className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2.5 rounded-xl font-bold transition-all disabled:opacity-50 disabled:hover:bg-purple-600 font-mono text-sm tracking-wide"
               disabled={!input.trim()}
             >
-              Send
+              EXEC
             </button>
           </form>
         </div>
       )}
     </div>
   );
-} 
+}
