@@ -26,6 +26,7 @@ function useCursorHover() {
 const CustomCursor: React.FC = () => {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const hovered = useCursorHover();
   const cursorRef = useRef<HTMLDivElement>(null);
 
@@ -57,9 +58,30 @@ const CustomCursor: React.FC = () => {
 
   useEffect(() => {
     if (isMobile) return;
+    const hide = (e: MouseEvent) => {
+      // e.relatedTarget is null when leaving the window or entering a cross-origin iframe
+      if (e.relatedTarget === null) {
+        setIsVisible(false);
+      }
+    };
+    const show = () => {
+      setIsVisible(true);
+    };
+
+    document.addEventListener("mouseout", hide);
+    document.addEventListener("mouseover", show);
+    return () => {
+      document.removeEventListener("mouseout", hide);
+      document.removeEventListener("mouseover", show);
+    };
+  }, [isMobile]);
+
+
+  useEffect(() => {
+    if (isMobile) return;
     const onMove = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
-      if (el.closest('input,textarea,select')) {
+      if (el.closest('input,textarea,select') || !isVisible) {
         cursorRef.current?.classList.add('opacity-0');
       } else {
         cursorRef.current?.classList.remove('opacity-0');
@@ -67,23 +89,23 @@ const CustomCursor: React.FC = () => {
     };
     document.addEventListener('mousemove', onMove);
     return () => document.removeEventListener('mousemove', onMove);
-  }, [isMobile]);
+  }, [isMobile, isVisible]);
 
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className={`fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
         animate={{
           x: pos.x - 4,
           y: pos.y - 4,
-          opacity: hovered ? 0 : 1
+          opacity: hovered ? 0 : (isVisible ? 1 : 0)
         }}
         transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
       />
       
       <motion.div
         ref={cursorRef}
-        className="fixed top-0 left-0 flex items-center justify-center rounded-full pointer-events-none z-[9998] border border-white backdrop-blur-md mix-blend-difference"
+        className={`fixed top-0 left-0 flex items-center justify-center rounded-full pointer-events-none z-[9998] border border-white backdrop-blur-md mix-blend-difference transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
         animate={{
           x: pos.x - (hovered ? 24 : 16),
           y: pos.y - (hovered ? 24 : 16),

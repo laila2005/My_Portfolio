@@ -85,36 +85,36 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          <div className="flex flex-col gap-5 justify-start items-start mb-6 sm:mb-12 w-full mt-6">
-            <div className="flex flex-col sm:flex-row gap-4 justify-start items-center w-full lg:w-auto">
-              <MagneticButton>
+          <div className="flex flex-col gap-6 justify-start items-start mb-6 sm:mb-12 w-full mt-6">
+            <div className="flex flex-row gap-3 sm:gap-4 justify-center sm:justify-start w-full lg:w-auto">
+              <MagneticButton className="w-1/2 sm:w-auto">
                 <Button 
                   size="lg"
-                  className="bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed] text-white font-bold px-6 py-5 sm:px-8 sm:py-6 rounded-2xl shadow-xl shadow-pink-200/40 border-0 relative overflow-hidden group transition-all duration-300 w-full sm:w-auto h-12 sm:h-14"
+                  className="bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed] text-white font-bold px-2 sm:px-8 py-5 sm:py-6 rounded-2xl shadow-xl shadow-pink-200/40 border-0 relative overflow-hidden group transition-all duration-300 w-full h-12 sm:h-14"
                 >
-                  <a href="#projects" className="flex items-center gap-2 text-base sm:text-lg">
-                    <span className="relative z-10">View My Work</span>
-                    <ArrowDown size={18} className="relative z-10" />
+                  <a href="#projects" className="flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-lg w-full">
+                    <span className="relative z-10 whitespace-nowrap">My Work</span>
+                    <ArrowDown size={16} className="relative z-10 shrink-0" />
                     <span className="absolute left-0 top-0 w-full h-full bg-gradient-to-r from-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-sm pointer-events-none"></span>
                   </a>
                 </Button>
               </MagneticButton>
               
-              <MagneticButton intensity={0.3}>
+              <MagneticButton intensity={0.3} className="w-1/2 sm:w-auto">
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="border-2 border-purple-300 text-purple-700 font-bold px-6 py-5 sm:px-8 sm:py-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white/50 backdrop-blur-sm hover:bg-white w-full sm:w-auto h-12 sm:h-14"
+                  className="border-2 border-purple-300 text-purple-700 font-bold px-2 sm:px-8 py-5 sm:py-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white/50 backdrop-blur-sm hover:bg-white w-full h-12 sm:h-14"
                 >
-                  <a href="/Laila_Fikry_CV_final (1).pdf" download className="flex items-center gap-2 text-base sm:text-lg">
+                  <a href="/Laila_Fikry_CV_final (1).pdf" download className="flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-lg w-full">
                     <span>Resume</span>
-                    <Download size={18} />
+                    <Download size={16} className="shrink-0" />
                   </a>
                 </Button>
               </MagneticButton>
             </div>
             
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center sm:justify-start w-full sm:w-auto">
               <MagneticButton intensity={0.4}>
                 <a 
                   href="https://www.linkedin.com/in/laila-mohamed23/" 
