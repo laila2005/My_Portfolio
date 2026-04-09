@@ -30,10 +30,10 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="text-left w-full lg:w-1/2 flex flex-col justify-center z-20"
         >
-          <h1 className="font-clash text-4xl sm:text-5xl lg:text-7xl mb-2 sm:mb-4 text-gray-dark font-black tracking-tight leading-tight">
+          <h1 className="font-clash text-[clamp(2.5rem,8vw,5.5rem)] mb-2 sm:mb-4 text-gray-dark font-black tracking-tight leading-[1.1]">
             Laila <span className="text-gradient">Mohamed</span>
           </h1>
-          <span className="block font-outfit text-xl sm:text-2xl text-purple-600 mb-4 sm:mb-6 min-h-[2rem] sm:min-h-[2.5rem] font-bold">
+          <span className="block font-outfit text-xl sm:text-2xl text-purple-600 mb-6 sm:mb-8 min-h-[2rem] sm:min-h-[2.5rem] font-bold">
             <Typewriter
               words={roles}
               loop={0}
@@ -55,7 +55,7 @@ const Hero = () => {
             Bridging the gap between <span className="font-bold bg-gradient-to-r from-[#7c3aed] to-[#f472b6] bg-clip-text text-transparent">systems engineering</span> and <span className="font-bold bg-gradient-to-r from-[#f472b6] to-[#a78bfa] bg-clip-text text-transparent">creative frontend</span>.
             
             {/* Terminal Window */}
-            <div className="mt-4 sm:mt-6 rounded-lg overflow-hidden border border-gray-200/50 bg-white/50 backdrop-blur-md shadow-lg w-full max-w-md cursor-text">
+            <div className="mt-8 rounded-xl overflow-hidden border border-white/40 bg-white/30 backdrop-blur-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] ring-1 ring-white/50 w-full max-w-md cursor-text hover:shadow-[0_8px_30px_rgb(139,92,246,0.15)] transition-shadow duration-500">
               <div className="bg-gray-100/80 px-4 py-2 border-b border-gray-200/50 flex items-center gap-2">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-400"></div>
@@ -85,8 +85,8 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          <div className="flex flex-col gap-4 justify-start items-start mb-6 sm:mb-12">
-            <div className="flex flex-col sm:flex-row gap-4 justify-start items-center">
+          <div className="flex flex-col gap-5 justify-start items-start mb-6 sm:mb-12 w-full mt-6">
+            <div className="flex flex-col sm:flex-row gap-4 justify-start items-center w-full lg:w-auto">
               <MagneticButton>
                 <Button 
                   size="lg"

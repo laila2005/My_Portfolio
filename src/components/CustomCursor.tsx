@@ -72,7 +72,7 @@ const CustomCursor: React.FC = () => {
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-primary rounded-full pointer-events-none z-[9999]"
+        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
         animate={{
           x: pos.x - 4,
           y: pos.y - 4,
@@ -83,13 +83,13 @@ const CustomCursor: React.FC = () => {
       
       <motion.div
         ref={cursorRef}
-        className="fixed top-0 left-0 flex items-center justify-center rounded-full pointer-events-none z-[9998] border border-primary/40 backdrop-blur-sm"
+        className="fixed top-0 left-0 flex items-center justify-center rounded-full pointer-events-none z-[9998] border border-white backdrop-blur-md mix-blend-difference"
         animate={{
           x: pos.x - (hovered ? 24 : 16),
           y: pos.y - (hovered ? 24 : 16),
           width: hovered ? 48 : 32,
           height: hovered ? 48 : 32,
-          backgroundColor: hovered ? "rgba(167, 139, 250, 0.1)" : "transparent",
+          backgroundColor: hovered ? "rgba(255, 255, 255, 0.2)" : "transparent",
         }}
         transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.5 }}
       />
