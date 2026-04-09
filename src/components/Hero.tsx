@@ -16,7 +16,7 @@ const roles = [
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-glass pt-20">
+    <section id="home" className="min-h-[100dvh] flex flex-col justify-start lg:justify-center relative overflow-hidden bg-gradient-glass pt-24 pb-10 lg:py-0 lg:flex-row lg:items-center">
       <AnimatedBlobsBackground />
       {/* Floating elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-pastel-purple/30 rounded-full animate-float pointer-events-none"></div>
@@ -28,12 +28,12 @@ const Hero = () => {
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-left w-full lg:w-1/2"
+          className="text-left w-full lg:w-1/2 flex flex-col justify-center z-20"
         >
-          <h1 className="font-clash text-5xl sm:text-6xl lg:text-7xl mb-4 text-gray-dark font-black">
+          <h1 className="font-clash text-4xl sm:text-5xl lg:text-7xl mb-2 sm:mb-4 text-gray-dark font-black tracking-tight leading-tight">
             Laila <span className="text-gradient">Mohamed</span>
           </h1>
-          <span className="block font-outfit text-2xl text-purple-600 mb-6 min-h-[2.5rem] font-bold">
+          <span className="block font-outfit text-xl sm:text-2xl text-purple-600 mb-4 sm:mb-6 min-h-[2rem] sm:min-h-[2.5rem] font-bold">
             <Typewriter
               words={roles}
               loop={0}
@@ -46,16 +46,16 @@ const Hero = () => {
           </span>
 
           <motion.div
-            className="font-outfit text-base sm:text-lg text-gray-700 mb-8 max-w-2xl leading-relaxed tracking-wide"
+            className="font-outfit text-sm sm:text-base lg:text-lg text-gray-700 mb-6 sm:mb-8 max-w-2xl leading-relaxed tracking-wide"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            Engineering seamless digital experiences. <br />
+            Engineering seamless digital experiences. <br className="hidden sm:block" />
             Bridging the gap between <span className="font-bold bg-gradient-to-r from-[#7c3aed] to-[#f472b6] bg-clip-text text-transparent">systems engineering</span> and <span className="font-bold bg-gradient-to-r from-[#f472b6] to-[#a78bfa] bg-clip-text text-transparent">creative frontend</span>.
             
             {/* Terminal Window */}
-            <div className="mt-6 rounded-lg overflow-hidden border border-gray-200/50 bg-white/50 backdrop-blur-md shadow-lg w-full max-w-md cursor-text">
+            <div className="mt-4 sm:mt-6 rounded-lg overflow-hidden border border-gray-200/50 bg-white/50 backdrop-blur-md shadow-lg w-full max-w-md cursor-text">
               <div className="bg-gray-100/80 px-4 py-2 border-b border-gray-200/50 flex items-center gap-2">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-400"></div>
@@ -67,7 +67,7 @@ const Hero = () => {
                   <span>guest@laila-portfolio:~</span>
                 </div>
               </div>
-              <div className="p-4 font-mono text-sm text-gray-700 h-24 overflow-hidden">
+              <div className="p-3 font-mono text-[10px] sm:text-sm text-gray-700 h-20 sm:h-24 overflow-hidden">
                 <p className="text-purple-600">$ ./fetch_stats.sh</p>
                 <Typewriter
                   words={[
@@ -85,16 +85,16 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          <div className="flex flex-col gap-6 justify-start items-start mb-12">
+          <div className="flex flex-col gap-4 justify-start items-start mb-6 sm:mb-12">
             <div className="flex flex-col sm:flex-row gap-4 justify-start items-center">
               <MagneticButton>
                 <Button 
                   size="lg"
-                  className="bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed] text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-pink-200/40 border-0 relative overflow-hidden group transition-all duration-300 w-full sm:w-auto"
+                  className="bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed] text-white font-bold px-6 py-5 sm:px-8 sm:py-6 rounded-2xl shadow-xl shadow-pink-200/40 border-0 relative overflow-hidden group transition-all duration-300 w-full sm:w-auto h-12 sm:h-14"
                 >
-                  <a href="#projects" className="flex items-center gap-2 text-lg">
+                  <a href="#projects" className="flex items-center gap-2 text-base sm:text-lg">
                     <span className="relative z-10">View My Work</span>
-                    <ArrowDown size={20} className="relative z-10" />
+                    <ArrowDown size={18} className="relative z-10" />
                     <span className="absolute left-0 top-0 w-full h-full bg-gradient-to-r from-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-sm pointer-events-none"></span>
                   </a>
                 </Button>
@@ -104,11 +104,11 @@ const Hero = () => {
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="border-2 border-purple-300 text-purple-700 font-bold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white/50 backdrop-blur-sm hover:bg-white w-full sm:w-auto"
+                  className="border-2 border-purple-300 text-purple-700 font-bold px-6 py-5 sm:px-8 sm:py-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white/50 backdrop-blur-sm hover:bg-white w-full sm:w-auto h-12 sm:h-14"
                 >
-                  <a href="/Laila_Fikry_CV_final (1).pdf" download className="flex items-center gap-2 text-lg">
+                  <a href="/Laila_Fikry_CV_final (1).pdf" download className="flex items-center gap-2 text-base sm:text-lg">
                     <span>Resume</span>
-                    <Download size={20} />
+                    <Download size={18} />
                   </a>
                 </Button>
               </MagneticButton>
@@ -151,19 +151,19 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="w-full lg:w-1/2 h-[500px] lg:h-[600px] relative flex items-center justify-center group"
+          className="w-full lg:w-1/2 h-[320px] sm:h-[450px] lg:h-[600px] relative flex items-center justify-center group mt-2 lg:mt-0"
         >
           {/* Subtle glowing orb behind the robot to make it pop after multiply blend */}
           <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-pink-500/20 rounded-full blur-[100px] pointer-events-none scale-75"></div>
           
           {/* Iframe wrapper applying multiply blend to drop the white/grey background */}
-          <div className="absolute inset-0 flex items-center justify-center mix-blend-multiply overflow-hidden rounded-[3rem]">
+          <div className="absolute inset-0 flex items-center justify-center mix-blend-multiply overflow-hidden rounded-[2rem] sm:rounded-[3rem]">
             <iframe 
               src="https://my.spline.design/genkubgreetingrobot-kYNemr9EY0QslwnASSE05sz6/" 
               frameBorder="0" 
               width="100%" 
               height="100%" 
-              className="w-[120%] h-[120%] transform scale-110 pointer-events-auto transition-transform duration-700"
+              className="w-[140%] h-[140%] sm:w-[120%] sm:h-[120%] transform sm:scale-110 -translate-y-8 sm:translate-y-0 pointer-events-auto transition-transform duration-700"
               title="Interactive Pink Robot"
             ></iframe>
           </div>
