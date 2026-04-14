@@ -16,7 +16,7 @@ const roles = [
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden bg-gradient-glass pt-20 pb-24 lg:py-0 lg:flex-row lg:items-center">
+    <section id="home" className="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden bg-gradient-glass pt-20 pb-24 lg:pt-32 lg:pb-12 lg:flex-row lg:items-center">
       <AnimatedBlobsBackground />
       {/* Floating elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-pastel-purple/30 rounded-full animate-float pointer-events-none"></div>
@@ -108,7 +108,7 @@ const Hero = () => {
                   variant="outline"
                   className="border-2 border-purple-300 text-purple-700 font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white/50 backdrop-blur-sm hover:bg-white w-full h-14 sm:h-16 text-base sm:text-lg"
                 >
-                  <a href="/Laila_Fikry_CV_final (1).pdf" download className="flex items-center justify-center gap-2 w-full">
+                  <a href="/Laila_Mohamed_CV.pdf" download="Laila_Mohamed_CV.pdf" className="flex items-center justify-center gap-2 w-full">
                     <span>Resume</span>
                     <Download size={18} className="shrink-0" />
                   </a>
