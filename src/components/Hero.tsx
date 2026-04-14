@@ -16,7 +16,7 @@ const roles = [
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-[100dvh] flex flex-col justify-start lg:justify-center relative overflow-hidden bg-gradient-glass pt-24 pb-10 lg:py-0 lg:flex-row lg:items-center">
+    <section id="home" className="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden bg-gradient-glass pt-20 pb-24 lg:py-0 lg:flex-row lg:items-center">
       <AnimatedBlobsBackground />
       {/* Floating elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-pastel-purple/30 rounded-full animate-float pointer-events-none"></div>
@@ -55,60 +55,62 @@ const Hero = () => {
             Bridging the gap between <span className="font-bold bg-gradient-to-r from-[#7c3aed] to-[#f472b6] bg-clip-text text-transparent">systems engineering</span> and <span className="font-bold bg-gradient-to-r from-[#f472b6] to-[#a78bfa] bg-clip-text text-transparent">creative frontend</span>.
             
             {/* Terminal Window */}
-            <div className="mt-8 rounded-xl overflow-hidden border border-white/40 bg-white/30 backdrop-blur-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] ring-1 ring-white/50 w-full max-w-md cursor-text hover:shadow-[0_8px_30px_rgb(139,92,246,0.15)] transition-shadow duration-500">
-              <div className="bg-gray-100/80 px-4 py-2 border-b border-gray-200/50 flex items-center gap-2">
+            <div className="mt-10 sm:mt-12 rounded-xl overflow-hidden border border-white/40 bg-white/30 backdrop-blur-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] ring-1 ring-white/50 w-full max-w-md cursor-text hover:shadow-[0_8px_30px_rgb(139,92,246,0.15)] transition-shadow duration-500">
+              <div className="bg-gray-100/80 px-4 py-3 border-b border-gray-200/50 flex items-center gap-2">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-red-400"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                   <div className="w-3 h-3 rounded-full bg-green-400"></div>
                 </div>
-                <div className="ml-2 flex items-center gap-2 text-xs font-mono text-gray-500 font-medium">
-                  <Terminal size={12} />
+                <div className="ml-2 flex items-center gap-2 text-xs sm:text-sm font-mono text-gray-500 font-medium">
+                  <Terminal size={14} />
                   <span>guest@laila-portfolio:~</span>
                 </div>
               </div>
-              <div className="p-3 font-mono text-[10px] sm:text-sm text-gray-700 h-20 sm:h-24 overflow-hidden">
-                <p className="text-purple-600">$ ./fetch_stats.sh</p>
-                <Typewriter
-                  words={[
-                    "> Output:\n\n[\"React\", \"Next.js\", \"Three.js\", \"Node\", \"C/C++\", \"Python\"]\nLoading system architecture...",
-                    "> Output:\n\nPassionate about scalable architectures\nBuilding the future of web..."
-                  ]}
-                  loop={0}
-                  cursor
-                  cursorStyle="|"
-                  typeSpeed={40}
-                  deleteSpeed={30}
-                  delaySpeed={3000}
-                />
+              <div className="p-4 sm:p-5 font-mono text-[11px] sm:text-sm text-gray-700 h-28 sm:h-32 overflow-hidden flex flex-col leading-relaxed">
+                <p className="text-purple-600 mb-2">$ ./fetch_stats.sh</p>
+                <div className="flex-1 whitespace-pre-wrap">
+                  <Typewriter
+                    words={[
+                      "> Output:\n\n[\"React\", \"Next.js\", \"Three.js\", \"Node\", \"C/C++\", \"Python\"]\nLoading system architecture...",
+                      "> Output:\n\nPassionate about scalable architectures\nBuilding the future of web..."
+                    ]}
+                    loop={0}
+                    cursor
+                    cursorStyle="|"
+                    typeSpeed={40}
+                    deleteSpeed={30}
+                    delaySpeed={3000}
+                  />
+                </div>
               </div>
             </div>
           </motion.div>
 
-          <div className="flex flex-col gap-6 justify-center items-center lg:items-start mb-6 sm:mb-12 w-full mt-6">
-            <div className="flex flex-row gap-3 sm:gap-4 justify-center sm:justify-start w-full lg:w-auto">
-              <MagneticButton className="w-1/2 sm:w-auto">
+          <div className="flex flex-col gap-8 justify-center items-center lg:items-start mb-8 sm:mb-12 w-full mt-10">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center sm:justify-start w-full lg:w-auto px-4 sm:px-0">
+              <MagneticButton className="w-full sm:w-auto">
                 <Button 
                   size="lg"
-                  className="bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed] text-white font-bold px-2 sm:px-8 py-5 sm:py-6 rounded-2xl shadow-xl shadow-pink-200/40 border-0 relative overflow-hidden group transition-all duration-300 w-full h-12 sm:h-14"
+                  className="bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed] text-white font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-xl shadow-pink-200/40 border-0 relative overflow-hidden group transition-all duration-300 w-full h-14 sm:h-16 text-base sm:text-lg"
                 >
-                  <a href="#projects" className="flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-lg w-full">
+                  <a href="#projects" className="flex items-center justify-center gap-2 w-full">
                     <span className="relative z-10 whitespace-nowrap">My Work</span>
-                    <ArrowDown size={16} className="relative z-10 shrink-0" />
+                    <ArrowDown size={18} className="relative z-10 shrink-0" />
                     <span className="absolute left-0 top-0 w-full h-full bg-gradient-to-r from-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-sm pointer-events-none"></span>
                   </a>
                 </Button>
               </MagneticButton>
               
-              <MagneticButton intensity={0.3} className="w-1/2 sm:w-auto">
+              <MagneticButton intensity={0.3} className="w-full sm:w-auto">
                 <Button 
                   size="lg"
                   variant="outline"
-                  className="border-2 border-purple-300 text-purple-700 font-bold px-2 sm:px-8 py-5 sm:py-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white/50 backdrop-blur-sm hover:bg-white w-full h-12 sm:h-14"
+                  className="border-2 border-purple-300 text-purple-700 font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-white/50 backdrop-blur-sm hover:bg-white w-full h-14 sm:h-16 text-base sm:text-lg"
                 >
-                  <a href="/Laila_Fikry_CV_final (1).pdf" download className="flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-lg w-full">
+                  <a href="/Laila_Fikry_CV_final (1).pdf" download className="flex items-center justify-center gap-2 w-full">
                     <span>Resume</span>
-                    <Download size={16} className="shrink-0" />
+                    <Download size={18} className="shrink-0" />
                   </a>
                 </Button>
               </MagneticButton>
