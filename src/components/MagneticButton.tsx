@@ -7,15 +7,15 @@ interface MagneticButtonProps {
   intensity?: number;
 }
 
-const MagneticButton: React.FC<MagneticButtonProps> = ({ children, className = "", intensity = 0.5 }) => {
+const MagneticButton: React.FC<MagneticButtonProps> = ({ children, className = "", intensity = 0.15 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const springX = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
-  const springY = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
+  const springX = useSpring(x, { stiffness: 80, damping: 15, mass: 0.5 });
+  const springY = useSpring(y, { stiffness: 80, damping: 15, mass: 0.5 });
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;

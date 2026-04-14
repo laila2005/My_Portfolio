@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ErrorBoundary from './components/ErrorBoundary';
-import CustomCursor from './components/CustomCursor';
 
 // Lazy load ChatbotWidget to avoid mobile issues
 const ChatbotWidget = React.lazy(() => import('./components/ChatbotWidget'));
@@ -17,8 +16,6 @@ const queryClient = new QueryClient();
 import { ReactLenis } from 'lenis/react';
 
 const App = () => {
-  // Only render CustomCursor if not a touch device
-  const isTouch = typeof window !== 'undefined' && 'ontouchstart' in window;
 
   return (
     <ReactLenis root>
@@ -27,7 +24,6 @@ const App = () => {
           <TooltipProvider>
             <Toaster />
             <Sonner />
-            {!isTouch && <CustomCursor />}
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
