@@ -151,7 +151,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="w-full lg:w-1/2 h-[320px] sm:h-[450px] lg:h-[600px] relative flex items-center justify-center group mt-2 lg:mt-0"
+          className="hidden md:flex w-full lg:w-1/2 h-[320px] sm:h-[450px] lg:h-[600px] relative items-center justify-center group mt-2 lg:mt-0"
         >
           {/* Subtle glowing orb behind the robot to make it pop after multiply blend */}
           <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-pink-500/20 rounded-full blur-[100px] pointer-events-none scale-75"></div>
