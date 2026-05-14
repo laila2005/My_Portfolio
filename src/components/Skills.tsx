@@ -16,10 +16,10 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-32 bg-white relative overflow-hidden">
-      {/* Decorative background grid pattern */}
+    <section id="skills" className="py-32 bg-surface-elevated transition-colors duration-500 relative overflow-hidden">
+      {/* Decorative background */}
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 mix-blend-overlay pointer-events-none" />
-      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-purple-100/40 rounded-full blur-[120px] opacity-60 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-purple-500/10 rounded-full blur-[120px] opacity-60 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-20">
@@ -27,7 +27,7 @@ const Skills = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-poppins font-black text-4xl sm:text-5xl lg:text-6xl mb-6 text-gray-900 tracking-tight"
+            className="font-poppins font-black text-4xl sm:text-5xl lg:text-6xl mb-6 text-heading tracking-tight"
           >
             SaaS & <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Full-Stack</span> Mastery
           </motion.h2>
@@ -36,7 +36,7 @@ const Skills = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-inter text-lg md:text-xl text-gray-600 max-w-3xl mx-auto"
+            className="font-inter text-lg md:text-xl text-body max-w-3xl mx-auto"
           >
             Specialized in architecting scalable backend systems and delivering end-to-end SaaS platforms.
           </motion.p>
@@ -70,7 +70,7 @@ const Skills = () => {
             </div>
 
             <div className="flex flex-wrap gap-2 relative z-10 mt-auto">
-              {['React / Next.js', 'Node.js', 'NestJS', 'RESTful APIs', 'JWT Auth', 'Stripe / Payments', 'Microservices'].map(skill => (
+              {['React / Next.js', 'C# / ASP.NET', 'Node.js', 'REST APIs', 'IoT Integration', 'Tailwind CSS'].map(skill => (
                 <span key={skill} className="text-xs sm:text-sm font-semibold px-4 py-2 rounded-full bg-gray-800 border border-gray-700 text-purple-200">
                   {skill}
                 </span>
@@ -99,7 +99,7 @@ const Skills = () => {
             </div>
 
             <div className="flex flex-wrap gap-2 relative z-10">
-              {['PostgreSQL', 'MongoDB', 'MySQL', 'Python / Flask', 'Prisma ORM'].map(skill => (
+              {['SQL Server', 'PostgreSQL', 'MongoDB', 'Python / Flask', 'MySQL'].map(skill => (
                 <span key={skill} className="text-[11px] sm:text-xs font-bold px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-white border border-white/20">
                   {skill}
                 </span>
@@ -107,24 +107,24 @@ const Skills = () => {
             </div>
           </motion.div>
 
-          {/* Card: Systems & Security */}
+          {/* Card: Systems & AI */}
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -5 }}
-            className="md:col-span-1 md:row-span-1 rounded-[2rem] p-8 shadow-lg relative group overflow-hidden bg-gray-50 border border-gray-100 flex flex-col justify-between"
+            className="md:col-span-1 md:row-span-1 rounded-[2rem] p-8 shadow-lg relative group overflow-hidden bg-surface border border-subtle flex flex-col justify-between"
           >
-            <div className="mb-4 inline-flex p-3 rounded-xl bg-indigo-100 text-indigo-700">
+            <div className="mb-4 inline-flex p-3 rounded-xl bg-indigo-500/10 text-indigo-500">
               <Terminal size={24} />
             </div>
             <div>
-              <h3 className="font-poppins font-bold text-xl mb-2 text-gray-900">Systems & Logic</h3>
-              <p className="font-inter text-gray-500 text-xs mb-6">
-                Low-level systems programming and complex algorithmic problem solving.
+              <h3 className="font-poppins font-bold text-xl mb-2 text-heading">Systems & AI</h3>
+              <p className="font-inter text-subtle text-xs mb-6">
+                Low-level programming, AI models, and computer vision.
               </p>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {['C / C++', 'Java', 'OS Concepts', 'Data Structures'].map(skill => (
-                <span key={skill} className="text-[10px] sm:text-xs font-semibold px-2 py-1 rounded bg-white border border-gray-200 text-gray-600 shadow-sm">
+              {['C / C++', 'TensorFlow / Keras', 'Computer Vision', 'Deep Learning'].map(skill => (
+                <span key={skill} className="text-[10px] sm:text-xs font-semibold px-2 py-1 rounded bg-indigo-500/10 border border-indigo-500/15 text-indigo-600 dark:text-indigo-300 shadow-sm">
                   {skill}
                 </span>
               ))}
@@ -135,20 +135,20 @@ const Skills = () => {
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -5 }}
-            className="md:col-span-1 md:row-span-1 rounded-[2rem] p-8 shadow-lg relative group overflow-hidden bg-pink-50/50 border border-pink-100 flex flex-col justify-between"
+            className="md:col-span-1 md:row-span-1 rounded-[2rem] p-8 shadow-lg relative group overflow-hidden bg-pink-500/5 border border-pink-500/15 flex flex-col justify-between"
           >
-            <div className="mb-4 inline-flex p-3 rounded-xl bg-pink-100 text-pink-600">
+            <div className="mb-4 inline-flex p-3 rounded-xl bg-pink-500/10 text-pink-500">
               <Cloud size={24} />
             </div>
             <div>
-              <h3 className="font-poppins font-bold text-xl mb-2 text-gray-900">Cloud & DevOps</h3>
-              <p className="font-inter text-gray-500 text-xs mb-6">
+              <h3 className="font-poppins font-bold text-xl mb-2 text-heading">Cloud & DevOps</h3>
+              <p className="font-inter text-subtle text-xs mb-6">
                 Deploying and scaling applications with modern infrastructure.
               </p>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {['Docker', 'Git / GitHub', 'Linux', 'Vercel / AWS'].map(skill => (
-                <span key={skill} className="text-[10px] sm:text-xs font-semibold px-2 py-1 rounded bg-white border border-pink-100 text-pink-700 shadow-sm">
+              {['Docker', 'Git / GitHub', 'Linux (Ubuntu)', 'Bash Scripting'].map(skill => (
+                <span key={skill} className="text-[10px] sm:text-xs font-semibold px-2 py-1 rounded bg-pink-500/10 border border-pink-500/15 text-pink-600 dark:text-pink-400 shadow-sm">
                   {skill}
                 </span>
               ))}

@@ -29,17 +29,17 @@ const Footer = () => {
           <ArrowUp size={24} />
         </button>
       )}
-      <footer className="bg-gradient-to-b from-[#2d225a] via-[#3b2f63] to-[#4b386b] text-white py-14 relative shadow-inner">
+      <footer className="bg-gray-900 dark:bg-[hsl(270,50%,3%)] text-white py-14 relative shadow-inner transition-colors duration-500 border-t border-purple-500/20">
         <div className="absolute left-0 right-0 top-0 h-1.5 z-10">
-          <div className="w-full h-full bg-gradient-to-r from-[#a78bfa] via-[#fbc2eb] to-[#a1c4fd] blur-[2px] opacity-80 animate-pulse" />
+          <div className="w-full h-full bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed] blur-[2px] opacity-80 animate-pulse" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="text-center">
             <div className="mb-8">
-              <h3 className="font-poppins font-extrabold text-3xl mb-4 bg-gradient-to-r from-[#a78bfa] via-[#fbc2eb] to-[#7c3aed] bg-clip-text text-transparent drop-shadow-lg animate-glow">
+              <h3 className="font-poppins font-extrabold text-3xl mb-4 text-gradient drop-shadow-lg">
                 Laila Mohamed Fikry
               </h3>
-              <p className="font-inter text-gray-200 max-w-2xl mx-auto">
+              <p className="font-inter text-gray-400 max-w-2xl mx-auto">
                 Software Engineer passionate about creating beautiful, efficient solutions 
                 that bridge technology and user experience.
               </p>
@@ -72,8 +72,8 @@ const Footer = () => {
               </a>
             </div>
             <div className="pt-8">
-              <p className="font-inter text-gray-400 text-sm flex items-center justify-center gap-1">
-                © 2025 <span className="bg-gradient-to-r from-[#a78bfa] via-[#fbc2eb] to-[#7c3aed] bg-clip-text text-transparent font-bold">Laila Fikry</span>. All rights reserved.
+              <p className="font-inter text-gray-500 text-sm flex items-center justify-center gap-1">
+                © 2025 <span className="text-gradient font-bold">Laila Fikry</span>. All rights reserved.
               </p>
             </div>
           </div>
