@@ -29,7 +29,7 @@ const Footer = () => {
           <ArrowUp size={24} />
         </button>
       )}
-      <footer className="bg-gray-900 dark:bg-[hsl(270,50%,3%)] text-white py-14 relative shadow-inner transition-colors duration-500 border-t border-purple-500/20">
+      <footer className="bg-white dark:bg-[hsl(270,50%,3%)] text-gray-900 dark:text-white py-14 relative shadow-inner transition-colors duration-500 border-t border-purple-500/20">
         <div className="absolute left-0 right-0 top-0 h-1.5 z-10">
           <div className="w-full h-full bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed] blur-[2px] opacity-80 animate-pulse" />
         </div>
@@ -39,7 +39,7 @@ const Footer = () => {
               <h3 className="font-poppins font-extrabold text-3xl mb-4 text-gradient drop-shadow-lg">
                 Laila Mohamed Fikry
               </h3>
-              <p className="font-inter text-gray-400 max-w-2xl mx-auto">
+              <p className="font-inter text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 Software Engineer passionate about creating beautiful, efficient solutions 
                 that bridge technology and user experience.
               </p>
@@ -49,7 +49,7 @@ const Footer = () => {
                 href="https://www.linkedin.com/in/laila-mohamed23/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-[#a78bfa] hover:to-[#f472b6] hover:text-white hover:scale-110 transition-all duration-300 shadow-md"
+                className="p-3 bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-white rounded-full hover:bg-gradient-to-r hover:from-[#a78bfa] hover:to-[#f472b6] hover:text-white hover:scale-110 transition-all duration-300 shadow-md"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
@@ -58,14 +58,14 @@ const Footer = () => {
                 href="https://github.com/laila2005" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-[#a78bfa] hover:to-[#f472b6] hover:text-white hover:scale-110 transition-all duration-300 shadow-md"
+                className="p-3 bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-white rounded-full hover:bg-gradient-to-r hover:from-[#a78bfa] hover:to-[#f472b6] hover:text-white hover:scale-110 transition-all duration-300 shadow-md"
                 aria-label="GitHub"
               >
                 <Github size={20} />
               </a>
               <a 
                 href="mailto:laila.mohamed.fikry@gmail.com"
-                className="p-3 bg-white/10 rounded-full hover:bg-gradient-to-r hover:from-[#a78bfa] hover:to-[#f472b6] hover:text-white hover:scale-110 transition-all duration-300 shadow-md"
+                className="p-3 bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-white rounded-full hover:bg-gradient-to-r hover:from-[#a78bfa] hover:to-[#f472b6] hover:text-white hover:scale-110 transition-all duration-300 shadow-md"
                 aria-label="Email"
               >
                 <Mail size={20} />
