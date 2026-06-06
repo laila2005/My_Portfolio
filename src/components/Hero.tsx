@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowDown, Github, Linkedin, Mail, Download, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
@@ -15,6 +15,33 @@ const roles = [
 
 
 const Hero = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const checkDarkMode = () => {
+      const isDarkClass = document.documentElement.classList.contains('dark');
+      const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(isDarkClass || (isSystemDark && !document.documentElement.classList.contains('light')));
+    };
+    
+    checkDarkMode();
+
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', checkDarkMode);
+
+    return () => {
+      observer.disconnect();
+      mediaQuery.removeEventListener('change', checkDarkMode);
+    };
+  }, []);
+
+  const splineUrl = isDarkMode 
+    ? "https://my.spline.design/genkubgreetingrobot-l1MUu7quUs3qxxa0JInlTnWD/" 
+    : "https://my.spline.design/genkubgreetingrobot-kYNemr9EY0QslwnASSE05sz6/";
+
   return (
     <section id="home" className="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden bg-gradient-glass pt-20 pb-24 lg:pt-32 lg:pb-12 lg:flex-row lg:items-center">
       <AnimatedBlobsBackground />
@@ -161,7 +188,7 @@ const Hero = () => {
           {/* Iframe wrapper applying multiply blend to drop the white/grey background */}
           <div className="absolute inset-0 flex items-center justify-center mix-blend-multiply overflow-hidden rounded-[2rem] sm:rounded-[3rem]">
             <iframe 
-              src="https://my.spline.design/genkubgreetingrobot-kYNemr9EY0QslwnASSE05sz6/" 
+              src={splineUrl} 
               frameBorder="0" 
               width="100%" 
               height="100%" 
