@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Menu, X, Moon, Sun } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
   { name: 'Home', href: '#home' },
@@ -17,12 +17,32 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('home');
+  const [isDark, setIsDark] = useState(false);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      setIsDark(true);
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    if (!isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      // Scrollspy logic
       let found = 'home';
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const section = document.getElementById(sectionIds[i]);
@@ -37,40 +57,27 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // For Framer Motion underline
-  const getUnderlineProps = () => {
-    const idx = navItems.findIndex(item => item.href.replace('#', '') === active);
-    const ref = linkRefs.current[idx];
-    if (ref) {
-      const rect = ref.getBoundingClientRect();
-      return {
-        left: rect.left + window.scrollX,
-        width: rect.width,
-        top: rect.bottom + window.scrollY,
-      };
-    }
-    return { left: 0, width: 0, top: 0 };
-  };
-
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white/95 border-b border-purple-200 shadow-xl backdrop-blur-lg' : 'bg-white/80 border-b border-purple-100 shadow-md backdrop-blur'
+      scrolled
+        ? 'bg-white/95 dark:bg-[hsl(270,50%,4%)]/95 border-b border-purple-200/50 dark:border-purple-900/30 shadow-xl backdrop-blur-lg'
+        : 'bg-white/80 dark:bg-[hsl(270,50%,4%)]/80 border-b border-purple-100/50 dark:border-purple-900/20 shadow-md backdrop-blur'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="font-poppins font-bold text-xl text-purple-900 flex items-center gap-2 drop-shadow-sm">
+          <div className="font-poppins font-bold text-xl text-heading flex items-center gap-2 drop-shadow-sm">
             <img src="/finaliconand logo.png" alt="Logo" style={{ height: '2.5rem', width: '2.5rem', marginRight: '0.3em', verticalAlign: 'middle', borderRadius: '0.4rem', boxShadow: '0 2px 8px 0 rgba(164,120,250,0.10)' }} />
             Laila Mohamed
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8 relative">
+          <div className="hidden md:flex space-x-8 relative items-center">
             {navItems.map((item, i) => (
               <a
                 key={item.name}
                 href={item.href}
                 ref={el => (linkRefs.current[i] = el)}
-                className={`text-purple-900 hover:text-primary transition-colors duration-200 font-medium relative ${active === item.href.replace('#', '') ? 'font-bold' : ''}`}
+                className={`text-heading hover:text-primary transition-colors duration-200 font-medium relative ${active === item.href.replace('#', '') ? 'font-bold' : ''}`}
                 onClick={() => setActive(item.href.replace('#', ''))}
               >
                 {item.name}
@@ -83,13 +90,29 @@ const Navigation = () => {
                 )}
               </a>
             ))}
+            
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="ml-2 p-2.5 rounded-xl bg-surface-elevated hover:bg-surface-overlay text-heading transition-all duration-300 border border-subtle"
+              aria-label="Toggle Dark Mode"
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile buttons */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2.5 rounded-xl bg-surface-elevated text-heading transition-all duration-300 border border-subtle"
+              aria-label="Toggle Dark Mode"
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-primary p-2"
+              className="text-heading hover:text-primary p-2"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -97,22 +120,34 @@ const Navigation = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={`block px-3 py-2 text-gray-700 hover:text-primary transition-colors duration-200 font-medium ${active === item.href.replace('#', '') ? 'font-bold' : ''}`}
-                  onClick={() => { setActive(item.href.replace('#', '')); setIsOpen(false); }}
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="md:hidden overflow-hidden bg-surface/90 backdrop-blur-xl border-t border-subtle shadow-2xl"
+            >
+              <div className="px-4 pt-4 pb-6 space-y-2 flex flex-col items-center">
+                {navItems.map((item, i) => (
+                  <motion.a
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ delay: i * 0.05 }}
+                    key={item.name}
+                    href={item.href}
+                    className={`block w-full text-center px-4 py-3 rounded-2xl text-heading hover:text-primary hover:bg-primary/5 transition-all duration-300 font-semibold text-lg ${active === item.href.replace('#', '') ? 'text-primary bg-primary/5' : ''}`}
+                    onClick={() => { setActive(item.href.replace('#', '')); setIsOpen(false); }}
+                  >
+                    {item.name}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );

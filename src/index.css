@@ -5,7 +5,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom color palette for the portfolio */
+/* ─── Professional Color System ─── */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -44,28 +44,54 @@
     --purple-dark: 262 83% 25%;
     --gray-dark: 215 28% 17%;
     --pink-light: 350 100% 88%;
+
+    /* Surface tokens for components */
+    --surface: 0 0% 100%;
+    --surface-elevated: 0 0% 98%;
+    --surface-overlay: 0 0% 97%;
+    --text-primary: 222.2 84% 4.9%;
+    --text-secondary: 215 20% 35%;
+    --text-muted: 215 16% 55%;
+    --border-subtle: 220 13% 91%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 262 83% 58%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --background: 270 50% 4%;
+    --foreground: 270 20% 92%;
+
+    --card: 270 50% 4%;
+    --card-foreground: 270 20% 92%;
+
+    --popover: 270 50% 4%;
+    --popover-foreground: 270 20% 92%;
+
+    --primary: 263 70% 55%;
+    --primary-foreground: 270 20% 98%;
+
+    --secondary: 270 40% 12%;
+    --secondary-foreground: 270 20% 92%;
+
+    --muted: 270 35% 12%;
+    --muted-foreground: 270 15% 65%;
+
+    --accent: 263 70% 55%;
+    --accent-foreground: 270 20% 92%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 270 20% 98%;
+
+    --border: 270 30% 18%;
+    --input: 270 30% 18%;
+    --ring: 263 70% 55%;
+
+    /* Dark surface tokens — deep purple tinted */
+    --surface: 268 45% 7%;
+    --surface-elevated: 268 40% 11%;
+    --surface-overlay: 268 35% 15%;
+    --text-primary: 270 20% 92%;
+    --text-secondary: 270 15% 68%;
+    --text-muted: 270 12% 58%;
+    --border-subtle: 270 25% 18%;
   }
 }
 
@@ -76,15 +102,14 @@
 
   body {
     @apply bg-background text-foreground font-inter;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   html {
     scroll-behavior: smooth;
   }
 
-
-
-  /* Hide scrollbar for Chrome, Safari and Opera */
+  /* Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -118,6 +143,29 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  /* ─── Dark-aware surface utilities ─── */
+  .bg-surface {
+    background-color: hsl(var(--surface));
+  }
+  .bg-surface-elevated {
+    background-color: hsl(var(--surface-elevated));
+  }
+  .bg-surface-overlay {
+    background-color: hsl(var(--surface-overlay));
+  }
+  .text-heading {
+    color: hsl(var(--text-primary));
+  }
+  .text-body {
+    color: hsl(var(--text-secondary));
+  }
+  .text-subtle {
+    color: hsl(var(--text-muted));
+  }
+  .border-subtle {
+    border-color: hsl(var(--border-subtle));
   }
 
   .animate-fade-in {
