@@ -219,4 +219,28 @@
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(139, 92, 246, 0.15);
   }
+
+  .clip-blob {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    animation: morph 8s ease-in-out infinite;
+  }
+  
+  @keyframes morph {
+    0%, 100% {
+      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    }
+    34% {
+      border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+    }
+    67% {
+      border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+    }
+  }
+
+  .hover-glow {
+    transition: all 0.3s ease;
+  }
+  .hover-glow:hover {
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+  }
 }

@@ -19,7 +19,7 @@ export default function AnimatedBlobsBackground() {
       </svg>
       {/* First blob */}
       <motion.svg
-        style={{ position: 'absolute', top: '8%', left: '8%', width: '28vw', height: '28vw', zIndex: 0 }}
+        className="absolute top-[8%] left-[8%] w-48 h-48 sm:w-[28vw] sm:h-[28vw] z-0 opacity-30 sm:opacity-70"
         viewBox="0 0 400 400"
         animate={{ y: [0, 60, 0], x: [0, 40, 0] }}
         transition={{ duration: 7, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }}
@@ -27,12 +27,11 @@ export default function AnimatedBlobsBackground() {
         <path
           d="M300,200Q300,300,200,300Q100,300,100,200Q100,100,200,100Q300,100,300,200Z"
           fill="url(#blobGradient1)"
-          opacity={0.7}
         />
       </motion.svg>
       {/* Second blob */}
       <motion.svg
-        style={{ position: 'absolute', bottom: '5%', right: '10%', width: '32vw', height: '32vw', zIndex: 0 }}
+        className="absolute bottom-[5%] right-[10%] w-56 h-56 sm:w-[32vw] sm:h-[32vw] z-0 opacity-20 sm:opacity-60"
         viewBox="0 0 400 400"
         animate={{ y: [0, -70, 0], x: [0, -50, 0] }}
         transition={{ duration: 9, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }}
@@ -40,7 +39,6 @@ export default function AnimatedBlobsBackground() {
         <path
           d="M300,200Q300,300,200,300Q100,300,100,200Q100,100,200,100Q300,100,300,200Z"
           fill="url(#blobGradient2)"
-          opacity={0.6}
         />
       </motion.svg>
     </div>

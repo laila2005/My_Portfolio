@@ -119,26 +119,26 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Full-Screen Overlay */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="md:hidden overflow-hidden bg-surface/90 backdrop-blur-xl border-t border-subtle shadow-2xl"
+              initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+              animate={{ opacity: 1, backdropFilter: 'blur(20px)' }}
+              exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              className="md:hidden fixed inset-0 z-40 bg-white/60 dark:bg-[#110B1D]/80 bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-t border-white/20 dark:border-purple-500/20 pt-20"
             >
-              <div className="px-4 pt-4 pb-6 space-y-2 flex flex-col items-center">
+              <div className="flex flex-col items-center justify-center h-full pb-20 space-y-6 px-4">
                 {navItems.map((item, i) => (
                   <motion.a
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ delay: i * 0.05 }}
+                    initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 20, scale: 0.9 }}
+                    transition={{ delay: i * 0.1, type: 'spring', stiffness: 200, damping: 20 }}
                     key={item.name}
                     href={item.href}
-                    className={`block w-full text-center px-4 py-3 rounded-2xl text-heading hover:text-primary hover:bg-primary/5 transition-all duration-300 font-semibold text-lg ${active === item.href.replace('#', '') ? 'text-primary bg-primary/5' : ''}`}
+                    className={`block w-full text-center px-4 py-4 rounded-2xl text-heading hover:text-primary transition-all duration-300 font-bold text-3xl sm:text-4xl tracking-wide ${active === item.href.replace('#', '') ? 'text-primary drop-shadow-[0_0_15px_rgba(168,85,247,0.5)] scale-110' : ''}`}
                     onClick={() => { setActive(item.href.replace('#', '')); setIsOpen(false); }}
                   >
                     {item.name}
