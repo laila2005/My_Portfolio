@@ -382,7 +382,6 @@ const Projects = () => {
                       This project demonstrates strong engineering capabilities in {selectedProject.languages?.join(", ")}. It highlights an ability to architect scalable solutions, integrate complex logic, and deliver a seamless user experience.
                     </p>
                   </div>
-                  </div>
                 </div>
 
                 {/* Sticky Action Footer */}
