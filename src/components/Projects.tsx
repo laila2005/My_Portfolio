@@ -352,12 +352,12 @@ const Projects = () => {
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-surface rounded-3xl overflow-hidden shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col border border-subtle"
+                className="bg-surface rounded-3xl overflow-hidden shadow-2xl w-full max-w-4xl max-h-[85vh] flex flex-col border border-subtle"
               >
-                <div className="relative h-64 sm:h-80 w-full flex-shrink-0 bg-surface-overlay flex items-center justify-center border-b border-subtle p-4">
+                <div className="relative h-48 sm:h-64 lg:h-80 w-full flex-shrink-0 bg-surface-overlay flex items-center justify-center border-b border-subtle p-4 sm:p-6">
                   <button 
                     onClick={() => setSelectedProject(null)}
-                    className="absolute top-4 right-4 z-50 p-2 bg-surface/80 backdrop-blur rounded-full text-heading hover:text-primary hover:bg-surface shadow-sm transition-all border border-subtle"
+                    className="absolute top-2 right-2 sm:top-4 sm:right-4 z-50 p-2 bg-surface/90 backdrop-blur-md rounded-full text-heading hover:text-primary hover:bg-surface shadow-md transition-all border border-subtle"
                   >
                     <X size={20} />
                   </button>
@@ -367,8 +367,8 @@ const Projects = () => {
                     <img src={selectedProject.image} alt={selectedProject.title} className="max-w-full max-h-full object-contain rounded-xl drop-shadow-lg" />
                   )}
                 </div>
-                <div className="p-6 sm:p-10 overflow-y-auto flex-1">
-                  <h3 className="font-poppins font-black text-3xl mb-4 text-heading">{selectedProject.title}</h3>
+                <div className="p-5 sm:p-8 lg:p-10 overflow-y-auto flex-1">
+                  <h3 className="font-poppins font-black text-2xl sm:text-3xl mb-4 text-heading">{selectedProject.title}</h3>
                   <div className="flex flex-wrap gap-2 mb-8">
                     {selectedProject.tech.map((lang, i) => (
                       <span key={i} className="text-sm font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-lg border border-primary/20">

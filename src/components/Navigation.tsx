@@ -127,9 +127,9 @@ const Navigation = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="md:hidden absolute top-full left-0 right-0 z-40 bg-white dark:bg-[#0B0614] border-b border-gray-200 dark:border-white/10 shadow-2xl overflow-hidden"
+              className="md:hidden absolute top-full left-0 right-0 z-40 bg-white/95 dark:bg-[#0B0614]/95 backdrop-blur-2xl border-b border-purple-100 dark:border-purple-500/20 shadow-[0_30px_60px_rgba(0,0,0,0.12)] dark:shadow-[0_30px_60px_rgba(168,85,247,0.15)] rounded-b-[2.5rem] overflow-hidden"
             >
-              <div className="flex flex-col px-6 py-6 pb-10 space-y-2">
+              <div className="flex flex-col px-4 py-6 pb-8 space-y-2">
                 {navItems.map((item, i) => (
                   <motion.a
                     initial={{ opacity: 0, x: -20 }}
@@ -138,12 +138,12 @@ const Navigation = () => {
                     transition={{ delay: i * 0.05, duration: 0.2 }}
                     key={item.name}
                     href={item.href}
-                    className={`block w-full py-4 border-b border-gray-100 dark:border-white/5 text-heading hover:text-primary transition-colors duration-300 font-bold text-xl tracking-wide flex justify-between items-center ${active === item.href.replace('#', '') ? 'text-primary' : ''}`}
+                    className={`block w-full px-6 py-4 rounded-2xl border transition-all duration-300 font-bold text-xl tracking-wide flex justify-between items-center ${active === item.href.replace('#', '') ? 'bg-purple-50 dark:bg-purple-500/10 text-primary border-purple-200 dark:border-purple-500/30 shadow-sm' : 'border-transparent text-heading hover:bg-gray-50 dark:hover:bg-white/5'}`}
                     onClick={() => { setActive(item.href.replace('#', '')); setIsOpen(false); }}
                   >
                     {item.name}
                     {active === item.href.replace('#', '') && (
-                      <span className="w-2 h-2 rounded-full bg-primary" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
                     )}
                   </motion.a>
                 ))}
@@ -153,7 +153,7 @@ const Navigation = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
-                  className="pt-8 flex justify-between items-center"
+                  className="pt-6 px-2 mt-4 flex justify-between items-center border-t border-gray-100 dark:border-white/10"
                 >
                   <span className="text-sm font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Connect</span>
                   <div className="flex gap-4">
