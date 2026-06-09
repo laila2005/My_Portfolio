@@ -166,7 +166,7 @@ const Contact = () => {
           </div>
           {/* Contact Form */}
           <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <div className="border border-subtle shadow-2xl bg-surface-elevated backdrop-blur-md rounded-2xl p-10">
+            <div className="border border-subtle shadow-2xl bg-surface-elevated backdrop-blur-md rounded-2xl p-6 sm:p-8 lg:p-10">
               <h3 className="font-poppins font-bold text-2xl mb-6 text-heading">
                 Send a Message
               </h3>

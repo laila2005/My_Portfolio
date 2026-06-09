@@ -8,9 +8,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ErrorBoundary from './components/ErrorBoundary';
 
-// Lazy load ChatbotWidget to avoid mobile issues
-const ChatbotWidget = React.lazy(() => import('./components/ChatbotWidget'));
-
 const queryClient = new QueryClient();
 
 import { ReactLenis } from 'lenis/react';
@@ -31,9 +28,6 @@ const App = () => {
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
-            <React.Suspense fallback={null}>
-              <ChatbotWidget />
-            </React.Suspense>
           </TooltipProvider>
         </QueryClientProvider>
       </ErrorBoundary>

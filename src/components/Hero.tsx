@@ -60,11 +60,12 @@ const Hero = () => {
             WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)'
           }}
         >
+          {/* Added 150px to width/height to guarantee the bottom-right Spline logo is fully pushed outside the hidden overflow bounds on all screen sizes */}
           <iframe 
-            src="https://my.spline.design/r4xbot-W4o2DoAzOZpijadxTQZEON0j/?v=7" 
+            src="https://my.spline.design/r4xbot-W4o2DoAzOZpijadxTQZEON0j/?v=11" 
             frameBorder="0"
             loading="lazy"
-            className="w-full h-full relative z-0"
+            className="w-[calc(100%+150px)] h-[calc(100%+150px)] max-w-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
             title="Interactive 3D Workspace"
           ></iframe>
         </motion.div>
@@ -76,17 +77,17 @@ const Hero = () => {
       <div className="absolute top-1/2 left-1/4 w-12 h-12 bg-purple-400/15 dark:bg-purple-500/8 rounded-full animate-float pointer-events-none" style={{ animationDelay: '2s' }}></div>
 
       {/* GHOST GRID (Pointer events none allows mouse to pass through to 3D canvas) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 min-h-[85vh] flex flex-col lg:flex-row items-center justify-between gap-12 pb-12 pt-10 lg:pt-0 pointer-events-none">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 min-h-[85vh] flex flex-col-reverse lg:flex-row items-center justify-between gap-0 lg:gap-12 pb-12 pt-24 lg:pt-0 pointer-events-none">
         
         {/* LEFT HUD (Text, CTAs, Socials) */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col gap-8 justify-center items-center lg:items-start w-full lg:w-[45%] z-20 text-center lg:text-left"
+          className="flex flex-col gap-8 justify-center items-center lg:items-start w-full lg:w-[45%] z-20 text-center lg:text-left mt-0"
         >
           {/* Glassmorphism Text Container */}
-          <div className="relative w-full flex flex-col items-center lg:items-start p-8 sm:p-10 rounded-[2rem] bg-white/20 dark:bg-[#110B1D]/40 backdrop-blur-xl border border-white/40 dark:border-purple-500/20 shadow-2xl pointer-events-auto transition-transform duration-500 hover:scale-[1.02]">
+          <div className="relative w-full flex flex-col items-center lg:items-start p-6 sm:p-8 lg:p-10 pt-24 sm:pt-28 lg:pt-10 rounded-[2rem] bg-white/40 dark:bg-[#110B1D]/60 backdrop-blur-2xl border border-white/50 dark:border-purple-500/30 shadow-2xl pointer-events-auto transition-transform duration-500 hover:scale-[1.02]">
             <h1 className="font-clash text-4xl sm:text-5xl lg:text-6xl mb-4 text-heading font-black tracking-tight leading-[1.1] drop-shadow-sm whitespace-nowrap">
               Laila <span className="text-gradient">Mohamed</span>
             </h1>
@@ -102,7 +103,7 @@ const Hero = () => {
               />
             </span>
 
-            <p className="font-outfit text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed tracking-wide drop-shadow-sm">
+            <p className="font-outfit text-base sm:text-lg lg:text-xl text-gray-800 dark:text-gray-200 max-w-2xl leading-relaxed tracking-wide drop-shadow-sm">
               Engineering seamless digital experiences. <br className="hidden sm:block" />
               Bridging the gap between <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-600 dark:from-purple-400 dark:to-pink-400">systems engineering</span> and <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-600 dark:from-purple-400 dark:to-pink-400">creative frontend</span>.
             </p>
@@ -175,10 +176,10 @@ const Hero = () => {
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col gap-8 justify-center items-center lg:items-end w-full lg:w-[45%] z-20 mt-8 lg:mt-0"
+          className="flex flex-col gap-10 sm:gap-12 justify-center items-center lg:items-end w-full lg:w-[45%] z-30 mb-[-70px] sm:mb-[-90px] lg:mb-0 mt-0 pointer-events-none"
         >
           {/* Floating Profile Photo ID Badge */}
-          <div className="flex flex-shrink-0 z-10 relative w-[160px] sm:w-[200px] h-[220px] sm:h-[260px] bg-white/40 dark:bg-[#110B1D]/60 backdrop-blur-2xl rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_15px_40px_rgba(168,85,247,0.3)] border border-white/60 dark:border-purple-500/40 p-2 pointer-events-auto transition-transform duration-500 hover:scale-105 rotate-3 hover:rotate-0">
+          <div className="flex flex-shrink-0 z-40 relative w-[140px] sm:w-[180px] lg:w-[200px] h-[190px] sm:h-[240px] lg:h-[260px] bg-white/60 dark:bg-[#110B1D]/80 backdrop-blur-3xl rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(168,85,247,0.4)] border border-white/80 dark:border-purple-500/50 p-2 pointer-events-auto transition-transform duration-500 hover:scale-105 rotate-0 lg:rotate-3 hover:rotate-0">
             <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-inner">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent mix-blend-overlay z-10 pointer-events-none"></div>
               <img src="/profile2.jpg" alt="Laila Mohamed" className="w-full h-full object-cover" />
@@ -186,20 +187,20 @@ const Hero = () => {
           </div>
 
           {/* Floating Terminal Box */}
-          <div className="rounded-xl overflow-hidden border border-white/40 dark:border-purple-500/40 bg-white/30 dark:bg-[#110B1D]/50 backdrop-blur-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.1)] dark:shadow-[0_0_20px_rgba(168,85,247,0.2)] ring-1 ring-white/50 dark:ring-purple-500/20 w-full lg:max-w-md pointer-events-auto cursor-text hover:shadow-[0_8px_30px_rgb(139,92,246,0.25)] dark:hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] transition-all duration-500 -rotate-1 hover:rotate-0">
-            <div className="bg-white/40 dark:bg-black/50 px-6 py-4 border-b border-white/20 dark:border-purple-500/30 flex items-center gap-2 backdrop-blur-md">
+          <div className="hidden lg:flex flex-col rounded-xl overflow-hidden border border-white/60 dark:border-purple-500/50 bg-white/50 dark:bg-[#110B1D]/70 backdrop-blur-[24px] shadow-[0_15px_40px_rgb(0,0,0,0.15)] dark:shadow-[0_0_30px_rgba(168,85,247,0.3)] ring-1 ring-white/50 dark:ring-purple-500/30 w-full lg:max-w-md pointer-events-auto cursor-text hover:shadow-[0_15px_40px_rgb(139,92,246,0.3)] dark:hover:shadow-[0_0_40px_rgba(168,85,247,0.5)] transition-all duration-500 rotate-0 lg:-rotate-1 hover:rotate-0">
+            <div className="bg-white/60 dark:bg-black/60 px-5 sm:px-6 py-3 sm:py-4 border-b border-white/30 dark:border-purple-500/40 flex items-center gap-2 backdrop-blur-xl">
               <div className="flex gap-1.5">
-                <div className="w-3.5 h-3.5 rounded-full bg-red-400"></div>
-                <div className="w-3.5 h-3.5 rounded-full bg-yellow-400"></div>
-                <div className="w-3.5 h-3.5 rounded-full bg-green-400"></div>
+                <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-red-400"></div>
+                <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-yellow-400"></div>
+                <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-400"></div>
               </div>
-              <div className="ml-3 flex items-center gap-2 text-xs sm:text-sm font-mono text-gray-900 dark:text-gray-400 font-medium tracking-tight">
-                <Terminal size={14} />
+              <div className="ml-3 flex items-center gap-2 text-[10px] sm:text-xs font-mono text-gray-900 dark:text-gray-400 font-medium tracking-tight">
+                <Terminal size={12} className="sm:w-3.5 sm:h-3.5" />
                 <span>guest@laila-portfolio:~</span>
               </div>
             </div>
-            <div className="p-6 sm:p-8 font-mono text-xs sm:text-sm text-gray-900 dark:text-purple-100 h-[300px] sm:h-[340px] overflow-hidden flex flex-col leading-relaxed">
-              <p className="text-purple-800 dark:text-purple-400 mb-3 font-bold">$ ./fetch_stats.sh</p>
+            <div className="p-5 sm:p-8 font-mono text-[10px] sm:text-xs md:text-sm text-gray-900 dark:text-purple-100 h-[220px] sm:h-[280px] lg:h-[340px] overflow-hidden flex flex-col leading-relaxed">
+              <p className="text-purple-800 dark:text-purple-400 mb-2 sm:mb-3 font-bold">$ ./fetch_stats.sh</p>
               <div className="flex-1 whitespace-pre-wrap font-mono">
                 <Typewriter
                   words={[

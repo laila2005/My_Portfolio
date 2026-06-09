@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, Linkedin, Github } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
@@ -119,31 +119,52 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Full-Screen Overlay */}
+        {/* Mobile Navigation Solid Dropdown */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
-              animate={{ opacity: 1, backdropFilter: 'blur(20px)' }}
-              exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
-              transition={{ duration: 0.4, ease: 'easeInOut' }}
-              className="md:hidden fixed inset-0 z-40 bg-white/60 dark:bg-[#110B1D]/80 bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-t border-white/20 dark:border-purple-500/20 pt-20"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="md:hidden absolute top-full left-0 right-0 z-40 bg-white dark:bg-[#0B0614] border-b border-gray-200 dark:border-white/10 shadow-2xl overflow-hidden"
             >
-              <div className="flex flex-col items-center justify-center h-full pb-20 space-y-6 px-4">
+              <div className="flex flex-col px-6 py-6 pb-10 space-y-2">
                 {navItems.map((item, i) => (
                   <motion.a
-                    initial={{ opacity: 0, y: 40, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 20, scale: 0.9 }}
-                    transition={{ delay: i * 0.1, type: 'spring', stiffness: 200, damping: 20 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ delay: i * 0.05, duration: 0.2 }}
                     key={item.name}
                     href={item.href}
-                    className={`block w-full text-center px-4 py-4 rounded-2xl text-heading hover:text-primary transition-all duration-300 font-bold text-3xl sm:text-4xl tracking-wide ${active === item.href.replace('#', '') ? 'text-primary drop-shadow-[0_0_15px_rgba(168,85,247,0.5)] scale-110' : ''}`}
+                    className={`block w-full py-4 border-b border-gray-100 dark:border-white/5 text-heading hover:text-primary transition-colors duration-300 font-bold text-xl tracking-wide flex justify-between items-center ${active === item.href.replace('#', '') ? 'text-primary' : ''}`}
                     onClick={() => { setActive(item.href.replace('#', '')); setIsOpen(false); }}
                   >
                     {item.name}
+                    {active === item.href.replace('#', '') && (
+                      <span className="w-2 h-2 rounded-full bg-primary" />
+                    )}
                   </motion.a>
                 ))}
+
+                {/* Social Links Footer inside Menu */}
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="pt-8 flex justify-between items-center"
+                >
+                  <span className="text-sm font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Connect</span>
+                  <div className="flex gap-4">
+                     <a href="https://www.linkedin.com/in/laila-mohamed23/" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 dark:bg-white/10 rounded-full text-heading hover:bg-primary hover:text-white transition-colors shadow-sm">
+                       <Linkedin size={20} />
+                     </a>
+                     <a href="https://github.com/laila2005" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 dark:bg-white/10 rounded-full text-heading hover:bg-primary hover:text-white transition-colors shadow-sm">
+                       <Github size={20} />
+                     </a>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           )}
