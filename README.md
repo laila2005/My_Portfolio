@@ -90,10 +90,5 @@ src/
 - **GitHub:** [laila2005](https://github.com/laila2005)
 - **Email:** laila.mohamed.fikry@gmail.com
 
-## 📄 License
-
-MIT License - feel free to use this code for your own portfolio!
-
----
 
 ⭐ **Star this repo if you found it helpful!**
