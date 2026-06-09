@@ -137,8 +137,7 @@ const Projects = () => {
     {
       title: "Real-time Encrypted Messaging",
       description: "A secure, multi-threaded TCP messaging system featuring military-grade AES-256 encryption, an integrated SQLite database architecture, and both CLI and GUI interfaces.",
-      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
-      video: "https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+      image: "/chat-ui-cover.png",
       tech: ["Python", "TCP/IP", "AES-256", "Multi-threading", "SQLite"],
       languages: ["Python"],
       github: "https://github.com/laila2005/messaging-system",
