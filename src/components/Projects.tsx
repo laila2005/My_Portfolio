@@ -382,22 +382,25 @@ const Projects = () => {
                       This project demonstrates strong engineering capabilities in {selectedProject.languages?.join(", ")}. It highlights an ability to architect scalable solutions, integrate complex logic, and deliver a seamless user experience.
                     </p>
                   </div>
-                  <div className="mt-10 flex flex-wrap gap-4 pt-6 border-t border-subtle">
-                    {selectedProject.github !== "#" && (
-                      <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">
-                        <Button className="font-bold bg-gray-900 dark:bg-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 text-white rounded-xl h-12 px-6">
-                          <Github size={18} className="mr-2" /> View Source Code
-                        </Button>
-                      </a>
-                    )}
-                    {selectedProject.live && selectedProject.live !== "#" && (
-                      <a href={selectedProject.live} target="_blank" rel="noopener noreferrer">
-                        <Button className="font-bold bg-primary hover:bg-primary/90 text-white rounded-xl h-12 px-6">
-                          Live Demo <ArrowRight size={18} className="ml-2" />
-                        </Button>
-                      </a>
-                    )}
                   </div>
+                </div>
+
+                {/* Sticky Action Footer */}
+                <div className="p-4 sm:p-6 border-t border-subtle bg-surface/95 backdrop-blur-md flex-shrink-0 flex gap-3 w-full">
+                  {selectedProject.github !== "#" && (
+                    <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button className="w-full font-bold bg-gray-900 dark:bg-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 text-white rounded-xl h-12 px-4 shadow-sm text-sm sm:text-base">
+                        <Github size={18} className="mr-1.5 sm:mr-2" /> Source
+                      </Button>
+                    </a>
+                  )}
+                  {selectedProject.live && selectedProject.live !== "#" && (
+                    <a href={selectedProject.live} target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button className="w-full font-bold bg-primary hover:bg-primary/90 text-white rounded-xl h-12 px-4 shadow-md shadow-primary/25 text-sm sm:text-base">
+                        Live Demo <ArrowRight size={18} className="ml-1.5 sm:ml-2" />
+                      </Button>
+                    </a>
+                  )}
                 </div>
               </motion.div>
             </motion.div>
