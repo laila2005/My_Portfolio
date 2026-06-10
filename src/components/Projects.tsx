@@ -191,24 +191,6 @@ const Projects = () => {
       github: "https://github.com/laila2005/Tech-Road",
       featured: true,
       status: "In Progress"
-    },
-    {
-      title: "AirBnB Clone",
-      description: "A complete full-stack web application mimicking core AirBnB functionalities. Built from the ground up featuring a custom command interpreter, MySQL database, and RESTful API.",
-      image: "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=600&q=80",
-      tech: ["Python", "Flask", "MySQL", "HTML", "CSS"],
-      languages: ["Python", "HTML"],
-      github: "https://github.com/laila2005/AirBnB_clone_v3",
-      featured: true
-    },
-    {
-      title: "ALX Files Manager",
-      description: "A robust back-end file management API. Features JWT user authentication, background processing with Bull, Redis caching, and MongoDB for file metadata storage.",
-      image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=600&q=80",
-      tech: ["Node.js", "Express", "MongoDB", "Redis", "Bull"],
-      languages: ["JavaScript"],
-      github: "https://github.com/laila2005/alx-files_manager",
-      featured: true
     }
   ];
 
