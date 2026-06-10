@@ -42,7 +42,7 @@ function ParallaxMedia({ image, video, alt, className = "h-56 lg:h-64" }: { imag
         src={image} 
         alt={alt}
         style={{ translateZ: 20 }}
-        className={`w-full h-full object-cover transition-all duration-700 z-20 group-hover/media:scale-110 ${video ? 'group-hover/media:opacity-0' : ''}`}
+        className={`w-full h-full ${image.includes('logo') ? 'object-contain p-8 bg-white/80 dark:bg-white/10 backdrop-blur-md' : 'object-cover'} transition-all duration-700 z-20 group-hover/media:scale-110 ${video ? 'group-hover/media:opacity-0' : ''}`}
       />
 
       {video && (
