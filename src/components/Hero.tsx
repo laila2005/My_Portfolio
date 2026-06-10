@@ -104,8 +104,8 @@ const Hero = () => {
             </span>
 
             <p className="font-outfit text-base sm:text-lg lg:text-xl text-gray-800 dark:text-gray-200 max-w-2xl leading-relaxed tracking-wide drop-shadow-sm">
-              Engineering seamless digital experiences. <br className="hidden sm:block" />
-              Bridging the gap between <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-600 dark:from-purple-400 dark:to-pink-400">systems engineering</span> and <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-600 dark:from-purple-400 dark:to-pink-400">creative frontend</span>.
+              Building enterprise systems that run at <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-600 dark:from-purple-400 dark:to-pink-400">national scale</span>. <br className="hidden sm:block" />
+              From <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-600 dark:from-purple-400 dark:to-pink-400">IoT backends</span> to <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-600 dark:from-purple-400 dark:to-pink-400">AI pipelines</span>.
             </p>
           </div>
 
@@ -204,15 +204,15 @@ const Hero = () => {
               <div className="flex-1 whitespace-pre-wrap font-mono">
                 <Typewriter
                   words={[
-                    "> Output:\n\n[\n  \"React\", \"ASP.NET\",\n  \"Python\", \"C#\",\n  \"Node.js\", \"TensorFlow\"\n]\nLoading architecture...",
-                    "> Output:\n\nPassionate about scalable architectures\nBuilding the future of web and AI..."
+                    "> Resolving metrics...\n\n[OK] 300+ remote sites monitored\n[OK] Sub-millisecond WebSocket latency\n[OK] 99.9% CV inference accuracy\n\nSystem ready.",
+                    "> Loading architecture...\n\n- Next.js / React (Frontend)\n- FastAPI / Node.js (Backend)\n- PostgreSQL / Redis (Data)\n- AI/ML Pipelines (Python)\n\nAll services operational."
                   ]}
                   loop={0}
                   cursor
                   cursorStyle="|"
-                  typeSpeed={40}
-                  deleteSpeed={30}
-                  delaySpeed={3000}
+                  typeSpeed={30}
+                  deleteSpeed={20}
+                  delaySpeed={3500}
                 />
               </div>
             </div>
