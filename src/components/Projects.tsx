@@ -133,16 +133,7 @@ const Projects = () => {
       github: "https://github.com/laila2005",
       featured: true
     },
-    {
-      title: "Bagi Job Platform",
-      description: "Professional freelance job portal developed entirely from scratch. Engineered a scalable React frontend coupled with robust backend server architecture.",
-      image: "/bagijob-logo.png",
-      tech: ["React.js", "Redux", "REST API", "PostgreSQL"],
-      languages: ["JavaScript"],
-      github: "#", 
-      live: "https://bagijob.com",
-      featured: true
-    },
+
     {
       title: "Petpulse (Mewoo)",
       description: "A unified digital ecosystem designed to simplify every stage of pet ownership. Built as a comprehensive platform for pet care, health tracking, and management.",
