@@ -130,9 +130,9 @@ const Hero = () => {
                 variant="outline"
                 className="border-2 border-primary/30 dark:border-primary/40 text-primary font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-lg hover-glow transition-all duration-300 bg-surface/50 backdrop-blur-sm hover:bg-primary/5 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
               >
-                <a href="/Laila_Mohamed_Fikry_Software_Engineer.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full">
+                <a href="/Laila_Fikry_CV.docx" download className="flex items-center justify-center gap-2 w-full">
                   <span>Resume</span>
-                  <ExternalLink size={18} className="shrink-0" />
+                  <Download size={18} className="shrink-0" />
                 </a>
               </Button>
             </MagneticButton>
