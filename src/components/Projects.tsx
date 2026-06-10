@@ -181,16 +181,37 @@ const Projects = () => {
       github: "https://github.com/laila2005/Tech-Road",
       featured: true,
       status: "In Progress"
+    },
+    {
+      title: "AirBnB Clone",
+      description: "A complete full-stack web application mimicking core AirBnB functionalities. Built from the ground up featuring a custom command interpreter, MySQL database, and RESTful API.",
+      image: "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=600&q=80",
+      tech: ["Python", "Flask", "MySQL", "HTML", "CSS"],
+      languages: ["Python", "HTML"],
+      github: "https://github.com/laila2005/AirBnB_clone_v3",
+      featured: true
+    },
+    {
+      title: "ALX Files Manager",
+      description: "A robust back-end file management API. Features JWT user authentication, background processing with Bull, Redis caching, and MongoDB for file metadata storage.",
+      image: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=600&q=80",
+      tech: ["Node.js", "Express", "MongoDB", "Redis", "Bull"],
+      languages: ["JavaScript"],
+      github: "https://github.com/laila2005/alx-files_manager",
+      featured: true
     }
   ];
 
   const [filterTag, setFilterTag] = useState<string | null>(null);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   const allTechTags = Array.from(new Set(projects.flatMap(p => p.tech)));
   const filteredProjects = filterTag 
     ? projects.filter(p => p.tech.includes(filterTag) && p.featured) 
     : projects.filter(p => p.featured);
+
+  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 4);
 
   return (
     <section id="projects" className="py-32 bg-surface transition-colors duration-500 relative overflow-hidden">
@@ -244,7 +265,7 @@ const Projects = () => {
         {/* Featured Projects Bento Grid */}
         <AnimatePresence mode="popLayout">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-8 mb-32">
-            {filteredProjects.map((project, index) => {
+            {displayedProjects.map((project, index) => {
               const isHero = index === 0;
               const isWide = index === 3 || index === 6;
               const isTall = index === 2;
@@ -335,6 +356,22 @@ const Projects = () => {
             )})}
           </div>
         </AnimatePresence>
+
+        {filteredProjects.length > 4 && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-16 flex justify-center"
+          >
+            <Button
+              onClick={() => setShowAll(!showAll)}
+              className="bg-surface border border-subtle hover:bg-surface-overlay text-heading font-bold rounded-full px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300"
+            >
+              {showAll ? 'View Less' : 'See More Projects'}
+            </Button>
+          </motion.div>
+        )}
 
         {/* Project Modal */}
         <AnimatePresence>
