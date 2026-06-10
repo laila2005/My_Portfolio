@@ -126,7 +126,7 @@ const Projects = () => {
     {
       title: "Crash Detection and Classification Model",
       description: "Trained custom CNN and MobileNetV2 models on 3,000 real-world traffic images. Applied Grad-CAM explainability to generate thermal heatmaps identifying structural damage, deployed on Streamlit.",
-      image: "/crash-detection-cover.png",
+      image: "/crash-detection-cover-v2.png",
       tech: ["Deep Learning", "CNN", "Transfer Learning", "Grad-CAM", "Streamlit"],
       languages: ["Python"],
       github: "https://github.com/laila2005",
