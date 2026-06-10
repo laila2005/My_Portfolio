@@ -1,4 +1,4 @@
-import { ExternalLink, Github, Video, ArrowRight } from 'lucide-react';
+import { ExternalLink, Github, Video, ArrowRight, Download } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
@@ -135,11 +135,12 @@ const Projects = () => {
     },
 
     {
-      title: "Real-time Encrypted Messaging",
-      description: "A secure, multi-threaded TCP messaging system featuring military-grade AES-256 encryption, an integrated SQLite database architecture, and both CLI and GUI interfaces.",
+      title: "Zagel – Enterprise Real-Time Messaging",
+      description: "A highly scalable unified communications platform bridging web, desktop, and mobile users. Features sub-millisecond WebSocket messaging, zero-latency WebRTC video conferencing, and JWT authentication. Wrapped natively via Electron and Capacitor.",
       image: "/chat-ui-cover.png",
-      tech: ["Python", "TCP/IP", "AES-256", "Multi-threading", "SQLite"],
-      languages: ["Python"],
+      apk: "/zagel-app.apk",
+      tech: ["Next.js", "FastAPI", "WebSockets", "WebRTC", "Capacitor"],
+      languages: ["TypeScript", "Python"],
       github: "https://github.com/laila2005/messaging-system",
       featured: true
     },
@@ -384,16 +385,23 @@ const Projects = () => {
                 </div>
 
                 {/* Sticky Action Footer */}
-                <div className="p-4 sm:p-6 border-t border-subtle bg-surface/95 backdrop-blur-md flex-shrink-0 flex gap-3 w-full">
+                <div className="p-4 sm:p-6 border-t border-subtle bg-surface/95 backdrop-blur-md flex-shrink-0 flex flex-wrap gap-3 w-full">
                   {selectedProject.github !== "#" && (
-                    <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="flex-1">
+                    <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[120px]">
                       <Button className="w-full font-bold bg-gray-900 dark:bg-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 text-white rounded-xl h-12 px-4 shadow-sm text-sm sm:text-base">
                         <Github size={18} className="mr-1.5 sm:mr-2" /> Source
                       </Button>
                     </a>
                   )}
+                  {selectedProject.apk && (
+                    <a href={selectedProject.apk} download className="flex-1 min-w-[120px]">
+                      <Button className="w-full font-bold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl h-12 px-4 shadow-md shadow-emerald-600/25 text-sm sm:text-base">
+                        <Download size={18} className="mr-1.5 sm:mr-2" /> App
+                      </Button>
+                    </a>
+                  )}
                   {selectedProject.live && selectedProject.live !== "#" && (
-                    <a href={selectedProject.live} target="_blank" rel="noopener noreferrer" className="flex-1">
+                    <a href={selectedProject.live} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[120px]">
                       <Button className="w-full font-bold bg-primary hover:bg-primary/90 text-white rounded-xl h-12 px-4 shadow-md shadow-primary/25 text-sm sm:text-base">
                         Live Demo <ArrowRight size={18} className="ml-1.5 sm:ml-2" />
                       </Button>
