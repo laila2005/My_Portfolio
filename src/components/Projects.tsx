@@ -115,6 +115,16 @@ function HeartReaction({ projectTitle }: { projectTitle: string }) {
 const Projects = () => {
   const projects = [
     {
+      title: "Petpulse (Mewoo)",
+      description: "A unified digital ecosystem designed to simplify every stage of pet ownership. Built as a comprehensive platform for pet care, health tracking, and management.",
+      image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80",
+      tech: ["React", "Next.js", "Tailwind CSS", "Node.js"],
+      languages: ["TypeScript"],
+      github: "https://github.com/laila2005/Mewoo",
+      live: "https://petpulse-pi.vercel.app/",
+      featured: true
+    },
+    {
       title: "Inqaz-app – Egypt Emergency AI Response System",
       description: "Architected an end-to-end emergency response platform using computer vision to detect accidents and disasters from live mobile camera footage. Automatically dispatches emergency services in real time with GPS coordination.",
       image: "/inqaz-cover.png",
