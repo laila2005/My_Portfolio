@@ -115,36 +115,6 @@ function HeartReaction({ projectTitle }: { projectTitle: string }) {
 const Projects = () => {
   const projects = [
     {
-      title: "Petpulse (Mewoo)",
-      description: "A unified digital ecosystem designed to simplify every stage of pet ownership. Built as a comprehensive platform for pet care, health tracking, and management.",
-      image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80",
-      tech: ["React", "Next.js", "Tailwind CSS", "Node.js"],
-      languages: ["TypeScript"],
-      github: "https://github.com/laila2005/Mewoo",
-      live: "https://petpulse-pi.vercel.app/",
-      featured: true
-    },
-    {
-      title: "Inqaz-app – Egypt Emergency AI Response System",
-      description: "Architected an end-to-end emergency response platform using computer vision to detect accidents and disasters from live mobile camera footage. Automatically dispatches emergency services in real time with GPS coordination.",
-      image: "/inqaz-cover.png",
-      tech: ["Python", "Computer Vision", "REST API", "Web Frontend", "AI"],
-      languages: ["Python"],
-      github: "https://github.com/laila2005",
-      featured: true
-    },
-    {
-      title: "Crash Detection and Classification Model",
-      description: "Trained custom CNN and MobileNetV2 models on 3,000 real-world traffic images. Applied Grad-CAM explainability to generate thermal heatmaps identifying structural damage, deployed on Streamlit.",
-      image: "/crash-detection-cover-v2.png",
-      tech: ["Deep Learning", "CNN", "Transfer Learning", "Grad-CAM", "Streamlit"],
-      languages: ["Python"],
-      github: "https://github.com/laila2005",
-      live: "https://github.com/laila2005",
-      featured: true
-    },
-
-    {
       title: "Zagel – Enterprise Real-Time Messaging",
       description: "A highly scalable unified communications platform bridging web, desktop, and mobile users. Features sub-millisecond WebSocket messaging, zero-latency WebRTC video conferencing, and JWT authentication. Wrapped natively via Electron and Capacitor.",
       image: "/chat-ui-cover.png",
@@ -155,21 +125,12 @@ const Projects = () => {
       featured: true
     },
     {
-      title: "DishCraft",
-      description: "Full-stack culinary platform featuring comprehensive UI/UX design, secure JWT user authentication, and seamless database integration using Node.js.",
-      image: "/dishcraft.PNG",
-      tech: ["React.js", "Node.js", "MongoDB", "Express", "JWT"],
-      languages: ["TypeScript", "Node.js"],
-      github: "https://github.com/laila2005/DishCraft/tree/combined-branch",
-      featured: true
-    },
-    {
-      title: "3D Raycasting Maze Game",
-      description: "Low-level graphics engine built in C using SDL2. Features complex collision detection, player movement physics, enemy AI, and dynamic maze texture rendering.",
-      image: "/MazeGame.png", 
-      tech: ["C", "SDL2", "Raycasting", "Algorithms", "Memory Management"],
-      languages: ["C"],
-      github: "https://github.com/walid-mehelba/The_Maze",
+      title: "Inqaz-app – Egypt Emergency AI Response System",
+      description: "Architected an end-to-end emergency response platform using computer vision to detect accidents and disasters from live mobile camera footage. Automatically dispatches emergency services in real time with GPS coordination.",
+      image: "/inqaz-cover.png",
+      tech: ["Python", "Computer Vision", "REST API", "Web Frontend", "AI"],
+      languages: ["Python"],
+      github: "https://github.com/laila2005",
       featured: true
     },
     {
@@ -183,6 +144,35 @@ const Projects = () => {
       featured: true
     },
     {
+      title: "Petpulse (Mewoo)",
+      description: "A unified digital ecosystem designed to simplify every stage of pet ownership. Built as a comprehensive platform for pet care, health tracking, and management.",
+      image: "https://petpulse-pi.vercel.app/assets/images/logoo.png",
+      tech: ["React", "Next.js", "Tailwind CSS", "Node.js"],
+      languages: ["TypeScript"],
+      github: "https://github.com/laila2005/Mewoo",
+      live: "https://petpulse-pi.vercel.app/",
+      featured: true
+    },
+    {
+      title: "Crash Detection and Classification Model",
+      description: "Trained custom CNN and MobileNetV2 models on 3,000 real-world traffic images. Applied Grad-CAM explainability to generate thermal heatmaps identifying structural damage, deployed on Streamlit.",
+      image: "/crash-detection-cover-v2.png",
+      tech: ["Deep Learning", "CNN", "Transfer Learning", "Grad-CAM", "Streamlit"],
+      languages: ["Python"],
+      github: "https://github.com/laila2005",
+      live: "https://github.com/laila2005",
+      featured: true
+    },
+    {
+      title: "DishCraft",
+      description: "Full-stack culinary platform featuring comprehensive UI/UX design, secure JWT user authentication, and seamless database integration using Node.js.",
+      image: "/dishcraft.PNG",
+      tech: ["React.js", "Node.js", "MongoDB", "Express", "JWT"],
+      languages: ["TypeScript", "Node.js"],
+      github: "https://github.com/laila2005/DishCraft/tree/combined-branch",
+      featured: true
+    },
+    {
       title: "TechRoad",
       description: "AI-powered career guidance mapping platform. Leading backend development as a Team Leader, architecting the Flask API, load balancing, and MongoDB schemas.",
       image: "/techroad-logo.svg",
@@ -191,6 +181,15 @@ const Projects = () => {
       github: "https://github.com/laila2005/Tech-Road",
       featured: true,
       status: "In Progress"
+    },
+    {
+      title: "3D Raycasting Maze Game",
+      description: "Low-level graphics engine built in C using SDL2. Features complex collision detection, player movement physics, enemy AI, and dynamic maze texture rendering.",
+      image: "/MazeGame.png", 
+      tech: ["C", "SDL2", "Raycasting", "Algorithms", "Memory Management"],
+      languages: ["C"],
+      github: "https://github.com/walid-mehelba/The_Maze",
+      featured: true
     }
   ];
 
