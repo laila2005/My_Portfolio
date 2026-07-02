@@ -125,6 +125,16 @@ const Projects = () => {
       featured: true
     },
     {
+      title: "Quick Note – AI Voice-First Productivity",
+      description: "An AI-powered, voice-first productivity engine. Integrated Google Gemini AI to autonomously extract prioritized task lists from voice notes and generate 'Magic Breakdowns' for massive tasks. Features a Zen Mode focus environment, gamified history, and premium fluid animations.",
+      image: "/quick_note_logo.png",
+      apk: "/QuickNote.apk",
+      tech: ["Flutter", "Dart", "Riverpod", "Firebase", "Gemini AI"],
+      languages: ["Dart"],
+      github: "https://github.com/laila2005",
+      featured: true
+    },
+    {
       title: "Inqaz-app – Egypt Emergency AI Response System",
       description: "Architected an end-to-end emergency response platform using computer vision to detect accidents and disasters from live mobile camera footage. Automatically dispatches emergency services in real time with GPS coordination.",
       image: "/inqaz-cover.png",
