@@ -131,7 +131,7 @@ const Projects = () => {
       apk: "/QuickNote.apk",
       tech: ["Flutter", "Dart", "Riverpod", "Firebase", "Gemini AI"],
       languages: ["Dart"],
-      github: "https://github.com/laila2005",
+      github: "#",
       featured: true
     },
     {
