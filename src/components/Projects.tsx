@@ -125,13 +125,14 @@ const Projects = () => {
       featured: true
     },
     {
-      title: "Quick Note – AI Voice-First Productivity",
-      description: "An AI-powered, voice-first productivity engine. Integrated Google Gemini AI to autonomously extract prioritized task lists from voice notes and generate 'Magic Breakdowns' for massive tasks. Features a Zen Mode focus environment, gamified history, and premium fluid animations.",
+      title: "RiseList – AI Voice-First Productivity",
+      description: "An AI-powered, voice-first productivity engine. Integrated Google Gemini AI to autonomously extract prioritized task lists from voice notes and generate 'Magic Breakdowns' for massive tasks. Features a Zen Mode focus environment, Daily Journaling, offline voice queueing, a robust paywall system, and premium fluid animations.",
       image: "/quick_note_logo.png",
-      apk: "/QuickNote.apk",
+      apk: "/RiseList.apk",
       tech: ["Flutter", "Dart", "Riverpod", "Firebase", "Gemini AI"],
       languages: ["Dart"],
       github: "#",
+      live: "https://laila2005.github.io/QuickNote/landing/",
       featured: true
     },
     {
