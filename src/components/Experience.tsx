@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 
 const experiences = [
   {
-    role: "Full-Stack Developer",
-    company: "LM Tech Solutions",
+    role: "Co-Founder & Lead Software Engineer",
+    company: "LM Smart Solutions",
     link: "https://lm-tech-solutions.tech/",
     duration: "Present",
     description: "Working remotely as a Full-Stack Developer on the RMS (LM-Remote Monitoring System). Responsible for architecting and deploying scalable web applications and enterprise-grade software solutions.",
