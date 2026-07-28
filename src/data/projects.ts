@@ -115,19 +115,23 @@ export const projects: Project[] = [
     tech: ["Flutter", "Dart", "Riverpod", "Firebase Auth", "Firestore", "Google Gemini AI", "Val Town"],
     languages: ["Dart"],
     github: "#",
+    live: "https://rise-list.vercel.app",
     note: "Source private — APK available on request.",
     sourceStatus: 'private',
     privateNote: "Source private — APK available on request.",
     highlights: [
       "Google Gemini AI autonomously extracts prioritized task lists from voice notes",
       "'Magic Breakdowns' decompose massive tasks automatically",
+      "Bilingual voice capture — English, Arabic, or a mix, detected automatically",
       "Zen Mode focus environment, Daily Journaling, and offline voice queueing",
       "Robust paywall system with premium fluid animations",
     ],
     gallery: [
       { src: "/riselist_logo.webp", alt: "RiseList app logo" },
       // TODO(laila): add screenshots here — this one needs them most, because the
-      // repo is private and the cover is only a logo. Shape:
+      // repo is private and the cover is only a logo. docs/PLAY_STORE_LISTING.md in
+      // the app repo already calls for 5-8 phone screenshots, so the same set works
+      // for both. Until then the live landing page carries the visuals. Shape:
       // { src: "/riselist-capture.webp", alt: "Voice capture screen", caption: "Optional one-line caption" },
     ],
     sections: [
@@ -137,7 +141,7 @@ export const projects: Project[] = [
       },
       {
         heading: "The voice-to-structured-data pipeline",
-        body: "RiseList is a cross-platform mobile application engineered in Flutter and Dart, with Riverpod handling reactive, scalable state management. The core innovation is the voice-to-structured-data pipeline: I integrated on-device speech-to-text to capture live audio transcripts, with visual waveform feedback so the app is visibly listening while you talk.",
+        body: "RiseList is a cross-platform mobile application engineered in Flutter and Dart, with Riverpod handling reactive, scalable state management. It ships on Android with iOS to follow. The core innovation is the voice-to-structured-data pipeline: I integrated on-device speech-to-text to capture live audio transcripts, with visual waveform feedback so the app is visibly listening while you talk. Capture is bilingual — English, Arabic, or the two mixed in one sentence, with the language detected automatically rather than selected from a menu.",
       },
       {
         heading: "Keeping the Gemini keys out of the client bundle",
