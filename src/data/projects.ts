@@ -252,20 +252,40 @@ export const projects: Project[] = [
     title: "Petpulse (Mewoo)",
     description: "A unified digital ecosystem designed to simplify every stage of pet ownership. Built as a comprehensive platform for pet care, health tracking, and management.",
     tagline: "A location-aware marketplace for finding nearby, verified veterinarians and trainers.",
-    image: "/petpulse-cover.webp",
+    // A screenshot of the running product makes a better card than a logo.
+    image: "/petpulse-01-hero.webp",
     tech: ["React.js", "Node.js", "Express.js", "PostgreSQL", "Leaflet"],
     languages: ["TypeScript"],
     github: "https://github.com/laila2005/Mewoo",
     sourceStatus: 'public',
-    live: "https://petpulse-pi.vercel.app/",
+    // The previous deployment (petpulse-pi) now 404s; this is the live one.
+    live: "https://petpulse-showcase.vercel.app/",
     highlights: [
       "Unified digital ecosystem covering every stage of pet ownership",
-      "Comprehensive platform for pet care, health tracking, and management",
+      "Booking, adoption, hosting, training, and community in one marketplace",
+      "Nearest-first vendor sorting from client-side Haversine distance",
     ],
     gallery: [
-      { src: "/petpulse-cover.webp", alt: "Petpulse cover image" },
-      // TODO(laila): add screenshots here. Shape:
-      // { src: "/petpulse-health.webp", alt: "Health tracking view", caption: "Optional one-line caption" },
+      {
+        src: "/petpulse-01-hero.webp",
+        alt: "PetPulse landing page: the header nav, the headline “Your Pet Care Companion in One Place”, and a photograph of an owner with a golden retriever.",
+        caption: "The marketplace entry point — one place for services, adoption, and community.",
+      },
+      {
+        src: "/petpulse-02-services.webp",
+        alt: "PetPulse services grid with five cards: Vet Booking, Trainers, Adoption, Pet Hosting, and Community Support, each with its own call to action.",
+        caption: "Five distinct service flows, each with its own booking and vendor model behind it.",
+      },
+      {
+        src: "/petpulse-03-adoption.webp",
+        alt: "PetPulse adoption section showing pet cards for Milo and Luna with age and temperament, beside an online veterinary surgeon panel offering a quick chat.",
+        caption: "Adoption listings alongside direct access to a verified vet — the two sides of the marketplace.",
+      },
+      {
+        src: "/petpulse-04-features.webp",
+        alt: "PetPulse trust section: cards for Verified Pros, Easy Booking, Safe Adoption, and Active Community, next to a checklist covering direct communication, insured bookings, and digital health records.",
+        caption: "Vendor verification and insured bookings are the trust layer the relational schema enforces.",
+      },
     ],
     sections: [
       {
@@ -282,7 +302,7 @@ export const projects: Project[] = [
       },
       {
         heading: "Read this one in the browser instead",
-        body: "This is the project with a public repo and a live deployment, so the demo above is better evidence than anything written here.",
+        body: "This is the project with both a public repository and a live deployment, so the demo above is better evidence than anything written here. The gallery is captured from that deployment.",
       },
     ],
     featured: true

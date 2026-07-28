@@ -191,30 +191,43 @@ const ProjectGallery = ({ shots, title }: { shots: GalleryShot[]; title: string 
               Jump to
             </span>
             <div className="flex flex-wrap gap-2">
-              {shots.map((shot, index) => (
-                <button
-                  key={shot.src}
-                  type="button"
-                  onClick={() => embla?.scrollTo(index)}
-                  aria-label={`Show screenshot ${index + 1}`}
-                  aria-current={index === selected}
-                  className={`overflow-hidden rounded-lg border-2 outline-none transition-all focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-                    index === selected
-                      ? 'border-primary shadow-md shadow-primary/25'
-                      : 'border-transparent opacity-60 hover:opacity-100'
-                  }`}
-                >
-                  <img
-                    src={shot.src}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    draggable={false}
-                    referrerPolicy={isRemote(shot.src) ? 'no-referrer' : undefined}
-                    className="h-[68px] w-[34px] bg-surface-overlay object-cover object-top"
-                  />
-                </button>
-              ))}
+              {shots.map((shot, index) => {
+                // Width is derived from the known intrinsic ratio rather than left
+                // to `w-auto`: a lazy thumbnail that hasn't decoded yet has no
+                // intrinsic width, so auto collapsed it to zero.
+                const size = imageDimensions[shot.src];
+                const thumbHeight = 64;
+                const thumbWidth = size
+                  ? Math.min(112, Math.max(28, Math.round(thumbHeight * (size.w / size.h))))
+                  : 36;
+                return (
+                  <button
+                    key={shot.src}
+                    type="button"
+                    onClick={() => embla?.scrollTo(index)}
+                    aria-label={`Show screenshot ${index + 1}`}
+                    aria-current={index === selected}
+                    className={`overflow-hidden rounded-lg border-2 outline-none transition-all focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                      index === selected
+                        ? 'border-primary shadow-md shadow-primary/25'
+                        : 'border-transparent opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img
+                      src={shot.src}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      draggable={false}
+                      width={thumbWidth}
+                      height={thumbHeight}
+                      style={{ width: thumbWidth, height: thumbHeight }}
+                      referrerPolicy={isRemote(shot.src) ? 'no-referrer' : undefined}
+                      className="bg-surface-overlay object-cover object-top"
+                    />
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>

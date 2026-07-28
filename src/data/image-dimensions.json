@@ -27,10 +27,6 @@
     "w": 600,
     "h": 600
   },
-  "/petpulse-cover.webp": {
-    "w": 1200,
-    "h": 1200
-  },
   "/techroad-logo.svg": {
     "w": 25,
     "h": 25
@@ -66,5 +62,21 @@
   "/riselist-00-splash.webp": {
     "w": 600,
     "h": 1320
+  },
+  "/petpulse-01-hero.webp": {
+    "w": 1200,
+    "h": 608
+  },
+  "/petpulse-02-services.webp": {
+    "w": 1200,
+    "h": 804
+  },
+  "/petpulse-03-adoption.webp": {
+    "w": 1200,
+    "h": 517
+  },
+  "/petpulse-04-features.webp": {
+    "w": 1200,
+    "h": 463
   }
 }
