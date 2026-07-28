@@ -56,51 +56,73 @@ export const projects: Project[] = [
   {
     slug: 'zagel',
     title: "Zagel – Enterprise Real-Time Messaging",
-    description: "A highly scalable unified communications platform bridging web, desktop, and mobile users. Features sub-millisecond WebSocket messaging, zero-latency WebRTC video conferencing, and JWT authentication. Wrapped natively via Electron and Capacitor.",
-    tagline: "One zero-latency communications platform across web, native desktop, and mobile — from a single frontend codebase.",
+    description: "A hybrid communications platform: instant multi-device messaging with client-side end-to-end encryption, plus peer-to-peer WebRTC video calls carrying 1080p screen sharing and live connection telemetry. Runs as a web app and as a native Android build from one codebase.",
+    tagline: "Instant multi-device messaging and 1080p peer-to-peer video calls in one platform, encrypted on the client.",
+    role: "Lead Systems & Full-Stack Architect",
     image: "/chat-ui-cover.webp",
     apk: "/zagel-app.apk",
-    tech: ["Next.js", "FastAPI", "WebSockets", "WebRTC", "Electron", "Capacitor", "JWT"],
+    // Versions are fine to state here: this is a public web app, unlike the
+    // LM-MS case study where an exact stack version is recon information.
+    tech: ["Next.js 16", "React 19", "FastAPI", "WebSockets", "WebRTC", "Capacitor 7", "Web Crypto API"],
     languages: ["TypeScript", "Python"],
     github: "https://github.com/laila2005/messaging-system",
     sourceStatus: 'public',
+    live: "https://zagel-orpin.vercel.app/",
     caseStudy: "/writing/zagel-websocket-architecture",
     highlights: [
-      "Unified communications platform bridging web, desktop, and mobile users",
-      "Sub-millisecond WebSocket messaging and zero-latency WebRTC video conferencing",
-      "JWT authentication across every client",
-      "Wrapped natively via Electron and Capacitor",
+      "One account, many live sessions — messages, read receipts, and reactions echo to every connected device",
+      "Client-side AES-256-GCM encryption with PBKDF2-derived conversation keys, applied before anything leaves the device",
+      "Peer-to-peer WebRTC calls with 1080p 30fps screen sharing, swapped in without dropping the call",
+      "ICE restart renegotiation so a call survives a WiFi-to-mobile-network handover",
+      "Live call telemetry on screen: round-trip time, packet loss, and video bitrate",
     ],
     gallery: [
-      { src: "/chat-ui-cover.webp", alt: "Zagel cover image — the chat interface" },
-      // TODO(laila): add screenshots here. Shape:
-      // { src: "/zagel-call.webp", alt: "A WebRTC call in progress", caption: "Optional one-line caption" },
-      // Only reference files that exist in public/, and add their intrinsic size
-      // to src/data/image-dimensions.json so the page reserves the right box.
+      {
+        src: "/zagel-01-signin.webp",
+        alt: "Zagel sign-in screen: a dark glassmorphic card with username and password fields under the tagline “Enterprise-grade encrypted messaging”.",
+        caption: "The public entry point, captured from the live deployment — dark glassmorphic UI throughout.",
+      },
+      { src: "/chat-ui-cover.webp", alt: "Zagel chat interface" },
+      // TODO(laila): everything past sign-in needs an account, so these three have
+      // to come from you. They are the ones that actually prove the hard parts:
+      //   1. Desktop and phone side by side on the same chat, with the
+      //      end-to-end-encrypted badge visible — proves multi-device sync.
+      //   2. A live call with the picture-in-picture window, a 1080p screen share,
+      //      and the telemetry overlay (RTT / loss / bitrate) legible.
+      //   3. The image lightbox open over the dark UI.
+      // Add each to public/ as WebP plus its size in src/data/image-dimensions.json.
     ],
     sections: [
       {
         heading: "The challenge",
-        body: "Build a unified, zero-latency communications platform that functions seamlessly across the web, native desktop environments, and mobile devices — all from a single, maintainable frontend codebase.",
+        body: "Communication tools tend to be good at one thing. Chat apps give you instant messaging but treat a second device as an afterthought and have little to offer for presenting. Conference suites do high-definition video and screen sharing, but are heavy and awkward for quick messages. Zagel is an attempt at one platform that does both properly: chat that keeps every one of your devices in step, and calls good enough to present from.",
       },
       {
-        heading: "Async concurrency on the backend",
-        body: "The backend is FastAPI (Python), designed with a heavy emphasis on real-time concurrency. I leaned on asynchronous programming so that one service can manage thousands of concurrent WebSocket connections while carrying text messaging. This site describes that messaging as \"sub-millisecond\", and a latency claim needs a path, a percentile, and a load level before it means anything: [[verify the messaging latency figure — measurement path, percentile (p95/p99), and concurrency]].",
-        // TODO(laila): either publish the measurement behind the latency wording
-        // used in the description above, or soften the description itself. The
-        // marker stays visible until one of those two things happens.
+        heading: "The multi-device sync engine",
+        body: "Treating a user as one connection is what breaks multi-device chat. The FastAPI backend instead keeps a connection manager that maps each user to a set of live sockets, so one account can hold several sessions at once. A message, a read receipt, or a reaction fans out to every socket in that set, which is what lets you read on your phone and reply from the desktop without either session dropping or falling behind.",
       },
       {
-        heading: "Peer-to-peer media with WebRTC",
-        body: "Video conferencing runs on WebRTC. I integrated it so a call establishes a direct peer-to-peer UDP connection for audio and video streaming, which bypasses server bottlenecks entirely rather than relaying every frame through the backend.",
+        heading: "Encrypting on the client, not the server",
+        body: "Direct messages are encrypted in the browser with the Web Crypto API before they touch a WebSocket or a REST endpoint: AES-256-GCM, under a conversation key derived with PBKDF2. The point of doing it client-side is that the server stores and relays ciphertext it cannot read, so the trust question stops being \"do you trust the operator\" — and the chat shows an explicit encrypted indicator so that guarantee is visible rather than a footnote.",
       },
       {
-        heading: "Three shells, one codebase",
-        body: "To reach every platform without rewriting the UI three times, I built the frontend in Next.js and wrapped it natively: Electron compiles the web app into a performant Windows desktop application, and Capacitor wraps it into a native Android application. That approach yielded a 100% shared UI codebase while still retaining access to native APIs on each platform.",
+        heading: "Calls, screen sharing, and surviving the network",
+        body: "Calls are peer-to-peer WebRTC, so audio and video flow directly between participants instead of through the server. Screen sharing captures at 1080p 30fps and is swapped into the existing connection by replacing the outgoing video track, which means starting or stopping a share does not tear down the call. Networks are the hard part: a handover from WiFi to mobile data triggers an ICE restart to renegotiate the path rather than dropping the call, and hanging up sends explicit signalling so the camera and microphone are actually released rather than left holding the hardware.",
       },
       {
-        heading: "Auth, retention, and sync",
-        body: "Security was paramount, so authentication is a stateless JSON Web Token (JWT) flow used across every client. Alongside it I implemented automated data retention and synchronisation policies, so enterprise-grade compliance and data integrity hold across all three platforms rather than only on the web.",
+        heading: "Showing the connection, not hiding it",
+        body: "A call overlay reports round-trip time, packet loss percentage, and video bitrate live while you talk. It is a small feature with an outsized effect: when a call degrades, the usual experience is not knowing whether the problem is you, them, or the app. Surfacing the numbers turns that into something a user can actually act on.",
+      },
+      {
+        heading: "One codebase, web and native",
+        body: "The frontend is Next.js 16 with React 19, deployed as a web app and packaged as a native Android build with Capacitor 7 — which needs real hardware permissions for audio recording, camera, and audio-mode changes to make calls work on a phone. Mobile got specific attention rather than a shrunken desktop layout: dynamic viewport-height handling so the composer is not hidden behind mobile browser chrome, message bubbles bounded so long text stays readable, deliberate tap-target sizing, and a full-screen image lightbox with a direct download.",
+      },
+      {
+        heading: "On the latency figure",
+        body: "Messaging is described as sub-50ms, which is a reasonable order of magnitude for full-duplex WebSockets on a warm connection — but it only means something with a method attached: [[state where the sub-50ms figure was measured (server handling, or client send-to-echo), at which percentile, and under how many concurrent sessions]].",
+        // TODO(laila): fill that in from a repeatable measurement. This replaced a
+        // "sub-millisecond" claim, which was not plausible for a network round
+        // trip; sub-50ms is defensible, so it is worth substantiating properly.
       },
     ],
     featured: true

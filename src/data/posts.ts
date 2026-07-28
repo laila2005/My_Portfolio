@@ -209,9 +209,9 @@ async def ws_endpoint(ws: WebSocket, ticket: str):
       {
         type: 'p',
         // TODO(laila): replace the bracketed marker below with a real, repeatable
-        // measurement (method + percentile + concurrency), or delete the
-        // "sub-millisecond" claim from Projects.tsx as well.
-        text: 'My own project blurb says Zagel does "sub-millisecond WebSocket messaging", and that claim deserves a footnote rather than a victory lap, because the number means nothing without a definition attached: measured between which two points, at which percentile, under what concurrency, over what network. [add: p50/p95/p99 server-side handling time, the client-observed send-to-echo round trip on a real network, and the concurrent connection count it held at]. Until that is filled in with a method someone else could re-run, the honest description is a local observation, not a production characteristic.',
+        // measurement (method + percentile + concurrency). The project page states
+        // sub-50ms and carries the same marker; keep the two in step.
+        text: 'This project used to be described as doing "sub-millisecond WebSocket messaging". That was never plausible — a network round trip does not fit inside a millisecond outside a loopback interface — and it now reads sub-50ms, which is a believable order of magnitude for full-duplex sockets on a warm connection. It still deserves a footnote rather than a victory lap, because even a plausible number means nothing without a definition attached: measured between which two points, at which percentile, under what concurrency, over what network. [add: p50/p95/p99 server-side handling time, the client-observed send-to-echo round trip on a real network, and the concurrent connection count it held at]. Until that is filled in with a method someone else could re-run, the honest description is a local observation, not a production characteristic.',
       },
       {
         type: 'quote',
