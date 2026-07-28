@@ -19,8 +19,20 @@ export type Role = {
   link?: string;
   /** Internal route to a deeper write-up, when one exists. */
   caseStudy?: string;
+  /**
+   * Short badge for a role that isn't a finished chapter — e.g. 'Internship'.
+   * Deliberately not used to assert progress ("in progress", "incoming"): the
+   * `duration` dates already tell a reader where a role sits in time, and a
+   * hardcoded status is a claim that silently goes stale.
+   */
+  badge?: string;
 };
 
+/**
+ * Ordering: the ongoing lead role first, then the rest most-recent-first. The
+ * dates are stated on every entry, so leading with the flagship role rather than
+ * with whatever started most recently costs a reader nothing.
+ */
 export const roles: Role[] = [
   {
     company: 'LM Smart Solutions',
@@ -34,6 +46,19 @@ export const roles: Role[] = [
     tech: ['C# / .NET', 'ASP.NET', 'SQL Server', 'Industrial protocols', 'IoT telemetry'],
     link: 'https://lm-tech-solutions.tech/',
     caseStudy: '/case-study/lm-ms',
+  },
+  {
+    company: 'Banque Misr',
+    title: 'Information Security Intern',
+    duration: '2 – 27 August 2026',
+    badge: 'Internship',
+    // Written before the placement began, so it states the placement and nothing
+    // more. TODO(laila): after 27 August, replace this with what you actually
+    // worked on — what you assessed, the tooling, what you'd do differently. That
+    // version carries weight; this one is only a placeholder fact.
+    summary:
+      "Summer placement in the information security sector at one of Egypt's largest banks — security and compliance practice for enterprise systems.",
+    tech: ['Information Security'],
   },
   {
     company: 'Media Gate Company',

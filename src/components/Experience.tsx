@@ -13,6 +13,7 @@ const experiences = roles.map(role => ({
   description: role.summary,
   tech: role.tech,
   caseStudy: role.caseStudy,
+  badge: role.badge,
 }));
 
 const Experience = () => {
@@ -67,9 +68,14 @@ const Experience = () => {
                 <div className={`w-full md:w-[45%] pl-20 md:pl-0 ${isEven ? 'md:pr-16 text-left md:text-right' : 'md:pl-16 text-left'}`}>
                   <div className="bg-white/60 dark:bg-[#110B1D]/40 backdrop-blur-xl border border-white/60 dark:border-purple-500/20 shadow-xl rounded-3xl p-8 hover:-translate-y-1 transition-transform duration-300">
                     
-                    <div className={`flex items-center gap-2 mb-3 text-sm font-bold text-indigo-600 dark:text-indigo-400 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
+                    <div className={`flex flex-wrap items-center gap-2 mb-3 text-sm font-bold text-indigo-600 dark:text-indigo-400 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
                       <Calendar size={16} />
                       {exp.duration}
+                      {exp.badge && (
+                        <span className="rounded-full border border-indigo-500/25 bg-indigo-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+                          {exp.badge}
+                        </span>
+                      )}
                     </div>
 
                     <h3 className="font-poppins font-black text-2xl text-gray-900 dark:text-white mb-1">
