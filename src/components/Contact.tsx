@@ -49,17 +49,16 @@ const Contact = () => {
       return;
     }
     
-    let didTimeout = false;
-    const timeout = setTimeout(() => {
-      didTimeout = true;
-      setLoading(false);
-      setError('Request timed out. Please try again later.');
-    }, 15000); // 15 seconds
-    
+    // AbortController actually cancels the request. The previous version only
+    // flipped a flag, so a reply arriving after 15s showed "timed out" even
+    // though the email had been sent — and users resubmitted, sending duplicates.
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
@@ -68,26 +67,26 @@ const Contact = () => {
           email: form.email.trim(),
           message: form.message.trim(),
         }),
+        signal: controller.signal,
       });
-      
-      clearTimeout(timeout);
-      if (didTimeout) return;
-      
+
       if (res.ok) {
-        const data = await res.json();
         setSuccess(true);
         setForm({ firstName: '', lastName: '', email: '', message: '' });
       } else {
-        const data = await res.json().catch(() => ({ error: 'Server error' }));
+        const data = await res.json().catch(() => ({ error: '' }));
         setError(data.error || `Failed to send message. (Status: ${res.status})`);
       }
     } catch (err) {
-      clearTimeout(timeout);
-      if (didTimeout) return;
-      console.error('Contact form error:', err);
-      setError('Failed to send message. Please check your connection or try again later.');
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        setError('Request timed out. Please try again, or email me directly.');
+      } else {
+        console.error('Contact form error:', err);
+        setError('Failed to send message. Please check your connection or try again later.');
+      }
     } finally {
-      if (!didTimeout) setLoading(false);
+      clearTimeout(timeout);
+      setLoading(false);
     }
   };
 
@@ -171,53 +170,62 @@ const Contact = () => {
                 Send a Message
               </h3>
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* htmlFor/id pairs: the labels were previously unassociated, so
+                    screen readers announced these fields by placeholder only. */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
+                    <label htmlFor="contact-first-name" className="block text-sm font-medium text-primary mb-2">
                       First Name
                     </label>
-                    <Input 
+                    <Input
+                      id="contact-first-name"
                       name="firstName"
+                      autoComplete="given-name"
                       value={form.firstName}
                       onChange={handleChange}
-                      placeholder="Your first name" 
+                      placeholder="Your first name"
                       className="border-subtle bg-surface focus:bg-surface focus:border-primary transition-all text-heading placeholder:text-subtle"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
+                    <label htmlFor="contact-last-name" className="block text-sm font-medium text-primary mb-2">
                       Last Name
                     </label>
-                    <Input 
+                    <Input
+                      id="contact-last-name"
                       name="lastName"
+                      autoComplete="family-name"
                       value={form.lastName}
                       onChange={handleChange}
-                      placeholder="Your last name" 
+                      placeholder="Your last name"
                       className="border-subtle bg-surface focus:bg-surface focus:border-primary transition-all text-heading placeholder:text-subtle"
                       required
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label htmlFor="contact-email" className="block text-sm font-medium text-primary mb-2">
                     Email
                   </label>
-                  <Input 
+                  <Input
+                    id="contact-email"
                     type="email"
                     name="email"
+                    autoComplete="email"
                     value={form.email}
                     onChange={handleChange}
-                    placeholder="your.email@example.com" 
+                    placeholder="your.email@example.com"
                     className="border-subtle bg-surface focus:bg-surface focus:border-primary transition-all text-heading placeholder:text-subtle"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-primary mb-2">
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-primary mb-2">
                     Message
                   </label>
-                  <Textarea 
+                  <Textarea
+                    id="contact-message"
                     name="message"
                     value={form.message}
                     onChange={handleChange}
@@ -236,7 +244,7 @@ const Contact = () => {
                     disabled={loading}
                     onClick={handlePlaneClick}
                   >
-                    <span>Send Message</span>
+                    <span>{loading ? 'Sending…' : 'Send Message'}</span>
                     <motion.span
                       animate={planeAnim ? { x: [0, 8, 0], rotate: [0, -18, 0] } : { x: 0, rotate: 0 }}
                       transition={{ duration: 0.5, ease: 'easeInOut' }}
@@ -245,28 +253,32 @@ const Contact = () => {
                       <Send size={22} className="ml-1 text-white/80 drop-shadow" />
                     </motion.span>
                   </Button>
-                  <AnimatePresence>
-                    {error && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        className="mt-2 p-3 rounded-lg bg-rose-500/10 text-rose-500 text-sm font-medium shadow border border-rose-500/20"
-                      >
-                        {error}
-                      </motion.div>
-                    )}
-                    {success && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        className="mt-2 p-3 rounded-lg bg-emerald-500/10 text-emerald-500 text-sm font-bold shadow border border-emerald-500/20"
-                      >
-                        Message sent! I'll get back to you soon 💜
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {/* aria-live announces the outcome; previously a blind user got
+                      no feedback at all after pressing Send. */}
+                  <div aria-live="polite" role="status">
+                    <AnimatePresence>
+                      {error && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          className="mt-2 p-3 rounded-lg bg-rose-500/10 text-rose-500 text-sm font-medium shadow border border-rose-500/20"
+                        >
+                          {error}
+                        </motion.div>
+                      )}
+                      {success && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          className="mt-2 p-3 rounded-lg bg-emerald-500/10 text-emerald-500 text-sm font-bold shadow border border-emerald-500/20"
+                        >
+                          Message sent! I'll get back to you soon 💜
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
               </form>
             </div>

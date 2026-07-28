@@ -1,24 +1,19 @@
-import { Briefcase, Calendar } from 'lucide-react';
+import { Briefcase, Calendar, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { roles } from '@/data/experience';
 
-const experiences = [
-  {
-    role: "Co-Founder & Lead Software Engineer",
-    company: "LM Smart Solutions",
-    link: "https://lm-tech-solutions.tech/",
-    duration: "Present",
-    description: "Working remotely as a Full-Stack Developer on the LM-MS (enterprise monitoring system). Responsible for architecting and deploying scalable web applications and enterprise-grade software solutions.",
-    tech: ["React", "Node.js", "TypeScript", "Full-Stack"],
-  },
-  {
-    role: "Full-Stack Engineer / Freelancer",
-    company: "Bagi Job Platform",
-    link: null,
-    duration: "August 2025 – Oct 2025",
-    description: "Professional freelance job portal developed entirely from scratch. Engineered a scalable React frontend coupled with robust backend server architecture. Delivered a seamless user experience for both freelancers and clients.",
-    tech: ["React.js", "Redux", "REST API", "PostgreSQL", "Tailwind CSS"],
-  }
-];
+// Rendered from the shared work-history module; see src/data/experience.ts.
+const experiences = roles.map(role => ({
+  role: role.title,
+  company: role.company,
+  project: role.project,
+  link: role.link ?? null,
+  duration: role.duration,
+  description: role.summary,
+  tech: role.tech,
+  caseStudy: role.caseStudy,
+}));
 
 const Experience = () => {
   return (
@@ -81,7 +76,7 @@ const Experience = () => {
                       {exp.role}
                     </h3>
                     
-                    <div className="text-lg font-semibold text-purple-600 dark:text-purple-400 mb-4">
+                    <div className="text-lg font-semibold text-purple-600 dark:text-purple-400 mb-1">
                       {exp.link ? (
                         <a href={exp.link} target="_blank" rel="noopener noreferrer" className="hover:underline hover:text-purple-500 transition-colors">
                           {exp.company} ↗
@@ -91,9 +86,23 @@ const Experience = () => {
                       )}
                     </div>
 
+                    {exp.project && (
+                      <div className="font-inter text-sm text-subtle mb-4">{exp.project}</div>
+                    )}
+
                     <p className="font-inter text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                       {exp.description}
                     </p>
+
+                    {exp.caseStudy && (
+                      <Link
+                        to={exp.caseStudy}
+                        className={`inline-flex items-center gap-1.5 mb-6 text-sm font-bold text-primary hover:gap-2.5 transition-all ${isEven ? 'md:flex-row-reverse' : ''}`}
+                      >
+                        Read the case study
+                        <ArrowRight size={15} />
+                      </Link>
+                    )}
 
                     <div className={`flex flex-wrap gap-2 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
                       {exp.tech.map((tech, i) => (

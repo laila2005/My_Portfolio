@@ -1,4 +1,4 @@
-import React, { useRef, useState, MouseEvent } from 'react';
+import React, { useRef, MouseEvent } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 interface MagneticButtonProps {
@@ -9,7 +9,6 @@ interface MagneticButtonProps {
 
 const MagneticButton: React.FC<MagneticButtonProps> = ({ children, className = "", intensity = 0.15 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = useState(false);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -32,16 +31,16 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({ children, className = "
   };
 
   const handleMouseLeave = () => {
-    setHovered(false);
     x.set(0);
     y.set(0);
   };
 
   return (
+    // Motion values drive the transform directly, so no state (and no re-render)
+    // is needed per pointer move — a `hovered` state here was never read.
     <motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setHovered(true)}
       onMouseLeave={handleMouseLeave}
       style={{ x: springX, y: springY }}
       className={`inline-block ${className}`}

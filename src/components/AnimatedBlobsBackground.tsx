@@ -3,17 +3,20 @@ import { motion } from 'framer-motion';
 export default function AnimatedBlobsBackground() {
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none" style={{ zIndex: 0 }}>
-      <svg width="0" height="0">
+      {/* Two gradient sets: the light ones ended in near-white, which showed up as
+          milky smears on the near-black dark background. CSS custom properties
+          let the .dark class swap the tail stop without duplicating the shapes. */}
+      <svg width="0" height="0" aria-hidden="true">
         <defs>
           <linearGradient id="blobGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#a78bfa" />
             <stop offset="50%" stopColor="#f472b6" />
-            <stop offset="100%" stopColor="#f8fafc" />
+            <stop offset="100%" className="blob-tail-1" />
           </linearGradient>
           <linearGradient id="blobGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#f472b6" />
             <stop offset="50%" stopColor="#a78bfa" />
-            <stop offset="100%" stopColor="#e5e7eb" /> {/* Gray-100 */}
+            <stop offset="100%" className="blob-tail-2" />
           </linearGradient>
         </defs>
       </svg>

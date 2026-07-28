@@ -13,48 +13,33 @@ const roles = [
 ];
 
 const Hero = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [showSpline, setShowSpline] = useState(false);
 
+  // The 3D scene is desktop-only. (A previous isDarkMode state and its
+  // MutationObserver were removed — nothing in the markup ever read them.)
   useEffect(() => {
-    const checkDarkMode = () => {
-      const isDarkClass = document.documentElement.classList.contains('dark');
-      const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setIsDarkMode(isDarkClass || (isSystemDark && !document.documentElement.classList.contains('light')));
-    };
-    
-    checkDarkMode();
-
-    const observer = new MutationObserver(checkDarkMode);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    mediaQuery.addEventListener('change', checkDarkMode);
-
-    const checkWidth = () => {
-      setShowSpline(window.innerWidth >= 768);
-    };
-    checkWidth();
-    window.addEventListener('resize', checkWidth);
-
-    return () => {
-      observer.disconnect();
-      mediaQuery.removeEventListener('change', checkDarkMode);
-      window.removeEventListener('resize', checkWidth);
-    };
+    const media = window.matchMedia('(min-width: 768px)');
+    const apply = () => setShowSpline(media.matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    apply();
+    media.addEventListener('change', apply);
+    return () => media.removeEventListener('change', apply);
   }, []);
 
   return (
     <section id="home" className="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden bg-gradient-glass dark:bg-none dark:bg-[#030014] pt-20 pb-24 lg:pt-32 lg:pb-12 transition-colors duration-500">
       <AnimatedBlobsBackground />
       
-      {/* 3D FULL BLEED BACKGROUND */}
+      {/* 3D FULL BLEED BACKGROUND.
+          pointer-events-none is deliberate: this wrapper spans the whole first
+          screen and a cross-origin iframe swallows any wheel/touch it receives,
+          so scrolling over the hero orbited the 3D scene instead of moving the
+          page. The scene still animates; it just no longer captures input. */}
       {showSpline && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2, delay: 0.5 }}
-          className="absolute inset-0 z-0 w-full h-full mix-blend-multiply dark:mix-blend-screen pointer-events-auto overflow-hidden flex items-center justify-center"
+          className="absolute inset-0 z-0 w-full h-full mix-blend-multiply dark:mix-blend-screen pointer-events-none overflow-hidden flex items-center justify-center"
           style={{ 
             maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)',
             WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)'
@@ -111,8 +96,12 @@ const Hero = () => {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start items-center lg:items-start w-full lg:w-auto pointer-events-auto">
+            {/* asChild makes the anchor the rendered element. Previously a
+                <Button> wrapped an <a>, so the focused button had no handler and
+                pressing Enter did nothing. */}
             <MagneticButton className="w-full sm:w-auto flex justify-center lg:justify-start">
-              <Button 
+              <Button
+                asChild
                 size="lg"
                 className="bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed] text-white font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-xl shadow-purple-500/20 hover-glow border-0 relative overflow-hidden group transition-all duration-300 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
               >
@@ -123,14 +112,22 @@ const Hero = () => {
                 </a>
               </Button>
             </MagneticButton>
-            
+
             <MagneticButton intensity={0.3} className="w-full sm:w-auto flex justify-center lg:justify-start">
-              <Button 
+              <Button
+                asChild
                 size="lg"
                 variant="outline"
                 className="border-2 border-primary/30 dark:border-primary/40 text-primary font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-lg hover-glow transition-all duration-300 bg-surface/50 backdrop-blur-sm hover:bg-primary/5 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
               >
-                <a href="/Laila_Fikry_CV.docx" download className="flex items-center justify-center gap-2 w-full">
+                {/* PDF opens inline in every browser; the .docx it replaced forced
+                    a download recruiters on phones could not preview. */}
+                <a
+                  href="/Laila_Mohamed_CV.pdf"
+                  target="_blank"
+                  rel="noopener"
+                  className="flex items-center justify-center gap-2 w-full"
+                >
                   <span>Resume</span>
                   <Download size={18} className="shrink-0" />
                 </a>
@@ -141,28 +138,31 @@ const Hero = () => {
           {/* Socials */}
           <div className="flex gap-4 justify-center lg:justify-start w-full sm:w-auto pointer-events-auto">
             <MagneticButton intensity={0.4}>
-              <a 
-                href="https://www.linkedin.com/in/laila-mohamed23/" 
-                target="_blank" 
+              <a
+                href="https://www.linkedin.com/in/laila-mohamed23/"
+                target="_blank"
                 rel="noopener noreferrer"
+                aria-label="LinkedIn profile"
                 className="p-3 bg-surface/70 backdrop-blur-md rounded-full shadow-md hover-glow transition-all duration-300 text-primary hover:-translate-y-1 block border border-subtle"
               >
                 <Linkedin size={22} />
               </a>
             </MagneticButton>
             <MagneticButton intensity={0.4}>
-              <a 
-                href="https://github.com/laila2005" 
-                target="_blank" 
+              <a
+                href="https://github.com/laila2005"
+                target="_blank"
                 rel="noopener noreferrer"
+                aria-label="GitHub profile"
                 className="p-3 bg-surface/70 backdrop-blur-md rounded-full shadow-md hover-glow transition-all duration-300 text-heading hover:-translate-y-1 block border border-subtle"
               >
                 <Github size={22} />
               </a>
             </MagneticButton>
             <MagneticButton intensity={0.4}>
-              <a 
+              <a
                 href="mailto:laila.mohamed.fikry@gmail.com"
+                aria-label="Email Laila"
                 className="p-3 bg-surface/70 backdrop-blur-md rounded-full shadow-md hover-glow transition-all duration-300 text-pink-500 hover:-translate-y-1 block border border-subtle"
               >
                 <Mail size={22} />
@@ -182,7 +182,14 @@ const Hero = () => {
           <div className="flex flex-shrink-0 z-40 relative w-[140px] sm:w-[180px] lg:w-[200px] h-[190px] sm:h-[240px] lg:h-[260px] bg-white/60 dark:bg-[#110B1D]/80 backdrop-blur-3xl rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(168,85,247,0.4)] border border-white/80 dark:border-purple-500/50 p-2 pointer-events-auto transition-transform duration-500 hover:scale-105 rotate-0 lg:rotate-3 hover:rotate-0">
             <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-inner">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent mix-blend-overlay z-10 pointer-events-none"></div>
-              <img src="/profile2.jpg" alt="Laila Mohamed" className="w-full h-full object-cover" />
+              <img
+                src="/profile2.webp"
+                alt="Laila Mohamed Fikry"
+                width={600}
+                height={600}
+                decoding="async"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
@@ -204,7 +211,9 @@ const Hero = () => {
               <div className="flex-1 whitespace-pre-wrap font-mono">
                 <Typewriter
                   words={[
-                    "> Resolving metrics...\n\n[OK] 300+ remote sites monitored\n[OK] Sub-millisecond WebSocket latency\n[OK] 99.9% CV inference accuracy\n\nSystem ready.",
+                    // Keep every figure here defensible — this is the first thing a
+                    // visitor reads. The CV number is the real F1 on unseen test data.
+                    "> Resolving metrics...\n\n[OK] 300+ remote sites monitored\n[OK] Real-time WebSocket messaging\n[OK] 68% F1 crash detection (unseen data)\n\nSystem ready.",
                     "> Loading architecture...\n\n- Next.js / React (Frontend)\n- FastAPI / Node.js (Backend)\n- PostgreSQL / Redis (Data)\n- AI/ML Pipelines (Python)\n\nAll services operational."
                   ]}
                   loop={0}

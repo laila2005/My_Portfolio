@@ -1,51 +1,42 @@
-import { GraduationCap, Award, Users, Shield, ExternalLink, Briefcase } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
+import { GraduationCap, Award, Users, Shield, ExternalLink, Briefcase, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { roles, credentials, certifications as certData } from '@/data/experience';
+
+const iconFor: Record<string, JSX.Element> = {
+  work: <Briefcase className="text-blue-500" size={24} />,
+  education: <GraduationCap className="text-purple-500" size={24} />,
+  community: <Users className="text-indigo-500" size={24} />,
+  certification: <Shield className="text-emerald-500" size={24} />,
+};
 
 const About = () => {
+  // Work history comes from the shared module so this timeline and the Experience
+  // section can no longer disagree about employers, titles, or product names.
   const achievements = [
-    {
-      icon: <Briefcase className="text-blue-500" size={24} />,
-      title: "LM Tech Solutions",
-      description: "Lead Software Engineer - Architected RMS 3.0 Enterprise IoT Platform.",
-      year: "Nov 2025 - Present"
-    },
-    {
-      icon: <Briefcase className="text-emerald-500" size={24} />,
-      title: "Media Gate Company",
-      description: "Freelance Full Stack Developer - Engineered Payment and Admin Workflows for bagijob.com.",
-      year: "Aug 2025 - Oct 2025"
-    },
-    {
-      icon: <Award className="text-pink-500" size={24} />,
-      title: "ALX Africa",
-      description: "Software Engineering Intensive Training Program - Completed a 15-month full-stack and systems engineering program.",
-      year: "Oct 2023 - July 2025",
-      credential: "https://savanna.alxafrica.com/certificates/59enB3JY6M"
-    },
-    {
-      icon: <GraduationCap className="text-purple-500" size={24} />,
-      title: "El Sewedy University of Technology",
-      description: "Bachelor of Science in Computer Science (Polytechnic of Egypt)",
-      year: "Expected Graduation: 2027"
-    },
-    {
-      icon: <Users className="text-indigo-500" size={24} />,
-      title: "Computality Community",
-      description: "HR Team - Conducted interviews and organized university technology events.",
-      year: "2023 - 2024"
-    }
+    ...roles.map((role, i) => ({
+      icon: i === 0 ? iconFor.work : <Briefcase className="text-emerald-500" size={24} />,
+      title: role.company,
+      description: `${role.title}${role.project ? ` — ${role.project}` : ''}`,
+      year: role.duration,
+      credential: undefined as string | undefined,
+    })),
+    ...credentials.map(item => ({
+      icon: item.title.startsWith('ALX') ? <Award className="text-pink-500" size={24} /> : iconFor[item.kind],
+      title: item.title,
+      description: item.detail,
+      year: item.period,
+      credential: item.credential,
+    })),
   ];
 
-  const certifications = [
-    {
-      icon: <Shield className="text-emerald-500" size={24} />,
-      title: "Green Digital Certificate",
-      description: "Certification in sustainable development and green technology principles.",
-      year: "2025",
-      credential: "https://learning.inco-group.co/pluginfile.php/1/tool_certificate/issues/1760401251/6235986483LF.pdf"
-    }
-  ];
+  const certifications = certData.map(cert => ({
+    icon: iconFor.certification,
+    title: cert.title,
+    description: cert.detail,
+    year: cert.period,
+    credential: cert.credential,
+    localProof: cert.localProof,
+  }));
 
   return (
     <section id="about" className="py-24 bg-surface transition-colors duration-500">
@@ -137,15 +128,17 @@ const About = () => {
                         <p className="text-body font-inter text-sm mb-3">
                           {cert.description}
                         </p>
-                        {cert.credential && (
-                          <a 
-                            href={cert.credential} 
-                            target="_blank" 
+                        {/* The issuer's online verifier for this certificate no
+                            longer resolves, so link the certificate itself. */}
+                        {(cert.credential || cert.localProof) && (
+                          <a
+                            href={cert.credential ?? cert.localProof}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1.5 text-xs text-emerald-500 hover:text-emerald-400 font-bold transition-colors w-fit bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/20"
                           >
-                            <ExternalLink size={14} />
-                            Verify Credential
+                            {cert.credential ? <ExternalLink size={14} /> : <FileText size={14} />}
+                            {cert.credential ? 'Verify Credential' : 'View Certificate (PDF)'}
                           </a>
                         )}
                       </div>

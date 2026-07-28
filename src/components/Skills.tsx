@@ -18,7 +18,7 @@ const Skills = () => {
   return (
     <section id="skills" className="py-32 bg-surface-elevated transition-colors duration-500 relative overflow-hidden">
       {/* Decorative background */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 mix-blend-overlay pointer-events-none" />
+      <div className="absolute inset-0 bg-noise opacity-5 mix-blend-overlay pointer-events-none" />
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-purple-500/10 rounded-full blur-[120px] opacity-60 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -84,7 +84,7 @@ const Skills = () => {
             whileHover={{ y: -5 }}
             className="md:col-span-2 md:row-span-1 rounded-[2rem] p-8 shadow-xl relative group overflow-hidden bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex flex-col justify-between"
           >
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none" />
+            <div className="absolute inset-0 bg-noise opacity-20 mix-blend-overlay pointer-events-none" />
             
             <div className="flex items-start justify-between relative z-10 mb-6">
               <div>

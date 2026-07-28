@@ -1,6 +1,5 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
-
+/* Fonts are loaded via <link> tags in index.html — an @import here duplicated
+   the same request and blocked rendering a second time. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -103,10 +102,31 @@
   body {
     @apply bg-background text-foreground font-inter;
     transition: background-color 0.3s ease, color 0.3s ease;
+    /* Section entrance animations translate content horizontally before settling,
+       which briefly pushed the page a few px wide. `clip` suppresses that without
+       creating a scroll container (which would break position: sticky). */
+    overflow-x: clip;
   }
 
-  html {
-    scroll-behavior: smooth;
+  /* Lenis drives scrolling from JS. Native smooth-scroll re-animated every one
+     of its per-frame scroll writes, which made the page lag behind the wheel. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  /* Anchored sections cleared the fixed 64px nav instead of hiding under it. */
+  section[id] {
+    scroll-margin-top: 5rem;
   }
 
   /* Scrollbar */
@@ -237,10 +257,53 @@
     }
   }
 
+  /* Hero blob gradient tails. Light mode fades to near-white; dark mode fades
+     into the page background instead of glowing milky-grey over it. */
+  .blob-tail-1 {
+    stop-color: #f8fafc;
+  }
+  .blob-tail-2 {
+    stop-color: #e5e7eb;
+  }
+  .dark .blob-tail-1 {
+    stop-color: #1e1b4b;
+  }
+  .dark .blob-tail-2 {
+    stop-color: #0f0a24;
+  }
+
+  /* Self-hosted grain. This was hotlinked from an unrelated third-party demo
+     deployment, so the texture would vanish if that app ever went away. */
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
+
   .hover-glow {
     transition: all 0.3s ease;
   }
   .hover-glow:hover {
     box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+  }
+}
+
+/* Respect the OS "reduce motion" setting. The site's infinite animations —
+   floating blobs, bounce, pulse, typewriter cursors, framer transitions — ran
+   unconditionally because the only reduced-motion rule lived in a CSS file that
+   was never imported. Motion-sensitive visitors had no way out. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-float,
+  .animate-bounce,
+  .animate-pulse,
+  .animate-blob {
+    animation: none !important;
   }
 }

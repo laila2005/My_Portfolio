@@ -1,19 +1,26 @@
 import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useLenis } from 'lenis/react';
 
 const Footer = () => {
   const [showTop, setShowTop] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowTop(window.scrollY > 300);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Subscribe to Lenis's own scroll signal instead of adding a second window
+  // listener. setState with an unchanged boolean is a no-op, so this only
+  // re-renders on the two frames where the threshold is actually crossed.
+  const lenis = useLenis(({ scroll }) => {
+    setShowTop(scroll > 300);
+  });
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Lenis owns the scroller; calling window.scrollTo leaves its internal
+    // position stale and the next wheel event snaps the page back.
+    if (lenis) {
+      lenis.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -52,6 +59,20 @@ const Footer = () => {
 
             {/* High-Contrast Social Icons */}
             <div className="flex flex-col items-center md:items-end gap-4">
+              <nav className="flex gap-5 mb-2" aria-label="More pages">
+                <Link
+                  to="/case-study/lm-ms"
+                  className="font-inter text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
+                >
+                  Case study
+                </Link>
+                <Link
+                  to="/writing"
+                  className="font-inter text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
+                >
+                  Writing
+                </Link>
+              </nav>
               <span className="font-poppins font-semibold text-gray-900 dark:text-white text-sm tracking-wide uppercase opacity-80">
                 Connect
               </span>
@@ -90,7 +111,7 @@ const Footer = () => {
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="font-inter text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-medium text-center md:text-left">
-              © 2025 Laila Fikry. All rights reserved.
+              © {new Date().getFullYear()} Laila Fikry. All rights reserved.
             </p>
             <p className="font-inter text-gray-400 dark:text-gray-500 text-xs sm:text-sm flex items-center justify-center gap-1">
               Designed & Built with <span className="text-red-500 animate-pulse">♥</span>

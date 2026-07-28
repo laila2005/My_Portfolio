@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Moon, Sun, Linkedin, Github } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLenis } from 'lenis/react';
 
 const navItems = [
   { name: 'Home', href: '#home' },
@@ -21,42 +22,57 @@ const Navigation = () => {
   const [isDark, setIsDark] = useState(false);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
+  // The pre-paint script in index.html already applied the class; mirror it into
+  // state so the icon matches, and follow OS changes when there's no saved choice.
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    }
+    setIsDark(document.documentElement.classList.contains('dark'));
+
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const followSystem = (e: MediaQueryListEvent) => {
+      if (localStorage.getItem('theme')) return;
+      setIsDark(e.matches);
+      document.documentElement.classList.toggle('dark', e.matches);
+    };
+    media.addEventListener('change', followSystem);
+    return () => media.removeEventListener('change', followSystem);
   }, []);
 
   const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (!isDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
+    setIsDark(prev => {
+      const next = !prev;
+      document.documentElement.classList.toggle('dark', next);
+      localStorage.setItem('theme', next ? 'dark' : 'light');
+      return next;
+    });
   };
 
+  // Scroll-spy via IntersectionObserver. The old version read offsetTop for all
+  // six sections on every scroll event — and Lenis fires one per animation frame.
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      let found = 'home';
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sectionIds[i]);
-        if (section && window.scrollY + 80 >= section.offsetTop) {
-          found = sectionIds[i];
-          break;
-        }
-      }
-      setActive(found);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const sections = sectionIds
+      .map(id => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      entries => {
+        const visible = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      // Bias the viewport upward so a section counts as active once it reaches
+      // the upper third, which is where a reader's attention actually is.
+      { rootMargin: '-20% 0px -60% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+
+    sections.forEach(section => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
+
+  // Separate, cheap signal for the nav's own background state.
+  useLenis(({ scroll }) => {
+    setScrolled(scroll > 50);
+  });
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -114,6 +130,9 @@ const Navigation = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-heading hover:text-primary p-2"
+              aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isOpen}
+              aria-controls="mobile-nav"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -124,6 +143,7 @@ const Navigation = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div
+              id="mobile-nav"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -158,10 +178,10 @@ const Navigation = () => {
                 >
                   <span className="text-sm font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Connect</span>
                   <div className="flex gap-4">
-                     <a href="https://www.linkedin.com/in/laila-mohamed23/" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 dark:bg-white/10 rounded-full text-heading hover:bg-primary hover:text-white transition-colors shadow-sm">
+                     <a href="https://www.linkedin.com/in/laila-mohamed23/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" className="p-3 bg-gray-100 dark:bg-white/10 rounded-full text-heading hover:bg-primary hover:text-white transition-colors shadow-sm">
                        <Linkedin size={20} />
                      </a>
-                     <a href="https://github.com/laila2005" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 dark:bg-white/10 rounded-full text-heading hover:bg-primary hover:text-white transition-colors shadow-sm">
+                     <a href="https://github.com/laila2005" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="p-3 bg-gray-100 dark:bg-white/10 rounded-full text-heading hover:bg-primary hover:text-white transition-colors shadow-sm">
                        <Github size={20} />
                      </a>
                   </div>
