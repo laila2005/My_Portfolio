@@ -7,7 +7,7 @@ const experiences = [
     company: "LM Smart Solutions",
     link: "https://lm-tech-solutions.tech/",
     duration: "Present",
-    description: "Working remotely as a Full-Stack Developer on the RMS (LM-Remote Monitoring System). Responsible for architecting and deploying scalable web applications and enterprise-grade software solutions.",
+    description: "Working remotely as a Full-Stack Developer on the LM-MS (enterprise monitoring system). Responsible for architecting and deploying scalable web applications and enterprise-grade software solutions.",
     tech: ["React", "Node.js", "TypeScript", "Full-Stack"],
   },
   {
