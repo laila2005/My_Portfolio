@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { projects } from '@/data/projects';
-import dims from '@/data/image-dimensions.json';
+import ProjectGallery from '@/components/ProjectGallery';
 
 /**
  * One project. Route: /projects/:slug
@@ -31,13 +31,6 @@ import dims from '@/data/image-dimensions.json';
 
 const SITE = 'Laila Mohamed Fikry';
 const EMAIL = 'laila.mohamed.fikry@gmail.com';
-
-const imageDimensions = dims as Record<string, { w: number; h: number } | undefined>;
-
-const isRemoteImage = (src: string) => /^https?:\/\//i.test(src);
-
-/** Logos need letterboxing; screenshots and photographs should fill the frame. */
-const isLogoImage = (src: string) => src.includes('logo');
 
 /* ─── Inline placeholder ───────────────────────────────────────────────────
    Deliberately loud. If one of these reaches production it should look like a
@@ -78,11 +71,6 @@ const ProjectDetail = () => {
   const hasPublicRepo = Boolean(project?.github && project.github !== '#');
   const isPrivateSource = project?.sourceStatus === 'private' || project?.github === '#';
   const gallery = project?.gallery ?? [];
-
-  // Judged from the first shot's intrinsic dimensions, so a set of phone
-  // screenshots lays out differently from a set of wide desktop captures.
-  const firstSize = gallery.length > 0 ? imageDimensions[gallery[0].src] : undefined;
-  const galleryIsPortrait = !!firstSize && firstSize.h > firstSize.w * 1.3;
 
   return (
     <div className="relative min-h-screen bg-surface transition-colors duration-500">
@@ -276,47 +264,9 @@ const ProjectDetail = () => {
               className="mb-14"
               aria-label="Project gallery"
             >
-              {/* Portrait phone screenshots get a third column on large screens —
-                  at two columns, a seven-shot set ran to nearly 7,000px of page. */}
-              <div
-                className={`grid grid-cols-1 gap-4 ${
-                  gallery.length > 1 ? 'sm:grid-cols-2' : ''
-                } ${gallery.length > 3 && galleryIsPortrait ? 'lg:grid-cols-3' : ''}`}
-              >
-                {gallery.map((shot, index) => {
-                  const size = imageDimensions[shot.src];
-                  return (
-                    <figure
-                      key={shot.src}
-                      /* Logos sit on a light plate: a dark-on-dark SVG would be
-                         invisible against the dark-mode surface. */
-                      className={`overflow-hidden rounded-3xl border border-subtle ${
-                        isLogoImage(shot.src) ? 'bg-white/80 dark:bg-white/[0.06]' : 'bg-surface-overlay'
-                      }`}
-                    >
-                      <img
-                        src={shot.src}
-                        alt={shot.alt}
-                        width={size?.w}
-                        height={size?.h}
-                        loading={index === 0 ? 'eager' : 'lazy'}
-                        decoding="async"
-                        referrerPolicy={isRemoteImage(shot.src) ? 'no-referrer' : undefined}
-                        className={
-                          isLogoImage(shot.src)
-                            ? 'mx-auto h-auto max-h-[360px] w-auto max-w-full object-contain p-8'
-                            : 'h-auto w-full object-cover'
-                        }
-                      />
-                      {shot.caption && (
-                        <figcaption className="border-t border-subtle px-4 py-3 font-inter text-xs leading-relaxed text-subtle sm:px-5">
-                          {shot.caption}
-                        </figcaption>
-                      )}
-                    </figure>
-                  );
-                })}
-              </div>
+              {/* Swipeable stage + thumbnail rail. A grid of portrait screenshots
+                  meant thousands of pixels of scrolling for one project. */}
+              <ProjectGallery shots={gallery} title={project.title} />
 
               {/* Only a cover image so far. A private repo plus no screenshots is
                   exactly the gap this page exists to close, so say so out loud. */}

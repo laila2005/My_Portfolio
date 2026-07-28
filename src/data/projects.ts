@@ -131,6 +131,11 @@ export const projects: Project[] = [
     // screenshot requirement (docs/PLAY_STORE_LISTING.md in the app repo).
     gallery: [
       {
+        src: "/riselist-00-splash.webp",
+        alt: "RiseList splash screen: the app icon over a purple-to-coral gradient, the name RiseList, the line “Rise. Speak. Done.”, and three checked steps — Wake up, Speak your day, Get it done.",
+        caption: "The whole product in three steps, stated on launch: wake up, speak your day, get it done.",
+      },
+      {
         src: "/riselist-01-listening.webp",
         alt: "RiseList capture screen: a live audio waveform above a 00:06 / 08:00 timer, with the prompt “Listening… speak in English, Arabic, or both.”",
         caption: "Capture. The waveform confirms the app is listening, and the language is detected rather than chosen.",
