@@ -97,12 +97,6 @@ export const credentials: Credential[] = [
     detail: 'B.Sc. Computer Science (Polytechnic of Egypt).',
     period: 'Expected graduation 2028',
   },
-  {
-    kind: 'community',
-    title: 'Computality Community',
-    detail: 'HR team — conducted interviews and organized university technology events.',
-    period: '2023 – 2024',
-  },
 ];
 
 export const certifications: Credential[] = [

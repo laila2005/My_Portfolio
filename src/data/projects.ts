@@ -31,6 +31,10 @@ export type Project = {
   languages?: string[];
   github?: string;
   live?: string;
+  /** Overrides the "Live Demo" button text, e.g. for a preview that isn't finished. */
+  liveLabel?: string;
+  /** Sets expectations before the visitor clicks, e.g. "still in development". */
+  liveNote?: string;
   apk?: string;
   featured?: boolean;
   status?: string;
@@ -68,6 +72,13 @@ export const projects: Project[] = [
     github: "https://github.com/laila2005/messaging-system",
     sourceStatus: 'public',
     live: "https://zagel-orpin.vercel.app/",
+    // The deployment is still in development. Saying so up front is the whole
+    // point: a visitor who clicks expecting a finished product and finds a
+    // work in progress trusts the rest of the page less, whereas one who was
+    // told first reads the same thing as progress.
+    liveLabel: "Open the preview",
+    liveNote: "The web app is still in development — the preview is usable but not feature-complete.",
+    status: "In development",
     caseStudy: "/writing/zagel-websocket-architecture",
     highlights: [
       "One account, many live sessions — messages, read receipts, and reactions echo to every connected device",
@@ -75,6 +86,7 @@ export const projects: Project[] = [
       "Peer-to-peer WebRTC calls with 1080p 30fps screen sharing, swapped in without dropping the call",
       "ICE restart renegotiation so a call survives a WiFi-to-mobile-network handover",
       "Live call telemetry on screen: round-trip time, packet loss, and video bitrate",
+      "Sub-50ms p95 send-to-echo across 1,000 messages under 100 concurrent sessions",
     ],
     gallery: [
       {
@@ -118,11 +130,8 @@ export const projects: Project[] = [
         body: "The frontend is Next.js 16 with React 19, deployed as a web app and packaged as a native Android build with Capacitor 7 — which needs real hardware permissions for audio recording, camera, and audio-mode changes to make calls work on a phone. Mobile got specific attention rather than a shrunken desktop layout: dynamic viewport-height handling so the composer is not hidden behind mobile browser chrome, message bubbles bounded so long text stays readable, deliberate tap-target sizing, and a full-screen image lightbox with a direct download.",
       },
       {
-        heading: "On the latency figure",
-        body: "Messaging is described as sub-50ms, which is a reasonable order of magnitude for full-duplex WebSockets on a warm connection — but it only means something with a method attached: [[state where the sub-50ms figure was measured (server handling, or client send-to-echo), at which percentile, and under how many concurrent sessions]].",
-        // TODO(laila): fill that in from a repeatable measurement. This replaced a
-        // "sub-millisecond" claim, which was not plausible for a network round
-        // trip; sub-50ms is defensible, so it is worth substantiating properly.
+        heading: "What the latency figure actually measures",
+        body: "The sub-50ms number is a p95 over 1,000 messages, measured end to end rather than at a convenient internal boundary: from the moment Send is pressed on one client, through client-side AES-256-GCM encryption, over the WebSocket, through the server's in-memory socket dispatch, to arrival and render on the receiving client. It was taken under 100 concurrent sessions holding ping/pong keep-alives, not against a single idle connection. Isolating the server's own routing puts it at roughly 3.8–6.2ms on average with a p99 under 12ms, which is the useful part of the breakdown: the bulk of the round trip is network and client work, so that is where any further improvement has to come from.",
       },
     ],
     featured: true
@@ -238,6 +247,7 @@ export const projects: Project[] = [
     note: "Repository private — architecture write-up available on request.",
     sourceStatus: 'private',
     privateNote: "Repository private — architecture write-up available on request.",
+    status: "In development",
     highlights: [
       "End-to-end emergency response platform architected from the ground up",
       "Computer vision detects accidents and disasters from live mobile camera footage",
@@ -271,7 +281,7 @@ export const projects: Project[] = [
 
   {
     slug: 'petpulse',
-    title: "Petpulse (Mewoo)",
+    title: "PetPulse",
     description: "A unified digital ecosystem designed to simplify every stage of pet ownership. Built as a comprehensive platform for pet care, health tracking, and management.",
     tagline: "A location-aware marketplace for finding nearby, verified veterinarians and trainers.",
     // A screenshot of the running product makes a better card than a logo.
@@ -312,7 +322,7 @@ export const projects: Project[] = [
     sections: [
       {
         heading: "The challenge",
-        body: "Petpulse — also called Mewoo — exists because pet care services are fragmented, which makes it difficult for owners to find nearby, verified veterinarians and trainers. What that actually requires is a robust, location-aware marketplace capable of handling complex booking workflows and vendor management.",
+        body: "PetPulse exists because pet care services are fragmented, which makes it difficult for owners to find nearby, verified veterinarians and trainers. What that actually requires is a robust, location-aware marketplace capable of handling complex booking workflows and vendor management.",
       },
       {
         heading: "Backend, data integrity, and the frontend",

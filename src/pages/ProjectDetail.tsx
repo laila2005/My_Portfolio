@@ -9,6 +9,7 @@ import {
   ExternalLink,
   FileQuestion,
   Github,
+  Hammer,
   Lock,
   Mail,
 } from 'lucide-react';
@@ -202,7 +203,7 @@ const ProjectDetail = () => {
                   className="h-12 w-full rounded-xl font-bold shadow-md shadow-primary/25 sm:w-auto sm:flex-1 sm:min-w-[190px]"
                 >
                   <a href={project.live} target="_blank" rel="noopener noreferrer">
-                    Live Demo
+                    {project.liveLabel ?? 'Live Demo'}
                     <ExternalLink size={16} className="ml-2" />
                   </a>
                 </Button>
@@ -233,6 +234,14 @@ const ProjectDetail = () => {
                 </Button>
               )}
             </div>
+
+            {/* Sets expectations before the click rather than after it. */}
+            {project.liveNote && (
+              <p className="mt-4 flex items-start gap-2.5 rounded-2xl border border-subtle bg-surface-elevated p-4 font-inter text-sm leading-relaxed text-body">
+                <Hammer size={15} className="mt-0.5 flex-shrink-0 text-subtle" />
+                <span>{project.liveNote}</span>
+              </p>
+            )}
 
             {isPrivateSource && (
               <div className="mt-4 flex flex-col gap-3 rounded-2xl border border-subtle bg-surface-elevated p-5 sm:flex-row sm:items-center sm:justify-between">
