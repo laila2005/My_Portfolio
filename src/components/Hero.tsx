@@ -30,28 +30,29 @@ const Hero = () => {
       <AnimatedBlobsBackground />
       
       {/* 3D FULL BLEED BACKGROUND.
-          pointer-events-none is deliberate: this wrapper spans the whole first
-          screen and a cross-origin iframe swallows any wheel/touch it receives,
-          so scrolling over the hero orbited the 3D scene instead of moving the
-          page. The scene still animates; it just no longer captures input. */}
+          The iframe keeps pointer-events so the robot tracks the cursor. Verified
+          that this does not trap scrolling: a wheel gesture directly over the
+          scene still scrolls the page, because this scene has zoom disabled. The
+          wrapper stays pointer-events-none so the mask area never blocks the
+          content sitting above it. Re-test both if the scene URL changes. */}
       {showSpline && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2, delay: 0.5 }}
           className="absolute inset-0 z-0 w-full h-full mix-blend-multiply dark:mix-blend-screen pointer-events-none overflow-hidden flex items-center justify-center"
-          style={{ 
+          style={{
             maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)',
             WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)'
           }}
         >
-          {/* Added 150px to width/height to guarantee the bottom-right Spline logo is fully pushed outside the hidden overflow bounds on all screen sizes */}
-          <iframe 
-            src="https://my.spline.design/r4xbot-W4o2DoAzOZpijadxTQZEON0j/?v=11" 
+          {/* Oversized by 150px so the Spline badge sits outside the clipped bounds. */}
+          <iframe
+            src="https://my.spline.design/r4xbot-W4o2DoAzOZpijadxTQZEON0j/?v=11"
             frameBorder="0"
             loading="lazy"
-            className="w-[calc(100%+150px)] h-[calc(100%+150px)] max-w-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
-            title="Interactive 3D Workspace"
+            className="pointer-events-auto w-[calc(100%+150px)] h-[calc(100%+150px)] max-w-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
+            title="Interactive 3D robot — follows your cursor"
           ></iframe>
         </motion.div>
       )}
