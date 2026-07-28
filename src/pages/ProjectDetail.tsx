@@ -79,6 +79,11 @@ const ProjectDetail = () => {
   const isPrivateSource = project?.sourceStatus === 'private' || project?.github === '#';
   const gallery = project?.gallery ?? [];
 
+  // Judged from the first shot's intrinsic dimensions, so a set of phone
+  // screenshots lays out differently from a set of wide desktop captures.
+  const firstSize = gallery.length > 0 ? imageDimensions[gallery[0].src] : undefined;
+  const galleryIsPortrait = !!firstSize && firstSize.h > firstSize.w * 1.3;
+
   return (
     <div className="relative min-h-screen bg-surface transition-colors duration-500">
       {/* Top bar */}
@@ -271,7 +276,13 @@ const ProjectDetail = () => {
               className="mb-14"
               aria-label="Project gallery"
             >
-              <div className={`grid grid-cols-1 gap-4 ${gallery.length > 1 ? 'sm:grid-cols-2' : ''}`}>
+              {/* Portrait phone screenshots get a third column on large screens —
+                  at two columns, a seven-shot set ran to nearly 7,000px of page. */}
+              <div
+                className={`grid grid-cols-1 gap-4 ${
+                  gallery.length > 1 ? 'sm:grid-cols-2' : ''
+                } ${gallery.length > 3 && galleryIsPortrait ? 'lg:grid-cols-3' : ''}`}
+              >
                 {gallery.map((shot, index) => {
                   const size = imageDimensions[shot.src];
                   return (

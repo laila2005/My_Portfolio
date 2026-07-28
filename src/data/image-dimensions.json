@@ -34,5 +34,33 @@
   "/techroad-logo.svg": {
     "w": 25,
     "h": 25
+  },
+  "/riselist-01-listening.webp": {
+    "w": 600,
+    "h": 1347
+  },
+  "/riselist-02-processing.webp": {
+    "w": 600,
+    "h": 1347
+  },
+  "/riselist-03-confirm.webp": {
+    "w": 600,
+    "h": 1347
+  },
+  "/riselist-04-today.webp": {
+    "w": 600,
+    "h": 1347
+  },
+  "/riselist-05-progress.webp": {
+    "w": 600,
+    "h": 1347
+  },
+  "/riselist-06-calendar.webp": {
+    "w": 600,
+    "h": 1347
+  },
+  "/riselist-07-stats.webp": {
+    "w": 600,
+    "h": 1347
   }
 }

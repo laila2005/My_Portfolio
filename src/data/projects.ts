@@ -126,13 +126,45 @@ export const projects: Project[] = [
       "Zen Mode focus environment, Daily Journaling, and offline voice queueing",
       "Robust paywall system with premium fluid animations",
     ],
+    // The gallery walks the actual pipeline in order: speak, parse, confirm,
+    // then live in the plan. These same shots cover the Play Store listing's
+    // screenshot requirement (docs/PLAY_STORE_LISTING.md in the app repo).
     gallery: [
-      { src: "/riselist_logo.webp", alt: "RiseList app logo" },
-      // TODO(laila): add screenshots here — this one needs them most, because the
-      // repo is private and the cover is only a logo. docs/PLAY_STORE_LISTING.md in
-      // the app repo already calls for 5-8 phone screenshots, so the same set works
-      // for both. Until then the live landing page carries the visuals. Shape:
-      // { src: "/riselist-capture.webp", alt: "Voice capture screen", caption: "Optional one-line caption" },
+      {
+        src: "/riselist-01-listening.webp",
+        alt: "RiseList capture screen: a live audio waveform above a 00:06 / 08:00 timer, with the prompt “Listening… speak in English, Arabic, or both.”",
+        caption: "Capture. The waveform confirms the app is listening, and the language is detected rather than chosen.",
+      },
+      {
+        src: "/riselist-02-processing.webp",
+        alt: "RiseList processing screen reading “Turning your words into a plan… Transcribing, sorting, scheduling and prioritizing.”",
+        caption: "The transcript goes to the Gemini proxy, which must answer in a fixed JSON schema.",
+      },
+      {
+        src: "/riselist-03-confirm.webp",
+        alt: "RiseList confirmation screen listing four extracted tasks, each with a priority, a category, and a scheduled time, above an “Add 4 tasks” button.",
+        caption: "Structured output, reviewable before it is committed — priority, category, and time per task.",
+      },
+      {
+        src: "/riselist-04-today.webp",
+        alt: "RiseList home screen showing four scheduled tasks for today with category tags and times, and a 0/4 completion ring.",
+        caption: "The day as a plan. Task titles mix Arabic and English exactly as they were spoken.",
+      },
+      {
+        src: "/riselist-05-progress.webp",
+        alt: "RiseList home screen with one task completed, a 1/4 ring, a streak counter showing 1, and the finished task struck through under a Completed heading.",
+        caption: "Completing a task advances the streak, which is calculated server-side in a transaction.",
+      },
+      {
+        src: "/riselist-06-calendar.webp",
+        alt: "RiseList calendar view with a horizontal week strip and the selected day's scheduled tasks listed beneath it.",
+        caption: "Scheduled times are real calendar entries, not just labels.",
+      },
+      {
+        src: "/riselist-07-stats.webp",
+        alt: "RiseList progress screen showing day streak, best streak, completed count, a bar chart for the week, and completion split by category.",
+        caption: "Progress view: streaks, weekly completion, and a per-category breakdown.",
+      },
     ],
     sections: [
       {
@@ -160,11 +192,8 @@ export const projects: Project[] = [
         body: "The app also carries a Zen Mode focus environment, Daily Journaling, offline voice queueing, 'Magic Breakdowns' that decompose massive tasks automatically, and a robust paywall system.",
       },
       {
-        heading: "What this page still owes you",
-        body: "Because the repository is private, screenshots are the proof — and there are none in this repo yet: [[add app screenshots: voice capture, a Magic Breakdown, Zen Mode]].",
-        // TODO(laila): drop real screenshots into public/, add them to the
-        // `gallery` above and to src/data/image-dimensions.json, then delete this
-        // whole section.
+        heading: "Seeing it work",
+        body: "The repository is private, so the gallery above is the proof: the same run captured end to end, from the waveform while it listens through to the scheduled day it produces. Two details worth noticing — the task titles keep whatever mix of Arabic and English was actually spoken, and every extracted task is shown for review before anything is written.",
       },
     ],
     featured: true
