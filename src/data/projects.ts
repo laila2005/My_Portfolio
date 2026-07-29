@@ -8,10 +8,16 @@
  * ─── HONESTY CONTRACT FOR THIS FILE ───────────────────────────────────────────
  * `tagline`, `sections`, and `highlights` are restatements or reorganisations of
  * the `description` for that same project, or of a technical write-up supplied
- * by the author for that project (zagel, riselist, inqaz, petpulse, and the
- * model-layer facts shared between inqaz and crash-detection). Nothing here
- * introduces a fact from outside one of those two sources — no invented metrics,
- * dates, team sizes, feature lists, or outcomes.
+ * by the author for that project (zagel, riselist, inqaz, petpulse, and
+ * crash-detection). Nothing here introduces a fact from outside one of those two
+ * sources — no invented metrics, dates, team sizes, feature lists, or outcomes.
+ *
+ * inqaz and crash-detection are related but are NOT the same model stack, and the
+ * copy must not blur them: inqaz runs a dual ResNet-34 system (InqazSceneNet +
+ * InqazPoseNet, validation accuracy figures), crash-detection is a scoped-down
+ * TensorFlow CNN/MobileNetV2 classifier on the same problem (F1 on a held-out
+ * test set). Different models, datasets, metrics, and splits — never compare the
+ * numbers across the two pages.
  *
  * Where a real detail page needs something this repo does not contain, the copy
  * carries an inline `[[ ... ]]` marker. The renderer in
@@ -237,11 +243,11 @@ export const projects: Project[] = [
   {
     slug: 'inqaz',
     title: "Inqaz-app – Egypt Emergency AI Response System",
-    description: "Architected an end-to-end emergency response platform using computer vision to detect accidents and disasters from live mobile camera footage. Automatically dispatches emergency services in real time with GPS coordination.",
-    tagline: "Detect a severe accident from a live camera feed and dispatch emergency services with precise GPS coordinates.",
-    role: "Architected the end-to-end platform",
+    description: "An end-to-end highway emergency response platform: computer vision detects accidents and disasters from live mobile camera footage, and the system then performs triage automatically and dispatches emergency services in real time with precise GPS coordination. A Flutter mobile edge client, a FastAPI Python backend, a dual ResNet-34 detection stack, and a React command centre dashboard.",
+    tagline: "Detect a severe highway accident from a live camera feed and dispatch emergency services with exact GPS coordinates, before anyone picks up the phone.",
+    role: "Architected the end-to-end platform — mobile edge client, backend, detection models, and command centre",
     image: "/inqaz-cover.webp",
-    tech: ["Python", "TensorFlow", "Keras", "CNN", "MobileNetV2", "Grad-CAM", "React.js"],
+    tech: ["Flutter", "FastAPI", "Python", "ResNet-34", "timm", "OpenCV", "WebSockets", "React.js", "Computer Vision"],
     languages: ["Python"],
     github: "#",
     note: "Repository private — architecture write-up available on request.",
@@ -249,9 +255,14 @@ export const projects: Project[] = [
     privateNote: "Repository private — architecture write-up available on request.",
     status: "In development",
     highlights: [
-      "End-to-end emergency response platform architected from the ground up",
-      "Computer vision detects accidents and disasters from live mobile camera footage",
-      "Automatically dispatches emergency services in real time with GPS coordination",
+      "End-to-end architecture: Flutter mobile edge client, FastAPI Python backend, real-time React command centre dashboard",
+      "Detects highway collisions, structural collapses, and severe pedestrian injuries from live mobile camera feeds",
+      "Two ResNet-34 models: InqazSceneNet classifies scenes, InqazPoseNet reads injury severity from posture",
+      "92.4% validation accuracy for InqazSceneNet and 88.2% validation accuracy for InqazPoseNet — validation splits, not held-out test sets",
+      "Test-time augmentation averages the softmax scores of five augmented views of each incoming image",
+      "Deterministic severity mapping blends scene classification with OpenCV motion heuristics into SEVERE, MEDIUM, and MILD tiers",
+      "Incidents stream over WebSockets to a telemetry grid and an interactive map, with markers colour-coded by tier",
+      "Past a critical severity threshold, GPS dispatch routing to the Ministry of Interior (122) and Ambulance services (123) is coordinated without manual review",
     ],
     gallery: [
       { src: "/inqaz-cover.webp", alt: "Inqaz-app cover image" },
@@ -261,19 +272,27 @@ export const projects: Project[] = [
     sections: [
       {
         heading: "The challenge",
-        body: "Emergency response times are often delayed by manual reporting — somebody has to notice the crash, decide to call, and describe where it happened. Inqaz needed to remove that step: an automated system that analyses live camera feeds, detects severe accidents instantly, and dispatches emergency services with precise GPS coordinates.",
+        body: "Emergency response times are delayed by manual reporting. Somebody has to notice the crash, decide to call, describe the situation, and communicate where it happened — four steps before help starts moving. Inqaz removes that chain entirely: analyse live dashcam or bystander camera feeds, detect severe accidents instantly, and dispatch with exact GPS coordinates before a human picks up the phone. This is the original project and the one still under active development; a deliberately scoped-down crash-versus-normal classifier, built separately as coursework along the way, is documented elsewhere in this portfolio.",
+      },
+      {
+        heading: "End-to-end architecture",
+        body: "I architected the whole path rather than a model in isolation: a Flutter mobile application acting as the edge client that captures the feed, a FastAPI Python backend running detection and triage, and a React command centre dashboard that shows incidents to a dispatcher in real time.",
       },
       {
         heading: "The detection models",
-        body: "I architected an end-to-end computer vision pipeline. The core AI is a pair of models trained from scratch on a dataset of over 3,000 real-world traffic images: a custom Convolutional Neural Network (CNN), and a MobileNetV2 model using transfer learning. Fine-tuning MobileNetV2 produced a 68% F1-score on entirely unseen test data.",
+        body: "The core AI is a dual-model system — two custom models built on the ResNet-34 architecture via the timm library, each fine-tuned for a different emergency classification job. InqazSceneNet handles Driver Mode: fine-tuned on the AIDER dataset to classify environmental disasters and highway collisions, it reaches 92.4% validation accuracy. InqazPoseNet handles Bystander Mode: a ResNet-34 backbone plus a custom PoseMLP keypoint classifier that analyses human silhouettes to judge injury severity from posture — whether a person is lying down or upright — reaching 88.2% validation accuracy. Both figures are accuracy on a validation split of a curated dataset, which is a weaker guarantee than held-out test performance on imbalanced real-world footage; the comparable test-set numbers are the thing to measure and publish next.",
       },
       {
-        heading: "Making the model interpretable for operators",
-        body: "In a life-or-death dispatch decision, a bare confidence score is not something a human operator can act on or trust, so interpretability was a hard requirement rather than a finishing touch. I applied Grad-CAM (Gradient-weighted Class Activation Mapping), which generates thermal heatmaps directly over the video feed, pinpointing the exact structural damage on the vehicle that triggered the alert.",
+        heading: "Test-time augmentation",
+        body: "A single uploaded photo gives the model one look at the scene, which is the worst case for precision. Each incoming image is therefore run through five augmented views and the softmax scores averaged, which raises precision on single-photo uploads without costing enough time to matter for a live feed.",
+      },
+      {
+        heading: "Severity scoring and live telemetry",
+        body: "A bare confidence score is not something a human dispatcher can act on, so the classifier output feeds a deterministic severity mapping system that blends the ResNet-34 scene classifications with OpenCV-based motion severity heuristics. Results stream over WebSockets to the React dashboard: a telemetry grid, and an interactive map where each incident appears as a marker colour-coded by severity tier — SEVERE, MEDIUM, or MILD.",
       },
       {
         heading: "Triage and GPS dispatch",
-        body: "The AI is wrapped in a full-stack web interface that ingests live camera feeds, performs real-time incident triage, and automatically coordinates GPS dispatch routing to the Ministry of Interior (122) and Ambulance services (123).",
+        body: "The engine ingests live camera feeds, performs real-time triage, and calculates a severity score from the scene classification and the motion heuristics together. When that score breaches a critical threshold, the system bypasses manual review and coordinates GPS dispatch routing to the Ministry of Interior (122) and Ambulance services (123).",
       },
     ],
     featured: true
@@ -342,20 +361,23 @@ export const projects: Project[] = [
   {
     slug: 'crash-detection',
     title: "Crash Detection and Classification Model",
-    description: "Trained custom CNN and MobileNetV2 models on 3,000 real-world traffic images. Applied Grad-CAM explainability to generate thermal heatmaps identifying structural damage, deployed on Streamlit.",
-    tagline: "Crash classification with Grad-CAM explainability, deployed on Streamlit.",
-    role: "Model training, explainability, and deployment",
+    description: "A deep learning pipeline for automated emergency triage. I trained both a custom CNN and a MobileNetV2 on a balanced dataset of 3,000 real-world traffic scenes to classify \"Crash\" against \"Normal\", integrated Grad-CAM to pinpoint vehicular structural damage, and deployed the inference pipeline as a Streamlit dashboard that simulates live dispatch protocols.",
+    tagline: "A deep learning pipeline for automated emergency triage, with Grad-CAM explainability and a Streamlit deployment.",
+    role: "Model training, explainability integration, and full-stack web deployment",
     image: "/crash-detection-cover-v2.webp",
     tech: ["Python", "TensorFlow", "Keras", "CNN", "MobileNetV2", "Transfer Learning", "Grad-CAM", "Streamlit"],
     languages: ["Python"],
     github: "#",
-    note: "Model and notebooks available on request.",
+    note: "Model architecture and pipeline notebooks available upon request.",
     sourceStatus: 'private',
-    privateNote: "Model and notebooks available on request.",
+    privateNote: "Model architecture and pipeline notebooks available upon request.",
     highlights: [
-      "Custom CNN and MobileNetV2 models trained on 3,000 real-world traffic images",
-      "Grad-CAM explainability generates thermal heatmaps identifying structural damage",
-      "Deployed on Streamlit",
+      "Custom CNN trained from scratch as a baseline, then MobileNetV2 fine-tuned with transfer learning",
+      "Balanced dataset of 3,000 real-world traffic scenes, classified \"Crash\" against \"Normal\"",
+      "68% F1-score on an entirely unseen hold-out test set — inflated by a frame-level split, and published as a baseline rather than a ceiling",
+      "Grad-CAM heatmaps show where the network detected structural damage, so a life-critical prediction can be reviewed rather than taken on trust",
+      "Data pipeline with automated ingestion, 224×224 resizing, rotation, flip and zoom augmentation, and normalisation into the -1 to 1 range MobileNetV2 expects",
+      "Streamlit command-centre deployment taking live camera feeds or uploaded scene evidence, showing confidence metrics and the Grad-CAM output",
     ],
     gallery: [
       { src: "/crash-detection-cover-v2.webp", alt: "Crash detection model cover image" },
@@ -366,23 +388,31 @@ export const projects: Project[] = [
     sections: [
       {
         heading: "The models",
-        body: "Two models were trained from scratch on the same dataset of over 3,000 real-world traffic images: a custom Convolutional Neural Network (CNN), and a MobileNetV2 adapted through transfer learning.",
+        body: "I engineered a custom CNN from scratch first, to establish a performance baseline before reaching for anything pre-trained — without that number, a transfer-learning result has nothing to be measured against. The second model applies transfer learning through MobileNetV2 with a custom classification head, using Global Average Pooling rather than a flatten layer so spatial feature extraction is not squeezed through a flattening bottleneck.",
+      },
+      {
+        heading: "The data pipeline",
+        body: "The training set is 3,000 real-world traffic scenes, balanced between Crash and Normal. Ingestion is automatic; every scene is resized to 224×224 and augmented with rotations, flips, and zooms for robustness against real-world variation; pixel values are normalised into the -1 to 1 range MobileNetV2 expects.",
+      },
+      {
+        heading: "How the split was made, and what it costs the score",
+        body: "The raw dataset is extracted frames rather than isolated incidents, and I executed the train/test split at frame level. That means near-duplicate frames of the same physical incident inevitably land on both sides of the divide, so the model has already seen something very close to parts of its own test set. The 68% F1 below is therefore somewhat inflated against what a strict incident-level split would produce. I state it because it changes how the number should be read, and I treat it as an honest baseline rather than a ceiling: the correction for the next iteration is to split at incident level — group every frame belonging to one physical incident, then assign whole incidents to train or test — which will lower the headline figure and make it worth more.",
       },
       {
         heading: "Explainability",
-        body: "I applied Grad-CAM (Gradient-weighted Class Activation Mapping) to generate thermal heatmaps over the input, pinpointing the structural damage on the vehicle that drove the classification. That is what makes a prediction reviewable by a human instead of merely asserted at them.",
+        body: "I applied Grad-CAM (Gradient-weighted Class Activation Mapping) to generate thermal heatmaps over the input, visualising where the network detected structural damage. The point is confirming that the prediction is driven by physical crash indicators rather than background artifacts — a model that has quietly learned a background cue instead of the damage itself still scores well and still fails in service. On a life-critical decision that bridge between the network output and human oversight is the difference between a prediction that can be reviewed and one that can only be trusted.",
       },
       {
         heading: "Results",
-        body: "Fine-tuning MobileNetV2 produced a 68% F1-score on entirely unseen test data. F1 rather than accuracy is the honest headline for this task: the classes are not balanced, so a global accuracy figure would flatter a model that mostly predicts \"no crash\" and says nothing about whether it catches the crashes that matter.",
+        body: "The fine-tuned MobileNetV2 achieved a 68% F1-score on an entirely unseen hold-out test set, read with the frame-level split above attached to it: the figure is somewhat inflated against a strict incident-level split, and an incident-level rerun is the first correction I would make. F1 rather than accuracy is the honest metric here: real-world traffic data is heavily imbalanced, so a high global accuracy could flatter a model that defaults to predicting \"no crash\". F1 evaluates the thing that actually matters, which is whether the model catches the crash events that require an ambulance.",
       },
       {
         heading: "Deployment",
-        body: "The model is deployed on Streamlit.",
+        body: "The inference engine is deployed as a Streamlit web app with a dark-mode command-centre UI, carrying live telemetry and interactive analysis. It accepts live camera feeds or uploaded scene evidence, executes the analysis in real time, and displays both the confidence metrics and the Grad-CAM output alongside the input. Once the visual damage assessment is done, the dashboard simulates the dispatch protocol that assessment would trigger — the alert to the Ministry of Interior (122) and Ambulance services (123).",
       },
       {
-        heading: "Where this model ships",
-        body: "This is the model layer behind Inqaz-app, the emergency response system elsewhere in this portfolio — the same CNN and MobileNetV2 pair, wrapped there in a live triage and dispatch pipeline.",
+        heading: "Why this project exists",
+        body: "Inqaz came first, and it is the more ambitious system: live mobile feeds, two detection models, severity scoring, GPS dispatch. It was too complex to land in one go, so I cut the same problem down to the one question I could answer end to end — is this scene a crash or not — on a balanced 3,000-scene dataset with a held-out test set to check the answer against. That narrower scope is what made this version shippable and measurable: a single classification target, one metric that means something, and a deployment someone else could open and try. I submitted it as university coursework and it was marked highly. What came out of training and evaluating it fed back into Inqaz, which I am still developing. The two projects address the same problem at different scopes — Inqaz's own detection stack is the dual ResNet-34 system, InqazSceneNet and InqazPoseNet, described on its own page.",
       },
     ],
     featured: true

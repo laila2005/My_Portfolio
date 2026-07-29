@@ -286,10 +286,19 @@ async def ws_endpoint(ws: WebSocket, ticket: str):
       },
       {
         type: 'p',
-        // TODO(laila): confirm how the 3,000 images were split. If the split was
-        // random-by-frame, the headline score is not trustworthy and should be
-        // recomputed on an incident-level split before being quoted anywhere.
-        text: 'The trap that costs the most credibility at this scale is leakage. Traffic imagery sampled from video is full of near-duplicates — consecutive frames of one incident, or several crops of one photo. Split those at random and the same crash lands in both train and test, and your test score is measuring memorisation with extra steps. The fix is to split by source: by incident, scene, or video, never by frame. [add: how the 3,000 images were partitioned, and whether the split was by incident or by frame — this one detail decides whether the reported score means anything at all].',
+        text: 'The trap that costs the most credibility at this scale is leakage. Traffic imagery sampled from video is full of near-duplicates — consecutive frames of one incident, or several crops of one photo. Split those at random and the same crash lands in both train and test, and your test score is measuring memorisation with extra steps. The fix is to split by source: by incident, scene, or video, never by frame.',
+      },
+      {
+        type: 'p',
+        text: 'I am going to be specific about this rather than leave it as general advice, because my own pipeline fell into it. The dataset is extracted frames rather than isolated incidents, and I split it at frame level. So near-duplicate frames of the same physical incident sit on both sides of the divide, and the model had already seen something very close to parts of its own test set. The 68% is therefore somewhat inflated relative to what a strict incident-level split would report.',
+      },
+      {
+        type: 'p',
+        text: 'That is worth saying out loud for two reasons. The first is that a number quoted without its split methodology is not a result, it is a screenshot — and the same applies whether the methodology flatters you or not. The second is that the correction is cheap and I know exactly what it is: group every frame belonging to one incident, then assign whole incidents to train or test, and never let a group straddle the boundary. Doing that will move the headline number down and make it worth considerably more.',
+      },
+      {
+        type: 'quote',
+        text: 'A metric you have not tried to break is a guess you have grown attached to.',
       },
 
       { type: 'h2', text: 'Why transfer learning wins at this size' },
