@@ -750,20 +750,31 @@ const CaseStudyLMMS = () => {
             <MetricTile value="45 s" caption="median fault to SMS dispatched" />
             <MetricTile value="99.0%" caption="alarms cleared automatically on recovery" />
             <MetricTile value="10 min" caption="before a site is flagged stale" />
-            <MetricTile value="13" caption="sites, one controller each" />
+            {/* Both scales, side by side rather than one standing in for the other. */}
+            <MetricTile value="300+" caption="sites across client deployments" />
           </div>
 
           <div className="space-y-5">
             <ResultBlock icon={Layers} title="Fleet scale">
               <p>
-                <Fig>13</Fig> sites, all active, each with exactly <Fig>one</Fig> monitored
-                controller — so the site count and the device count are the same number. It is a
-                site count, not an inflated device tally, and it is a single production deployment
-                rather than a total across customers.
+                LM-MS runs as separate deployments, one per client. Across them the platform monitors{' '}
+                <Fig>300+</Fig> sites; the largest single client deployment accounts for most of that.
+              </p>
+              <p>
+                Every other figure on this page, though, comes from one deployment — the one I have
+                production database access to — and that one has <Fig>13</Fig> sites, all active,
+                each with exactly <Fig>one</Fig> monitored controller, so its site count and device
+                count are the same number. I am separating the two deliberately: the 300+ is the
+                product's reach, the 13 is the sample I can verify end to end, and mixing them would
+                let a reader assume the measurements below were taken at the larger scale. They were
+                not.
               </p>
               <HowMeasured>
-                Direct count of registered sites, registered devices, and configured polling targets
-                in the production database — all three agree at 13. As of 29 July 2026.
+                The 13 is a direct count of registered sites, registered devices, and configured
+                polling targets in the production database I have access to — all three agree. As of
+                29 July 2026. The 300+ is the deployed total across client installations, reported
+                from the business rather than measured by me in that database, which is why the
+                measurements in the sections below are all attributed to the 13-site deployment.
               </HowMeasured>
             </ResultBlock>
 
