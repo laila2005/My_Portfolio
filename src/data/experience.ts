@@ -40,7 +40,7 @@ export const roles: Role[] = [
     title: 'Co-Founder & Lead Software Engineer',
     duration: 'Nov 2025 – Present',
     summary:
-      'Architecting and shipping LM-MS, a monitoring platform for distributed power sites — solar, rectifier, and inverter plants. Covers the telemetry acquisition service, the normalized data model behind it, the operator dashboards and single-site console, catalog-driven reporting, and multi-channel alarm delivery.',
+      'Architecting and shipping LM-MS, a monitoring platform for distributed power sites — solar, rectifier, inverter, and generator plants. Covers the telemetry acquisition service, the normalized data model behind it, the operator dashboards and single-site console, catalog-driven reporting, and multi-channel alarm delivery.',
     // Product stack. Deliberately kept at this level: no versions, hosts, or
     // internal component names — see the case study's disclosure note.
     tech: ['C# / .NET', 'ASP.NET', 'SQL Server', 'Industrial protocols', 'IoT telemetry'],

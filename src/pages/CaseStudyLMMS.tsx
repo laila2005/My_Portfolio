@@ -25,7 +25,7 @@ const role = roles[0];
 
 const PAGE_TITLE = 'Case Study — LM-MS Power Monitoring | Laila Mohamed Fikry';
 const PAGE_DESCRIPTION =
-  'How LM-MS is architected: a monitoring platform for distributed solar, rectifier and inverter power sites — the separation of acquisition from presentation, a device-agnostic measurement model, and the trade-offs behind each decision.';
+  'How LM-MS is architected: a monitoring platform for distributed solar, rectifier, inverter and generator power sites — the separation of acquisition from presentation, a device-agnostic measurement model, and the trade-offs behind each decision.';
 
 const EMAIL = 'laila.mohamed.fikry@gmail.com';
 
@@ -302,7 +302,7 @@ const CaseStudyLMMS = () => {
             <span className="text-gradient">power sites</span>
           </h1>
           <p className="mb-8 font-inter text-lg leading-relaxed text-body">
-            A monitoring platform for distributed solar, rectifier, and inverter plants: one place
+            A monitoring platform for distributed solar, rectifier, inverter, and generator plants: one place
             to see whether every site is up, what is carrying its load right now, and which
             equipment is about to cause an outage.
           </p>
