@@ -1,7 +1,18 @@
 import { useEffect, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Mail, Lock, Layers, GitBranch, Target, RefreshCw } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Mail,
+  Lock,
+  Layers,
+  GitBranch,
+  Target,
+  RefreshCw,
+  AlertTriangle,
+  type LucideIcon,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { roles } from '@/data/experience';
 
@@ -17,8 +28,24 @@ import { roles } from '@/data/experience';
  * Do not add any of those here, even if a future reader asks for "more detail" —
  * the depth of a case study comes from the decisions, not the identifiers.
  *
+ * PROTOCOL NAMES ARE EXCLUDED ON PURPOSE — this is a redaction, not an omission.
+ * The polling cadences in Section 05 are real, but the transports they run over
+ * are only ever called "primary" and "secondary". Naming one would tell a reader
+ * exactly which well-known surface the field devices expose, which is a security
+ * disclosure rather than an architectural one. Never reintroduce a protocol name,
+ * a protocol family, or a port number anywhere on this page.
+ *
+ * THE FIGURES IN SECTION 05 ARE REAL PRODUCTION MEASUREMENTS. Each one was taken
+ * against the running production deployment, carries the date it was taken
+ * (29 July 2026 for the point-in-time counts; 11 June – 28 July 2026 for the
+ * detection-to-notification window), and ships with its own "How measured" note.
+ * If a figure cannot state how it was measured, it does not belong in Results.
+ *
  * Unverified numbers are rendered through <Fill> as a loud [bracket] with a
- * TODO(laila) comment. Never let a placeholder ship as prose.
+ * TODO(laila) comment. Never let a placeholder ship as prose. Exactly two <Fill>
+ * markers are intended on this page: the pre-LM-MS detection baseline (not
+ * measurable from the system) and new-model onboarding time (unmeasured). Adding
+ * a third means a real measurement was replaced by a guess — go measure instead.
  */
 
 const role = roles[0];
@@ -35,6 +62,81 @@ const Fill = ({ children }: { children: ReactNode }) => (
   <span className="inline whitespace-normal rounded-md border border-dashed border-amber-500/50 bg-amber-500/10 px-1.5 py-0.5 font-mono text-[0.85em] font-medium text-amber-700 dark:text-amber-300">
     [{children}]
   </span>
+);
+
+/* ─── Figure treatments ──────────────────────────────────────────────────────
+   Section 05 is carried by its numbers, so numbers get tabular figures and the
+   heading colour — otherwise they dissolve into the prose and a reader skimming
+   for evidence finds none. Purely presentational: no number lives in here. */
+const Fig = ({ children }: { children: ReactNode }) => (
+  <span className="font-semibold tabular-nums text-heading">{children}</span>
+);
+
+const MetricTile = ({ value, caption }: { value: string; caption: string }) => (
+  <div className="rounded-2xl border border-subtle bg-surface-overlay p-4 text-center sm:p-5">
+    <div className="font-poppins text-2xl font-black leading-none tracking-tight tabular-nums text-heading sm:text-3xl">
+      {value}
+    </div>
+    <p className="mt-2 font-inter text-[11px] font-medium leading-snug text-subtle sm:text-xs">
+      {caption}
+    </p>
+  </div>
+);
+
+/* Provenance, attached to the figure rather than to a footnote at the bottom of
+   the page. A claim and the way it was measured should not be separable. */
+const HowMeasured = ({ children }: { children: ReactNode }) => (
+  <div className="mt-4 border-l-2 border-primary/30 pl-4">
+    <span className="mb-1 block font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-subtle">
+      How measured
+    </span>
+    <p className="font-inter text-[13px] leading-relaxed text-subtle">{children}</p>
+  </div>
+);
+
+const ResultBlock = ({
+  icon: Icon,
+  title,
+  children,
+}: {
+  icon: LucideIcon;
+  title: string;
+  children: ReactNode;
+}) => (
+  <div className="rounded-3xl border border-subtle bg-surface-elevated p-5 sm:p-7">
+    <div className="mb-3 flex items-start gap-3">
+      <Icon size={18} aria-hidden="true" className="mt-1 flex-shrink-0 text-primary" />
+      <h3 className="font-poppins text-base font-bold leading-snug text-heading sm:text-lg">
+        {title}
+      </h3>
+    </div>
+    <div className="space-y-3 text-[15px] leading-relaxed text-body">{children}</div>
+  </div>
+);
+
+/* A note that qualifies the figure above it — kept as prose outside the card so
+   it reads as the author speaking, not as part of the measurement. */
+const AfterNote = ({ children }: { children: ReactNode }) => (
+  <p className="px-1 text-[15px] leading-relaxed text-body sm:px-2">{children}</p>
+);
+
+const Lesson = ({ n, title, children }: { n: number; title: string; children: ReactNode }) => (
+  <div className="rounded-2xl border border-subtle bg-surface-elevated p-5 sm:p-6">
+    <span className="mb-2 inline-block rounded-md bg-primary/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
+      Lesson {n}
+    </span>
+    <h3 className="mb-2 font-poppins text-base font-bold leading-snug text-heading">{title}</h3>
+    <p className="text-[15px] leading-relaxed text-body">{children}</p>
+  </div>
+);
+
+const IncidentStep = ({ label, children }: { label: string; children: ReactNode }) => (
+  <div>
+    <span className="mb-1.5 block font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-primary">
+      {label}
+    </span>
+    <div className="space-y-3 text-[15px] leading-relaxed text-body">{children}</div>
+  </div>
 );
 
 const Section = ({
@@ -175,7 +277,7 @@ const ArchitectureDiagram = () => {
         viewBox="0 0 980 330"
         className="min-w-[900px] w-full"
         role="img"
-        aria-label="Architecture: field equipment at power sites is polled by an acquisition service that normalizes every reading; the normalized data set holds live state and historical snapshots; the web application reads only that data set to serve dashboards, the single-site console, reports and alarms; alarms fan out to notification channels."
+        aria-label="Architecture: field equipment at solar, rectifier, inverter and generator power sites is polled by an acquisition service that normalizes every reading; the normalized data set holds live state and historical snapshots; the web application reads only that data set to serve dashboards, the single-site console, reports and alarms; alarms fan out to notification channels."
         fontFamily="Inter, Segoe UI, sans-serif"
       >
         <title>LM-MS two-stage architecture</title>
@@ -191,7 +293,7 @@ const ArchitectureDiagram = () => {
           w={170}
           h={110}
           title="Power sites"
-          lines={['Solar · rectifier ·', 'inverter plants', 'batteries, DC bus, load']}
+          lines={['Solar · rectifier ·', 'inverter · generator', 'battery, DC bus, load']}
         />
 
         <Node
@@ -307,7 +409,7 @@ const CaseStudyLMMS = () => {
             equipment is about to cause an outage.
           </p>
 
-          <dl className="grid grid-cols-1 gap-5 font-inter text-sm sm:grid-cols-3">
+          <dl className="grid grid-cols-2 gap-5 font-inter text-sm sm:grid-cols-4">
             <div>
               <dt className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-subtle">Role</dt>
               <dd className="font-semibold text-heading">{role.title}</dd>
@@ -319,6 +421,10 @@ const CaseStudyLMMS = () => {
             <div>
               <dt className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-subtle">Company</dt>
               <dd className="font-semibold text-heading">{role.company}</dd>
+            </div>
+            <div>
+              <dt className="mb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-subtle">Status</dt>
+              <dd className="font-semibold text-heading">In production</dd>
             </div>
           </dl>
 
@@ -339,12 +445,16 @@ const CaseStudyLMMS = () => {
           <Lock size={20} className="mt-0.5 flex-shrink-0 text-primary" />
           <div className="font-inter text-sm leading-relaxed text-body">
             <p className="mb-2 font-bold text-heading">What this write-up covers</p>
-            <p>
+            <p className="mb-2">
               LM-MS is a commercial product, so this page stays at the level of architecture and
-              reasoning. Schema, internal component names, hosts, ports, licensing and hardware
-              vendor details are deliberately left out. Anything in{' '}
-              <Fill>amber brackets</Fill> is a figure I have not yet verified for publication —
-              treat it as unconfirmed rather than as a claim.
+              reasoning. Schema, internal component names, hosts, ports, transports, licensing and
+              hardware vendor details are deliberately left out.
+            </p>
+            <p>
+              The figures in <span className="font-semibold text-heading">Results</span> were
+              measured against the running production deployment on the dates stated, and each one
+              says how it was measured. Anything in <Fill>amber brackets</Fill> is a figure I have
+              not verified for publication — treat it as unconfirmed rather than as a claim.
             </p>
           </div>
         </div>
@@ -429,7 +539,8 @@ const CaseStudyLMMS = () => {
                 <>
                   A scaling mistake is written into history, not just displayed wrong. Fixing one is
                   not a UI patch — it needs a corrected transform plus a backfill of affected
-                  history, and until that runs, past and present disagree.
+                  history, and until that runs, past and present disagree. Section 06 describes
+                  exactly this happening, and the affected history has still not been replayed.
                 </>
               }
             />
@@ -452,7 +563,9 @@ const CaseStudyLMMS = () => {
                   The abstraction has to be right up front, and it is unforgiving when a device
                   exposes something the model has no home for. Canonical identifiers are also far
                   less readable than named columns, so the model needs its own metadata and tooling
-                  before anyone new can navigate it confidently.
+                  before anyone new can navigate it confidently. The incident in Section 06
+                  vindicated the choice: a fleet-wide measurement correction was a catalog edit
+                  rather than a release.
                 </>
               }
             />
@@ -609,6 +722,7 @@ const CaseStudyLMMS = () => {
               'Alarm delivery through in-app, email, and SMS from a single notification record per event, so the channels cannot contradict each other.',
               'Remote device configuration with staged edits, validation, verification, drift detection against a baseline, and reusable setting profiles.',
               'Access scoped per user, so every dashboard, alarm list, and report shows only the sites that user is entitled to see.',
+              'Per-screen contextual help and a full manual served from inside the application, so the system works with no internet connection.',
             ].map(item => (
               <li key={item} className="flex gap-3">
                 <span
@@ -625,88 +739,282 @@ const CaseStudyLMMS = () => {
         <Section id="results" eyebrow="05" title="Results">
           <p className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm">
             <strong className="text-heading">On numbers:</strong> I would rather publish fewer
-            figures than unverified ones. The bracketed items below are measurements I have not
-            confirmed for public use yet, and they stay bracketed until I can point at how they were
-            measured.
+            figures than unverified ones. Everything below was measured against the running
+            production deployment, and each figure states how. The one measurement I cannot make
+            honestly is still bracketed.
           </p>
-          <ul className="space-y-3">
-            <li className="flex gap-3">
-              <Layers size={18} className="mt-1 flex-shrink-0 text-primary" />
-              <span>
-                {/* TODO(laila): confirm the fleet figure you are willing to publish, whether it counts
-                    sites or devices, and the as-of date. Hero.tsx currently claims "300+ remote sites
-                    monitored" — make the two agree or soften both. */}
-                <strong className="text-heading">Fleet scale:</strong>{' '}
-                <Fill>confirm site count, whether it counts sites or devices, and as-of date</Fill>
-              </span>
-            </li>
-            <li className="flex gap-3">
-              <RefreshCw size={18} className="mt-1 flex-shrink-0 text-primary" />
-              <span>
-                {/* TODO(laila): the console's refresh cadence and staleness threshold are product
-                    behaviour and safe to state precisely. Fill them in from the current release. */}
-                <strong className="text-heading">Data freshness:</strong> the console refreshes on a
-                fixed cadence and flags readings as stale past a set age —{' '}
-                <Fill>state the two values from the current release</Fill>
-              </span>
-            </li>
-            <li className="flex gap-3">
-              <Target size={18} className="mt-1 flex-shrink-0 text-primary" />
-              <span>
-                {/* TODO(laila): the strongest possible claim here is a before/after on detection time.
-                    Even a rough, honestly-caveated figure beats a generic statement. */}
-                <strong className="text-heading">Operational outcome:</strong>{' '}
-                <Fill>time to notice a fault before vs after LM-MS, and how you measured it</Fill>
-              </span>
-            </li>
-            <li className="flex gap-3">
-              <GitBranch size={18} className="mt-1 flex-shrink-0 text-primary" />
-              <span>
-                {/* TODO(laila): if onboarding a new device model is genuinely config-only, quantify it
-                    — "a new model in a day, no release" is a strong, checkable claim. */}
-                <strong className="text-heading">Extensibility:</strong> new equipment models are
-                onboarded by configuration rather than a code release —{' '}
-                <Fill>how long a new model actually takes, from one real example</Fill>
-              </span>
-            </li>
-          </ul>
+
+          {/* 2-up on mobile, 4-up from sm. Values are short enough that no tile
+              needs to wrap its number at 375px. */}
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            <MetricTile value="45 s" caption="median fault to SMS dispatched" />
+            <MetricTile value="99.0%" caption="alarms cleared automatically on recovery" />
+            <MetricTile value="10 min" caption="before a site is flagged stale" />
+            <MetricTile value="13" caption="sites, one controller each" />
+          </div>
+
+          <div className="space-y-5">
+            <ResultBlock icon={Layers} title="Fleet scale">
+              <p>
+                <Fig>13</Fig> sites, all active, each with exactly <Fig>one</Fig> monitored
+                controller — so the site count and the device count are the same number. It is a
+                site count, not an inflated device tally, and it is a single production deployment
+                rather than a total across customers.
+              </p>
+              <HowMeasured>
+                Direct count of registered sites, registered devices, and configured polling targets
+                in the production database — all three agree at 13. As of 29 July 2026.
+              </HowMeasured>
+            </ResultBlock>
+
+            <ResultBlock icon={RefreshCw} title="Data freshness">
+              <p>
+                Four values define the chain end to end: equipment is polled every{' '}
+                <Fig>120 s</Fig> on the primary transport (<Fig>60 s</Fig> on the secondary);
+                acquisition flushes to storage every <Fig>30 s</Fig>; the console refreshes every{' '}
+                <Fig>60 s</Fig> and prints the age of what it is showing; a site is flagged stale
+                after <Fig>10 minutes</Fig> without data.
+              </p>
+              <p>
+                So under normal operation the worst-case age of a displayed reading is roughly{' '}
+                <Fig>3.5 minutes</Fig> — poll cycle plus flush plus refresh — and anything beyond 10
+                minutes is marked stale rather than shown as current.
+              </p>
+              <HowMeasured>
+                Read from the live service configuration in the current release, not from
+                documentation. As of 29 July 2026.
+              </HowMeasured>
+            </ResultBlock>
+
+            <ResultBlock icon={Target} title="Operational outcome — detection to notification">
+              <p>
+                From the moment acquisition detects a fault to the moment the SMS is dispatched:
+                median <Fig>45 s</Fig>, mean <Fig>86 s</Fig>, 90th percentile <Fig>207 s</Fig> (3
+                min 27 s), range <Fig>10–912 s</Fig>, across <Fig>2,039</Fig> matched
+                fault-to-message pairs.
+              </p>
+              <p>
+                Two honest caveats: this measures detection to dispatch, not the instant the fault
+                physically occurred — add up to one polling cycle for that — and it measures dispatch
+                to the gateway, not delivery to the handset, which is outside the system.
+              </p>
+              <p>
+                Two supporting figures from the same window: <Fig>783</Fig> of <Fig>791</Fig>{' '}
+                recorded alarms (<Fig>99.0%</Fig>) closed themselves when the equipment recovered,
+                with no operator action; and of <Fig>3,924</Fig> messages the gateway accepted{' '}
+                <Fig>3,923</Fig> — a single failure.
+              </p>
+              <HowMeasured>
+                Joined every alarm event record to its outbound message record on the shared event
+                key, over 11 June – 28 July 2026, discarding pairs beyond one hour as unmatched. The
+                auto-clear rate is the share of recorded alarms carrying a system-set recovery time.
+              </HowMeasured>
+            </ResultBlock>
+
+            <AfterNote>
+              {/* TODO(laila): this one stays bracketed. Do not substitute an estimate, a
+                  vendor-brochure number, or a "typically hours" hand-wave — the only thing
+                  that unblocks it is a customer willing to state their old detection time
+                  on the record. */}
+              The comparison the question really asks for — time to notice a fault before LM-MS — is{' '}
+              <Fill>not measurable from the system</Fill>. That baseline lived in phone calls and
+              site visits; publishing a before/after ratio would mean inventing the “before”. It
+              stays bracketed until a customer will state it on the record.
+            </AfterNote>
+
+            <ResultBlock icon={GitBranch} title="Extensibility">
+              <p>
+                The catalog currently describes <Fig>four</Fig> device models against a shared
+                measurement model of <Fig>~3,400</Fig> field definitions, with <Fig>867</Fig> alarm
+                definitions per model — all of it data rows, none of it code.
+              </p>
+              <p>
+                The verified proof this is real: on <Fig>7 July 2026</Fig> a fleet-wide correction to
+                how an entire measurement family is interpreted (see the incident below) shipped
+                purely as a catalog change — no code change, no deployment, no restart — and took
+                effect on the next configuration reload, within <Fig>10 minutes</Fig>.
+              </p>
+              <HowMeasured>
+                Counts taken from the live device catalog; the 7 July change is evidenced by the
+                measurement artefact disappearing from the stored series on that date with no
+                accompanying release.
+              </HowMeasured>
+            </ResultBlock>
+
+            <AfterNote>
+              {/* TODO(laila): unblocked by one timed onboarding of a model you have never
+                  integrated before — start-to-first-good-reading, wall clock. Until then it
+                  stays bracketed. */}
+              End-to-end time to onboard a brand-new model is{' '}
+              <Fill>unmeasured — needs one timed example</Fill>. A correction to an existing model is
+              not the same thing as commissioning an unfamiliar one, and I will not present it as if
+              it were.
+            </AfterNote>
+          </div>
         </Section>
 
         {/* ─── Reflection ───────────────────────────────────────────────── */}
         <Section id="reflection" eyebrow="06" title="What I'd do differently">
-          <p>
-            <strong className="text-heading">Invest in the measurement model's tooling sooner.</strong>{' '}
-            A device-agnostic identity scheme is the right core, and it is also the steepest part of
-            the system to learn. Metadata, a browsable reference, and a lint that catches a
-            mis-mapped identity would have paid for themselves early — most of my own slow debugging
-            sessions traced back to reading identifiers by hand.
-          </p>
-          <p>
-            <strong className="text-heading">Make the transform versioned and replayable from day one.</strong>{' '}
-            Normalizing at acquisition is the correct call, but it means a scaling correction implies
-            a historical backfill. Versioning the transform and being able to replay a window of
-            history through a new version turns a delicate migration into a routine operation.
-          </p>
-          <p>
-            <strong className="text-heading">Put contract tests on the boundary between the two stages.</strong>{' '}
-            The single integration contract is the system's biggest strength and its most silent
-            failure mode: a mismatch in what one side writes and the other expects shows up as a
-            blank panel, not an error. That deserves automated tests in its own right, not the
-            end-to-end checks I leaned on.
-          </p>
-          <p>
-            <strong className="text-heading">Design alarm-noise reduction as a real feature.</strong>{' '}
-            Refusing to mask live faults in the UI is right, but it leaves noise as somebody else's
-            problem. Flapping detection and correlation — one root cause presented as one incident
-            rather than forty alarms — belongs in the plan rather than in a backlog.
-          </p>
-          <p>
-            {/* TODO(laila): the single most credible thing you can add to this page is one real
-                incident — what broke, how you found it, what you changed afterwards. Recruiters
-                remember the story; they skim the architecture. */}
-            <strong className="text-heading">One incident worth writing up:</strong>{' '}
-            <Fill>a real bug or outage from LM-MS, how you diagnosed it, and what it changed in the design</Fill>
-          </p>
+          <p>Four lessons — and then the incident that produced three of them.</p>
+
+          <div className="space-y-4">
+            <Lesson n={1} title="Invest in the measurement model's tooling sooner.">
+              A device-agnostic identity scheme is the right core, and it is also the steepest part
+              of the system to learn. Metadata, a browsable reference, and a lint that catches a
+              mis-mapped identity would have paid for themselves early — most of my own slow
+              debugging sessions traced back to reading identifiers by hand.
+            </Lesson>
+
+            <Lesson n={2} title="Make the transform versioned and replayable from day one.">
+              Normalizing at acquisition is the correct call, but it means a scaling correction
+              implies a historical backfill. Versioning the transform and being able to replay a
+              window of history through a new version turns a delicate migration into a routine
+              operation.
+            </Lesson>
+
+            <Lesson n={3} title="Put contract tests on the boundary between the two stages.">
+              The single integration contract is the system's biggest strength and its most silent
+              failure mode: a mismatch in what one side writes and the other expects shows up as a
+              blank panel, not an error. That deserves automated tests in its own right, not the
+              end-to-end checks I leaned on.
+            </Lesson>
+
+            <Lesson n={4} title="Design alarm-noise reduction as a real feature.">
+              Refusing to mask live faults in the UI is right, but it leaves noise as somebody
+              else's problem. Flapping detection and correlation — one root cause presented as one
+              incident rather than forty alarms — belongs in the plan rather than in a backlog.
+            </Lesson>
+          </div>
+
+          {/* ─── Incident write-up ───────────────────────────────────────────
+              Deliberately the most prominent block on the page: the coloured
+              strip is a sibling element rather than a border-t utility so it
+              cannot lose a specificity race with .border-subtle. */}
+          <div className="overflow-hidden rounded-3xl border border-subtle bg-surface-elevated">
+            <div
+              aria-hidden="true"
+              className="h-1.5 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500"
+            />
+            <div className="p-5 sm:p-7">
+              <div className="mb-5 flex items-start gap-3">
+                <AlertTriangle
+                  size={20}
+                  aria-hidden="true"
+                  className="mt-1 flex-shrink-0 text-primary"
+                />
+                <div>
+                  <h3 className="font-poppins text-lg font-bold leading-snug text-heading sm:text-xl">
+                    One incident worth writing up: a battery current of 6,553 amps
+                  </h3>
+                  <p className="mt-1.5 font-inter text-xs font-medium text-subtle">
+                    Present from the first day of recorded history · fixed 7 July 2026
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <IncidentStep label="Symptom">
+                  <p>
+                    Battery current on several solar sites intermittently read about{' '}
+                    <Fig>6,553 A</Fig>, physically impossible on a 48-volt plant whose real currents
+                    are single or low double digits. It was not consistent, which is what made it
+                    easy to dismiss at first as a bad read.
+                  </p>
+                </IncidentStep>
+
+                <IncidentStep label="Diagnosis">
+                  <p>
+                    The number itself was the whole diagnosis. The scale factor for that measurement
+                    is one tenth, and:
+                  </p>
+                  <div className="overflow-x-auto rounded-xl border border-subtle bg-surface-overlay px-4 py-3">
+                    <p className="text-center font-mono text-sm font-semibold tabular-nums text-heading sm:text-base">
+                      65535 × 0.1 = 6553.5
+                    </p>
+                  </div>
+                  <p>
+                    <Fig>65535</Fig> is the top of an unsigned 16-bit range. The controller reports
+                    battery current as a <em>signed</em> value — positive while charging, negative
+                    while discharging — and the measurement model had that entire family declared
+                    unsigned, so every discharge reading was reinterpreted as a very large positive
+                    one.
+                  </p>
+                  <p>
+                    The bug was invisible while the sun was up and the battery was charging, and
+                    appeared precisely when the battery was carrying the site: the exact condition
+                    the platform exists to observe.
+                  </p>
+                </IncidentStep>
+
+                <IncidentStep label="Blast radius">
+                  <p>
+                    Because normalization happens once at acquisition (decision 01), this was never a
+                    display bug. The wrong values were written into history:{' '}
+                    <Fig>22,052</Fig> of <Fig>238,565</Fig> stored records, across <Fig>8</Fig>{' '}
+                    sites, from the beginning of the series on <Fig>17 May 2026</Fig> until the fix on{' '}
+                    <Fig>7 July 2026</Fig>. Every trend, battery report and availability figure over
+                    that window drew on them.
+                  </p>
+                </IncidentStep>
+
+                <IncidentStep label="Fix">
+                  <p>
+                    One metadata change: declare the family signed, applied in the device catalog. No
+                    code change, no release, no restart; live on the next configuration reload. Zero
+                    occurrences since, verified against the last seven days of data. Decision 02 paid
+                    for itself here — a fleet-wide measurement correction was a configuration edit.
+                  </p>
+                </IncidentStep>
+
+                <IncidentStep label="What it changed in the design">
+                  <ol className="space-y-4">
+                    <li className="flex gap-3">
+                      <span className="mt-px flex-shrink-0 font-mono text-xs font-bold text-subtle">
+                        01
+                      </span>
+                      <span>
+                        Signedness, unit and physical range became first-class metadata rather than
+                        assumptions. A check that flags any measurement whose observed values fall
+                        outside its declared physical range would have caught this on day one instead
+                        of week seven — a battery current two orders of magnitude beyond the plant's
+                        rating is not a subtle signal.{' '}
+                        <em className="text-subtle">
+                          This is Lesson 1, and it cost me weeks before I wrote it down.
+                        </em>
+                      </span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="mt-px flex-shrink-0 font-mono text-xs font-bold text-subtle">
+                        02
+                      </span>
+                      <span>
+                        Those <Fig>22,052</Fig> rows are still wrong. The transform is not versioned
+                        and history cannot be replayed through a corrected version, so fixing the
+                        past is a bespoke migration rather than a routine operation — which is why it
+                        has not been run. The bug did not teach me that versioned transforms are nice
+                        to have; it produced a permanent scar in the data that only a replay
+                        capability could remove.{' '}
+                        <em className="text-subtle">Lesson 2, written in the past tense.</em>
+                      </span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="mt-px flex-shrink-0 font-mono text-xs font-bold text-subtle">
+                        03
+                      </span>
+                      <span>
+                        Nothing in the system ever raised an error. A physically impossible value
+                        passed through acquisition, storage, dashboards, health scoring and reports
+                        without a single complaint. That is the silent-failure mode the contract
+                        between the two stages is most prone to, and it is why range assertions
+                        belong on that boundary as tests, not as end-to-end spot checks.{' '}
+                        <em className="text-subtle">Lesson 3.</em>
+                      </span>
+                    </li>
+                  </ol>
+                </IncidentStep>
+              </div>
+            </div>
+          </div>
         </Section>
 
         {/* ─── CTA ──────────────────────────────────────────────────────── */}

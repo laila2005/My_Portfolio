@@ -212,9 +212,13 @@ const Hero = () => {
               <div className="flex-1 whitespace-pre-wrap font-mono">
                 <Typewriter
                   words={[
-                    // Keep every figure here defensible — this is the first thing a
-                    // visitor reads. The CV number is the real F1 on unseen test data.
-                    "> Resolving metrics...\n\n[OK] 300+ remote sites monitored\n[OK] Real-time WebSocket messaging\n[OK] 68% F1 crash detection (unseen data)\n\nSystem ready.",
+                    // Every figure here must be one the case study can defend, because
+                    // this is the first thing a visitor reads and the last thing they
+                    // will forgive. "300+ remote sites monitored" used to sit on the
+                    // first line; the measured count is 13, and the case study says so
+                    // explicitly, so the hero was contradicting its own evidence page.
+                    // Replaced with the detection-to-dispatch median, which is measured.
+                    "> Resolving metrics...\n\n[OK] 45s median fault to SMS dispatch\n[OK] Real-time WebSocket messaging\n[OK] 68% F1 crash detection (unseen data)\n\nSystem ready.",
                     "> Loading architecture...\n\n- Next.js / React (Frontend)\n- FastAPI / Node.js (Backend)\n- PostgreSQL / Redis (Data)\n- AI/ML Pipelines (Python)\n\nAll services operational."
                   ]}
                   loop={0}

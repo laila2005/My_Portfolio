@@ -567,15 +567,15 @@ const TaskPlan = z.object({ tasks: z.array(Task).max(20) }).strict();`,
     body: [
       {
         type: 'p',
-        text: 'Most of my week goes into a monitoring platform for distributed power sites. A site here is not one machine. It is the utility supply, a solar array or a bank of rectifier modules, a DC bus, a battery, sometimes an inverter or a generator, and the load all of it exists to keep alive. Multiply that across a fleet spread over regions and the question is easy to ask and hard to answer well: is every site healthy right now, and if not, which piece of equipment is at fault?',
+        text: 'Most of my week goes into a monitoring platform for distributed power sites. A site is not one machine. It is the utility supply, a solar array or a bank of rectifier modules, a DC bus, a battery, sometimes an inverter or a generator, and the load all of it exists to keep alive. Multiply that across a fleet spread over regions and the question gets hard: is every site healthy right now, and if not, which piece of equipment is at fault?',
       },
       {
         type: 'p',
-        text: 'The product is commercial, so this stays at the level of decisions and reasoning. No schema, no internal component names, no hosts, no protocol or hardware specifics. That costs the post very little, because the identifiers were never the interesting part.',
+        text: 'The product is commercial, so this stays at the level of decisions. No schema, no internal component names, no hosts, no protocol or hardware specifics. The identifiers were never the interesting part anyway.',
       },
       {
         type: 'p',
-        text: 'What I did not expect going in is how little of the design turns out to be about capability. Nearly every consequential decision trades something the software could do for a reason to believe what it says. In monitoring, being trusted is the product. Being clever is optional.',
+        text: 'What I did not expect is how little of the design is about capability. Nearly every consequential decision trades something the software could do for a reason to believe what it says. In monitoring, being trusted is the product. Being clever is optional.',
       },
 
       { type: 'h2', text: 'Nobody is standing next to the equipment' },
@@ -585,7 +585,7 @@ const TaskPlan = z.object({ tasks: z.array(Task).max(20) }).strict();`,
       },
       {
         type: 'p',
-        text: 'The failures that matter here are quiet. Mains lost and nobody noticed. A rectifier module faulted, so the rest carry more than they should. A fan died and the temperature is climbing slowly. Each is cheap in the first hour and expensive as an outage, and none of them announce themselves. They are only visible if the numbers on the screen are true.',
+        text: 'The failures that matter are quiet. Mains lost and nobody noticed. A rectifier module faulted, so the rest carry more than they should. A fan died and the temperature is climbing. Cheap in the first hour, expensive as an outage, and none of them announce themselves.',
       },
       {
         type: 'quote',
@@ -599,37 +599,37 @@ const TaskPlan = z.object({ tasks: z.array(Task).max(20) }).strict();`,
       { type: 'h2', text: 'One thing talks to devices; everything else only reads' },
       {
         type: 'p',
-        text: 'The system is two stages with one contract between them. An acquisition service owns every part of talking to equipment — reaching the site, coping with transport differences, converting raw values into engineering units — and writes into a normalized data set. The web application reads only that data set. It never contacts a device. The obvious payoff is independent failure: acquisition can restart mid-shift without the dashboards going dark, and a UI release cannot break collection. The payoff I value more is that a device\'s quirks live in exactly one place, so when somebody asks why a number reads the way it does there is one answer, and the dashboard, the report, and the export all give it.',
+        text: 'The system is two stages with one contract between them. An acquisition service owns everything about talking to equipment — reaching the site, coping with transport differences, converting raw values into engineering units — and writes into a normalized data set. The web application reads only that data set, and never contacts a device. Independent deploys are a real benefit, but the one I value most is that a device\'s quirks live in exactly one place: the dashboard, the report, and the export all explain a number the same way.',
       },
       {
         type: 'p',
-        text: 'That data set is device-agnostic on purpose: readings are stored against canonical measurement identities rather than per-model fields, so one identity means one physical quantity whatever produced it. The platform standardises on a single vendor\'s device family, which sounds like it should make the abstraction unnecessary and is actually the reason it earns its keep. One family still spans four kinds of plant, and solar, rectifier, inverter and generator sites do not report the same things. Without a shared identity you get four dialects, four dashboard definitions, four report definitions, and four chances for one quantity to read differently in two places.',
+        text: 'That data set is device-agnostic on purpose. Readings are stored against canonical measurement identities rather than per-model fields, so one identity means one physical quantity whatever produced it. The platform standardises on a single vendor\'s device family, which sounds like it should make the abstraction pointless and is actually why it earns its keep. One family still spans four kinds of plant, and solar, rectifier, inverter and generator sites do not report the same things.',
       },
 
       { type: 'h2', text: 'Scale the reading once, then live with what that costs' },
       {
         type: 'p',
-        text: 'Raw device values need scaling and unit conversion. Put that logic in the presentation layer and it gets copied into every dashboard, report, and export, and the copies drift. Then one measurement reads differently in two places, and a user who has seen that happen is right never to trust either number again. So scaling happens at acquisition. The stored value is already the truth, and every consumer displays it verbatim.',
+        text: 'Raw device values need scaling and unit conversion. Put that logic in the presentation layer and it gets copied into every dashboard, report, and export, and the copies drift. Then one measurement reads differently in two places, and a user who has seen that happen is right never to trust either number again. So scaling happens at acquisition, and every consumer displays the stored value verbatim.',
       },
       {
         type: 'p',
-        text: 'The cost is not small, and I would rather state it than skip past it. A scaling mistake is not displayed wrong, it is written into history. Fixing one is not a UI patch — it is a corrected transform plus a backfill of every affected reading, and until that finishes the past and the present disagree. I still think it is the right trade, because the version I designed away fails silently and this one fails loudly.',
+        text: 'The cost is real. A scaling mistake is not displayed wrong, it is written into history, and fixing one is not a UI patch — it is a corrected transform plus a backfill of every affected reading, with past and present disagreeing until that finishes. I still take the trade, because the version I designed away fails silently and this one fails loudly.',
       },
 
-      { type: 'h2', text: 'Never build a report from the live table' },
+      { type: 'h2', text: 'Never build a report from live state' },
       {
         type: 'p',
-        text: 'Live state and history want opposite things. Live is a small picture, constantly overwritten, optimised for what is happening now. History is append-only and exists to be aggregated over weeks. Keeping them apart lets the dashboards stay quick while an availability report reads a series nothing is rewriting underneath it. A report computed from live state changes when you run it twice, and a figure that will not reproduce is not a figure. The cost lands on resolution: snapshot cadence becomes a hard ceiling, so a spike shorter than the interval is visible live and simply absent from history. Somebody will eventually ask about an event they watched happen, and the answer will be that the record does not contain it.',
+        text: 'Live state and history want opposite things. Live is a small picture, constantly overwritten, optimised for what is happening now. History is append-only and exists to be aggregated over weeks. Keeping them apart lets the dashboards stay quick while a report reads a series nothing is rewriting underneath it. A report built from live state changes when you run it twice, and a figure that will not reproduce is not a figure. The cost is resolution: a spike shorter than the snapshot interval is visible live and absent from history.',
       },
 
       { type: 'h2', text: 'Reachable is not a boolean' },
       {
         type: 'p',
-        text: 'Field connectivity is not uniform. What a site supports and what its network currently permits are different questions, and one fixed transport strands part of the fleet. So acquisition tries transports in priority order, uses whichever answers, then reuses that one for a while before re-probing the better options — re-testing everything every cycle would spend the polling budget rediscovering what it already knew.',
+        text: 'Field connectivity is not uniform. What a site supports and what its network currently permits are different questions, and one fixed transport strands part of the fleet. So acquisition tries transports in priority order, uses whichever answers, and reuses that one for a while before re-probing the better options.',
       },
       {
         type: 'p',
-        text: 'This is the decision that taught me most about trust, because it creates a state I had not thought about. A site can run quietly on a lower-priority transport: answering, therefore online, while exposing fewer readings than it should. Online was never a boolean. Degraded has to be its own visible state, or the fleet view is lying by omission.',
+        text: 'This is the decision that taught me most about trust, because it creates a state I had not thought about. A site running on a lower-priority transport is answering, therefore online, while exposing fewer readings than it should. Online was never a boolean. Degraded has to be visible, or the fleet view is lying by omission.',
       },
 
       { type: 'h2', text: 'Do not invent a severity scheme' },
@@ -639,33 +639,33 @@ const TaskPlan = z.object({ tasks: z.array(Task).max(20) }).strict();`,
       },
       {
         type: 'p',
-        text: 'The stricter half of the same rule: an alarm clears only when the equipment reports recovery. Acknowledging, annotating, reminding, handing over — all workflow layered on top, and none of it clears anything. An operator cannot make a live fault leave the screen by interacting with it. That is unpopular for about a week, because people want a clear button, and the reason there is not one is that a clear button is a way for a real fault to become invisible through ordinary use. It also means noise cannot be fixed in the interface: a chatty device stays chatty until somebody fixes it at the device. Worse for the operator in the short term, and the only version of the trade I can defend.',
+        text: 'Stricter half of the same rule: an alarm clears only when the equipment reports recovery. Acknowledging, annotating, reminding, handing over — all workflow on top, and none of it clears anything. An operator cannot make a live fault leave the screen by interacting with it. People want a clear button, and the reason there is not one is that a clear button is a way for a real fault to become invisible through ordinary use.',
       },
 
       { type: 'h2', text: 'A score that will not explain itself gets ignored' },
       {
         type: 'p',
-        text: 'Each site carries a health score, and a bare number out of a hundred is easy to build and easy to dismiss. So every deduction is itemised: which alarms, which faulted modules, which recurring temperature problem, what availability. The number is the summary, the itemisation is the feature, because it turns the score into a work list. The caveat is that rule-based scoring only recognises failure modes somebody anticipated, and it reads as objective while encoding judgement. Fine while the rules stay visible. Not fine the moment people quote the number without being able to open it.',
+        text: 'Each site carries a health score, and a bare number out of a hundred is easy to build and easy to dismiss. So every deduction is itemised: which alarms, which faulted modules, which recurring temperature problem, what availability. The number is the summary; the itemisation is the feature, because it turns the score into a work list. The caveat is that rule-based scoring only recognises failure modes somebody anticipated, and reads as objective while encoding judgement. Fine while the rules stay visible.',
       },
 
       { type: 'h2', text: 'Say how old the number is' },
       {
         type: 'p',
-        text: 'This is the smallest thing on the list and the one I would defend hardest. Every view states the age of what it is showing, the console refreshes on a fixed cadence, and any reading past a staleness threshold is flagged rather than left to age quietly on screen looking exactly like a fresh one.',
+        text: 'The smallest thing on this list and the one I would defend hardest. Every view states the age of what it is showing, the console refreshes on a fixed cadence, and a reading past a staleness threshold is flagged rather than left to age quietly on screen looking exactly like a fresh one.',
       },
       {
         type: 'p',
-        text: 'It costs support load. Ordinary network variance becomes visible, and visible variance produces questions nobody would otherwise have asked. I will take every one of them. The alternative is a screen that renders a two-hour-old voltage in the same typeface as a two-second-old one, in front of somebody with no way to tell the difference and no reason to suspect there is one.',
+        text: 'It costs support load. Ordinary network variance becomes visible, and visible variance produces questions nobody would otherwise have asked. I will take all of them. The alternative is a screen rendering a two-hour-old voltage in the same typeface as a two-second-old one, in front of somebody with no way to tell the difference.',
       },
 
       { type: 'h2', text: 'The shape of all of it' },
       {
         type: 'p',
-        text: 'Read the list back and the pattern is consistent. Normalising at acquisition gives up a cheap fix for consistency. Splitting history from live gives up resolution for reproducibility. Mirroring the device\'s severity gives up noise control for agreement with the hardware. Freshness flags give up a calm interface for never presenting a stale number as fact. Every one of them hands back a capability and takes trustworthiness in return.',
+        text: 'Read the list back and the pattern holds. Normalising at acquisition gives up a cheap fix for consistency. Splitting history from live gives up resolution for reproducibility. Mirroring the device\'s severity gives up noise control for agreement with the hardware. Freshness flags give up a calm interface for never presenting a stale number as fact. Every one hands back a capability and takes trustworthiness in return.',
       },
       {
         type: 'p',
-        text: 'That does make the product less impressive in a demo, and I have not found a version where the honest choice is also the most magical one. But the people using it are not in a demo. They are deciding whether to drive four hours to a site, at night, on the strength of a number my software put on a screen. I would rather that number be boring and true.',
+        text: 'It does make the product less impressive in a demo, and I have not found a version where the honest choice is also the most magical one. But the people using it are not in a demo. They are deciding whether to drive four hours to a site, at night, on the strength of a number my software put on a screen. I would rather it be boring and true.',
       },
     ],
   },
@@ -717,7 +717,7 @@ const TaskPlan = z.object({ tasks: z.array(Task).max(20) }).strict();`,
       },
       {
         type: 'p',
-        text: 'There is an obvious wrong reading here that I want to close off. These are not comparable numbers — different models, different datasets, different splits, different questions, and one is accuracy while the other is F1. Putting 92.4 next to 68 would be meaningless. What is comparable is the kind of claim each one supports. One says: on data I was tuning against, this did well. The other says: on data I had never touched, this scored 68% F1, and here is the specific reason that figure is generous. The second sentence is much smaller and much harder to knock down. The bigger project has the better-looking numbers and the worse evidence, and that is the whole of what I am trying to say.',
+        text: 'There is an obvious wrong reading here that I want to close off. These are not comparable numbers — different models, different datasets, different splits, and one is accuracy while the other is F1. Putting 92.4 next to 68 would be meaningless. What is comparable is the kind of claim each supports. One says: on data I was tuning against, this did well. The other says: on data I had never touched, this scored 68% F1, and here is the specific reason that figure is generous. The second sentence is smaller and much harder to knock down. The bigger project has the better-looking numbers and the worse evidence, and that is the whole of what I am trying to say.',
       },
 
       { type: 'h2', text: 'What I cut, specifically' },
@@ -747,7 +747,7 @@ const TaskPlan = z.object({ tasks: z.array(Task).max(20) }).strict();`,
       },
       {
         type: 'p',
-        text: 'Still, I understand why people hear "scope down" and hear "settle", because most of the time that is what it turns out to be. The distinction is not in the decision. It is in what happens afterwards: you cut the thing down to get a measurement, and then you spend the measurement on the original problem. If you never come back, you did quit, and you find that out months later rather than at the time. I do not think there is a way to know in the moment which one you are doing. You go back and see.',
+        text: 'Still, I understand why people hear "scope down" and hear "settle", because most of the time that is what it turns out to be. The distinction is not in the decision. It is in what happens afterwards: you cut the thing down to get a measurement, then you spend the measurement on the original problem. If you never come back, you did quit, and you find that out months later rather than at the time. I do not think there is a way to know in the moment which one you are doing.',
       },
       {
         type: 'p',
