@@ -16,6 +16,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { projects } from '@/data/projects';
 import ProjectGallery from '@/components/ProjectGallery';
+import ShareLinks from '@/components/ShareLinks';
 
 /**
  * One project. Route: /projects/:slug
@@ -426,6 +427,17 @@ const ProjectDetail = () => {
                 </Link>
               </Button>
             </div>
+          </motion.div>
+
+          {/* Share sits after the CTA: by this point a reader has seen the work
+              and knows whether it is worth passing on. */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-4"
+          >
+            <ShareLinks title={project.title} label="Share this project" />
           </motion.div>
         </article>
       )}

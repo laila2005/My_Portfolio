@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Clock, FileQuestion } from 'lucide-react';
 import { posts, type Block } from '@/data/posts';
+import ShareLinks from '@/components/ShareLinks';
 
 /**
  * Single post. Route: /writing/:slug
@@ -264,8 +265,14 @@ const WritingPost = () => {
             {post.body.map(renderBlock)}
           </motion.div>
 
+          {/* Share sits at the end of the article, where a reader who found it
+              useful is most likely to pass it on. */}
+          <div className="mt-14">
+            <ShareLinks title={post.title} label="Share this post" />
+          </div>
+
           {/* ─── Footer navigation ─── */}
-          <footer className="mt-16 border-t border-subtle pt-10">
+          <footer className="mt-12 border-t border-subtle pt-10">
             {(newer || older) && (
               <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {newer ? (
