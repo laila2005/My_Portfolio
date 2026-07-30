@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { roles } from '@/data/experience';
+import ShareLinks from '@/components/ShareLinks';
 
 /**
  * Long-form case study for LM-MS. Route: /case-study/lm-ms
@@ -27,6 +28,13 @@ import { roles } from '@/data/experience';
  * cryptographic mechanisms, and the device vendor's model designations.
  * Do not add any of those here, even if a future reader asks for "more detail" —
  * the depth of a case study comes from the decisions, not the identifiers.
+ *
+ * THE PAGE IS KEPT DELIBERATELY CONCISE. Every section runs to a word budget:
+ * context and architecture stay short, each decision card is a brief Why plus a
+ * brief Trade-off, Results carries figures rather than adjectives, and the
+ * incident is the only long block. Register is plain and professional — no
+ * flourishes, no closing zingers, no commentary about the writing itself. If you
+ * add a paragraph, cut one.
  *
  * PROTOCOL NAMES ARE EXCLUDED ON PURPOSE — this is a redaction, not an omission.
  * The polling cadences in Section 05 are real, but the transports they run over
@@ -404,9 +412,9 @@ const CaseStudyLMMS = () => {
             <span className="text-gradient">power sites</span>
           </h1>
           <p className="mb-8 font-inter text-lg leading-relaxed text-body">
-            A monitoring platform for distributed solar, rectifier, inverter, and generator plants: one place
-            to see whether every site is up, what is carrying its load right now, and which
-            equipment is about to cause an outage.
+            A monitoring platform for distributed solar, rectifier, inverter and generator plants:
+            one place to see whether every site is up, what carries its load, and what is about to
+            fail.
           </p>
 
           <dl className="grid grid-cols-2 gap-5 font-inter text-sm sm:grid-cols-4">
@@ -446,15 +454,13 @@ const CaseStudyLMMS = () => {
           <div className="font-inter text-sm leading-relaxed text-body">
             <p className="mb-2 font-bold text-heading">What this write-up covers</p>
             <p className="mb-2">
-              LM-MS is a commercial product, so this page stays at the level of architecture and
-              reasoning. Schema, internal component names, hosts, ports, transports, licensing and
-              hardware vendor details are deliberately left out.
+              LM-MS is a commercial product, so this page stays at architecture and reasoning.
+              Schema, hosts, ports, transports, licensing and hardware details are left out.
             </p>
             <p>
               The figures in <span className="font-semibold text-heading">Results</span> were
-              measured against the running production deployment on the dates stated, and each one
-              says how it was measured. Anything in <Fill>amber brackets</Fill> is a figure I have
-              not verified for publication — treat it as unconfirmed rather than as a claim.
+              measured against the running production deployment on the dates stated, and each says
+              how. Anything in <Fill>amber brackets</Fill> is unverified.
             </p>
           </div>
         </div>
@@ -462,43 +468,34 @@ const CaseStudyLMMS = () => {
         {/* ─── Context ──────────────────────────────────────────────────── */}
         <Section id="context" eyebrow="01" title="Context & problem">
           <p>
-            A power site is not a single machine. It is utility mains, a solar array or a bank of
-            rectifier modules, a DC bus, a battery, the load it feeds, and sometimes an inverter or
-            generator — each reporting its own readings and its own alarms. Multiply that by a fleet
-            spread across regions and the operational question becomes simple to ask and hard to
-            answer: <em>is every site healthy right now, and if not, which piece of equipment is at
-            fault?</em>
+            A power site is not one machine: mains, solar or rectifier modules, a DC bus, a battery,
+            the load, sometimes an inverter or generator, each with its own readings and alarms.
+            Across a fleet, the hard question is whether every site is healthy, and which equipment
+            is at fault.
           </p>
           <p>
-            Before a unified system, answering that meant checking equipment site by site, each
-            model speaking its own dialect, with no shared history to compare against. The failures
-            that matter are quiet ones: mains lost hours ago and the battery is now draining, a
-            rectifier module has faulted so the rest carry more load, a cooling fan died and
-            temperature is climbing. Every one of those is cheap to fix early and expensive as an
-            outage.
-          </p>
-          <p>
-            LM-MS had to serve two audiences at once: an operator who needs the current state of one
-            plant in a glance, and a manager who needs availability, energy, and alarm trends across
-            the fleet — while remaining safe enough to change equipment settings remotely.
+            Before a unified system, that meant checking site by site, each model in its own dialect.
+            The failures that matter are quiet: mains lost hours ago and the battery draining, a
+            faulted rectifier module, a dead cooling fan. All are cheap to fix early and expensive as
+            an outage. LM-MS serves both the operator on one plant and the manager on fleet trends,
+            and it writes settings back to equipment.
           </p>
         </Section>
 
         {/* ─── Architecture ─────────────────────────────────────────────── */}
         <Section id="architecture" eyebrow="02" title="Architecture">
           <p>
-            The system is two stages with a single contract between them. An acquisition service
-            owns everything about talking to equipment: reaching each site, handling protocol
-            differences, and converting raw values into engineering units. It writes into a
-            normalized data set. The web application reads only that data set — it never contacts a
-            device.
+            The system is two stages with one contract between them. Acquisition owns all contact
+            with equipment: it handles device differences and converts raw values into engineering
+            units. It tries the primary transport first and falls back to a secondary, reusing whichever
+            answers for a number of cycles before re-probing higher-priority ones. It writes into a
+            normalized data set, which is all the web application reads.
           </p>
           <ArchitectureDiagram />
           <p>
-            That boundary is the most consequential decision in the project. It means the two halves
-            deploy and fail independently: acquisition can be restarted mid-shift without taking the
-            dashboards down, and a UI release cannot break data collection. It also means there is
-            exactly one place where a device's quirks are handled.
+            That boundary is the most consequential decision: the two halves deploy and fail
+            independently, acquisition can restart mid-shift without taking dashboards down, and a UI
+            release cannot break collection.
           </p>
         </Section>
 
@@ -518,7 +515,7 @@ const CaseStudyLMMS = () => {
             Key decisions
           </h2>
           <p className="mb-8 font-inter text-base leading-relaxed text-body">
-            Each of these bought something and cost something. The costs are the honest part.
+            Each of these bought something and cost something.
           </p>
 
           <div className="space-y-5">
@@ -527,20 +524,16 @@ const CaseStudyLMMS = () => {
               title="Normalize once, at acquisition — the UI never re-scales a reading"
               why={
                 <>
-                  Every device model reports raw values that need scaling and unit conversion. If
-                  that logic lives in the presentation layer it gets duplicated into every
-                  dashboard, report, and export, and the copies drift — the same measurement then
-                  reads differently in two places, which destroys trust in the whole system. Scaling
-                  at the point of acquisition means the stored value is already the truth, and every
-                  consumer displays it verbatim.
+                  Every device model reports raw values that need scaling. In the presentation layer
+                  that logic gets copied into every dashboard and report, and the copies drift.
+                  Scaling at acquisition fixes the value once, for every consumer.
                 </>
               }
               tradeoff={
                 <>
-                  A scaling mistake is written into history, not just displayed wrong. Fixing one is
-                  not a UI patch — it needs a corrected transform plus a backfill of affected
-                  history, and until that runs, past and present disagree. Section 06 describes
-                  exactly this happening, and the affected history has still not been replayed.
+                  A scaling mistake is written into history, not just displayed wrong. Fixing one
+                  needs a corrected transform plus a backfill. Section 06 is exactly that, still
+                  unreplayed.
                 </>
               }
             />
@@ -550,22 +543,15 @@ const CaseStudyLMMS = () => {
               title="A device-agnostic measurement model, so one definition serves the whole fleet"
               why={
                 <>
-                  Readings are stored against canonical measurement identities rather than
-                  per-model fields: the same identity means the same physical quantity on every
-                  device type. One dashboard column, one report definition, and one alarm definition
-                  then work across the entire fleet, and onboarding a new equipment model becomes a
-                  configuration exercise — its readings, units, and alarm catalog are described as
-                  data — instead of a code change plus a release.
+                  Readings are stored against canonical measurement identities, not per-model fields:
+                  same identity, same quantity, every device. One dashboard column, report or alarm
+                  definition works fleet-wide, and a new model is configuration, not code.
                 </>
               }
               tradeoff={
                 <>
-                  The abstraction has to be right up front, and it is unforgiving when a device
-                  exposes something the model has no home for. Canonical identifiers are also far
-                  less readable than named columns, so the model needs its own metadata and tooling
-                  before anyone new can navigate it confidently. The incident in Section 06
-                  vindicated the choice: a fleet-wide measurement correction was a catalog edit
-                  rather than a release.
+                  The abstraction has to be right early, and it has no home for an unanticipated
+                  reading. Section 06 vindicates it: a fleet-wide correction was one catalog edit.
                 </>
               }
             />
@@ -575,133 +561,53 @@ const CaseStudyLMMS = () => {
               title="Separate live state from recorded history, and never build a report from live"
               why={
                 <>
-                  The two have opposite requirements. Live state is a small, constantly overwritten
-                  picture optimised for “what is happening now”; history is append-only and exists
-                  to be aggregated over weeks. Keeping them separate lets the dashboards stay fast
-                  while trends, health scoring, and reports read a stable series that nothing
-                  overwrites underneath them.
+                  Live state and history have opposite requirements: a small picture, constantly
+                  overwritten, versus an append-only series aggregated over weeks. Separating them
+                  keeps dashboards fast and reports stable.
                 </>
               }
               tradeoff={
                 <>
-                  Snapshot cadence becomes a hard ceiling on historical resolution — a spike shorter
-                  than the interval is visible live and absent from history. Storage grows with the
-                  fleet, so retention has to be managed deliberately rather than discovered when a
-                  disk fills.
+                  Snapshot cadence is a hard ceiling on historical resolution: a spike shorter than
+                  the interval is visible live and absent from history. Storage grows with the fleet,
+                  so retention needs planning.
                 </>
               }
             />
 
             <Decision
               n="04"
-              title="Multiple transports with automatic fallback, and remember what worked"
+              title="Mirror the equipment's own alarm severity; never invent a tier"
               why={
                 <>
-                  Field connectivity is not uniform: what a site supports and what its network
-                  currently permits vary, so a single fixed protocol strands part of the fleet.
-                  Acquisition tries transports in priority order and uses whichever answers, so one
-                  site configuration works everywhere. Because re-probing every option on every
-                  cycle would waste most of the polling budget, a successful transport is reused for
-                  a number of cycles before higher-priority options are retried — a device that
-                  returns to a richer transport gets promoted back automatically.
+                  Equipment classifies its own faults and operators are trained on those classes.
+                  Re-deriving severity would put platform and hardware at odds during an incident.
+                  Alarms carry the device's severity and clear on reported recovery.
                 </>
               }
               tradeoff={
                 <>
-                  A site quietly running on a lower-priority transport can expose fewer readings
-                  while still looking “online”, so degradation needs its own visibility. The
-                  stickiness is also a small state machine, and state machines are where the
-                  intermittent bugs live.
+                  Noise cannot be quietened by reclassifying it in the UI; it has to be fixed at the
+                  device or in the catalog. Operators cannot clear alarms themselves.
                 </>
               }
             />
 
             <Decision
               n="05"
-              title="Mirror the equipment's own alarm severity; never invent a tier"
-              why={
-                <>
-                  The equipment already classifies its faults, and operators are trained on those
-                  classifications. Re-deriving severity in software would mean the platform and the
-                  hardware disagree during an incident, which is exactly when disagreement is most
-                  expensive. Alarms therefore carry the severity the device assigned, and an alarm
-                  clears only when the equipment reports recovery — acknowledgement and notes are
-                  workflow annotations layered on top, and none of them can mask a live fault.
-                </>
-              }
-              tradeoff={
-                <>
-                  A chatty device stays chatty: noise cannot be quietened by reclassifying it in the
-                  UI, it has to be fixed at the device or catalog level. Operators also lose the
-                  satisfying “clear” button, which needs explaining once before it feels right.
-                </>
-              }
-            />
-
-            <Decision
-              n="06"
               title="Remote configuration writes are staged, reviewed, verified, and audited"
               why={
                 <>
-                  Changing a charge voltage or a protection limit on live power equipment can take a
-                  site down, so the flow is built to make a careless change hard: edits accumulate as
-                  a pending set rather than being sent as you type; a review step shows every change
-                  as old → new and range-checks it against the manufacturer's limits; the write is
-                  read back and verified against what was intended; and every change lands in an
-                  audit trail — including changes made physically at the equipment, so the record
-                  stays complete. A baseline captured from a known-good site turns configuration
-                  drift into a report, and there is a global switch to disable writes entirely.
+                  A careless write to a charge voltage or protection limit can take a site down.
+                  Edits accumulate as a pending set, reviewed as old → new against the manufacturer's
+                  limits, then read back, verified, and audited.
                 </>
               }
               tradeoff={
                 <>
-                  Deliberate friction: adjusting one value takes several steps, which is the correct
-                  trade for this domain but genuinely slower. Fleet-wide writes also become
-                  asynchronous and partially applied by nature, so per-site outcomes have to be
-                  surfaced rather than assumed.
-                </>
-              }
-            />
-
-            <Decision
-              n="07"
-              title="Health scoring has to explain itself, or it gets ignored"
-              why={
-                <>
-                  A bare score out of 100 is easy to build and easy to dismiss. Every deduction is
-                  therefore itemised — which alarms, which faulted modules, which recurring
-                  temperature problem, what availability — so the score doubles as a work list, and
-                  a handful of plain-language notices name the subsystem and the evidence behind
-                  them. That is the difference between a number an operator argues with and one
-                  they act on.
-                </>
-              }
-              tradeoff={
-                <>
-                  Rule-based scoring only recognises failure modes someone anticipated, and the
-                  weights need periodic tuning as the fleet changes. It reads as objective while
-                  actually encoding judgement — which is fine as long as the rules stay visible.
-                </>
-              }
-            />
-
-            <Decision
-              n="08"
-              title="Show how fresh the data is, everywhere"
-              why={
-                <>
-                  A monitoring tool that renders stale readings as though they were current is worse
-                  than one that is honestly offline, because it produces confident wrong decisions.
-                  Every view states the age of what it is showing, the console refreshes on a fixed
-                  cadence, and readings past a staleness threshold are flagged as stale instead of
-                  silently ageing on screen.
-                </>
-              }
-              tradeoff={
-                <>
-                  Surfacing this exposes normal network variance to users and generates “why is this
-                  site stale?” questions — real support load, accepted in exchange for never
-                  presenting a stale number as fact.
+                  Adjusting one value takes several steps, the right trade here and still slower.
+                  Fleet-wide writes are asynchronous and partly applied, so per-site outcomes must be
+                  surfaced.
                 </>
               }
             />
@@ -710,19 +616,15 @@ const CaseStudyLMMS = () => {
 
         {/* ─── What shipped ─────────────────────────────────────────────── */}
         <Section id="shipped" eyebrow="04" title="What shipped">
-          <p>
-            The platform is in production use. What an operator gets today:
-          </p>
+          <p>In production today, an operator gets:</p>
           <ul className="space-y-3">
             {[
-              'A fleet view in list and map form, each site coloured by its worst active alarm, with the power source currently carrying it.',
-              'A single-site console that draws the plant as connected equipment and animates which source is feeding the load — including whether the battery is charging or discharging — and adapts to each plant\'s actual topology instead of showing empty panels for equipment that is not fitted.',
-              'A catalog of reports across solar, energy, battery, power quality, alarms and availability, runnable over any period, saveable as reusable templates, exportable, and deliverable on a schedule.',
-              'An alarm workspace for working incidents — acknowledge, annotate, remind, hand over — plus response-time tracking and a full action history.',
-              'Alarm delivery through in-app, email, and SMS from a single notification record per event, so the channels cannot contradict each other.',
-              'Remote device configuration with staged edits, validation, verification, drift detection against a baseline, and reusable setting profiles.',
-              'Access scoped per user, so every dashboard, alarm list, and report shows only the sites that user is entitled to see.',
-              'Per-screen contextual help and a full manual served from inside the application, so the system works with no internet connection.',
+              'A fleet view in list and map form, each site coloured by its worst active alarm.',
+              'A single-site console showing which source feeds the load, whether the battery is charging, and each plant\'s real topology.',
+              'A report catalog across solar, energy, battery, power quality, alarms and availability, runnable over any period, saveable, exportable, schedulable.',
+              'An alarm workspace to acknowledge, annotate and hand over, with delivery in-app, email and SMS from one notification record.',
+              'Health scoring that itemises each deduction: alarms, faulted modules, temperature, availability, so the score doubles as a work list.',
+              'Remote configuration with staged edits and drift detection, per-user access scoping, and help plus a full offline manual.',
             ].map(item => (
               <li key={item} className="flex gap-3">
                 <span
@@ -737,13 +639,6 @@ const CaseStudyLMMS = () => {
 
         {/* ─── Results ──────────────────────────────────────────────────── */}
         <Section id="results" eyebrow="05" title="Results">
-          <p className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-5 text-sm">
-            <strong className="text-heading">On numbers:</strong> I would rather publish fewer
-            figures than unverified ones. Everything below was measured against the running
-            production deployment, and each figure states how. The one measurement I cannot make
-            honestly is still bracketed.
-          </p>
-
           {/* 2-up on mobile, 4-up from sm. Values are short enough that no tile
               needs to wrap its number at 375px. */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
@@ -757,39 +652,28 @@ const CaseStudyLMMS = () => {
           <div className="space-y-5">
             <ResultBlock icon={Layers} title="Fleet scale">
               <p>
-                LM-MS runs as separate deployments, one per client. Across them the platform monitors{' '}
-                <Fig>300+</Fig> sites; the largest single client deployment accounts for most of that.
-              </p>
-              <p>
-                Every other figure on this page, though, comes from one deployment — the one I have
-                production database access to — and that one has <Fig>13</Fig> sites, all active,
-                each with exactly <Fig>one</Fig> monitored controller, so its site count and device
-                count are the same number. I am separating the two deliberately: the 300+ is the
-                product's reach, the 13 is the sample I can verify end to end, and mixing them would
-                let a reader assume the measurements below were taken at the larger scale. They were
-                not.
+                LM-MS runs as deployments, one per client, and across them monitors <Fig>300+</Fig>{' '}
+                sites. Every other figure here comes from the one deployment I have production
+                database access to: <Fig>13</Fig> sites, <Fig>one</Fig> monitored controller each. The
+                300+ is reach; the 13 is what I can verify end to end.
               </p>
               <HowMeasured>
-                The 13 is a direct count of registered sites, registered devices, and configured
-                polling targets in the production database I have access to — all three agree. As of
-                29 July 2026. The 300+ is the deployed total across client installations, reported
-                from the business rather than measured by me in that database, which is why the
-                measurements in the sections below are all attributed to the 13-site deployment.
+                The 13 is a direct count of registered sites, devices and polling targets in the
+                production database; all three agree. As of 29 July 2026. The 300+ is the deployed
+                total reported from the business.
               </HowMeasured>
             </ResultBlock>
 
             <ResultBlock icon={RefreshCw} title="Data freshness">
               <p>
-                Four values define the chain end to end: equipment is polled every{' '}
-                <Fig>120 s</Fig> on the primary transport (<Fig>60 s</Fig> on the secondary);
-                acquisition flushes to storage every <Fig>30 s</Fig>; the console refreshes every{' '}
-                <Fig>60 s</Fig> and prints the age of what it is showing; a site is flagged stale
-                after <Fig>10 minutes</Fig> without data.
+                Equipment is polled every <Fig>120 s</Fig> on the primary transport,{' '}
+                <Fig>60 s</Fig> on the secondary, and acquisition flushes every <Fig>30 s</Fig>. The
+                console refreshes every <Fig>60 s</Fig> and prints the age of what it shows. A site is
+                flagged stale after <Fig>10 minutes</Fig> without data.
               </p>
               <p>
-                So under normal operation the worst-case age of a displayed reading is roughly{' '}
-                <Fig>3.5 minutes</Fig> — poll cycle plus flush plus refresh — and anything beyond 10
-                minutes is marked stale rather than shown as current.
+                Worst-case age of a displayed reading is roughly <Fig>3.5 minutes</Fig>: poll cycle,
+                flush, refresh. Past 10 minutes it is flagged stale rather than left to age silently.
               </p>
               <HowMeasured>
                 Read from the live service configuration in the current release, not from
@@ -799,26 +683,23 @@ const CaseStudyLMMS = () => {
 
             <ResultBlock icon={Target} title="Operational outcome — detection to notification">
               <p>
-                From the moment acquisition detects a fault to the moment the SMS is dispatched:
-                median <Fig>45 s</Fig>, mean <Fig>86 s</Fig>, 90th percentile <Fig>207 s</Fig> (3
-                min 27 s), range <Fig>10–912 s</Fig>, across <Fig>2,039</Fig> matched
-                fault-to-message pairs.
+                From acquisition detecting a fault to SMS dispatch: median <Fig>45 s</Fig>, mean{' '}
+                <Fig>86 s</Fig>, 90th percentile <Fig>207 s</Fig>, range <Fig>10–912 s</Fig>, across{' '}
+                <Fig>2,039</Fig> matched fault-to-message pairs.
               </p>
               <p>
-                Two honest caveats: this measures detection to dispatch, not the instant the fault
-                physically occurred — add up to one polling cycle for that — and it measures dispatch
-                to the gateway, not delivery to the handset, which is outside the system.
+                Two caveats: this is detection to dispatch, not the instant the fault occurred, so
+                add up to one polling cycle. Dispatch means handed to the gateway, not delivered.
               </p>
               <p>
-                Two supporting figures from the same window: <Fig>783</Fig> of <Fig>791</Fig>{' '}
-                recorded alarms (<Fig>99.0%</Fig>) closed themselves when the equipment recovered,
-                with no operator action; and of <Fig>3,924</Fig> messages the gateway accepted{' '}
-                <Fig>3,923</Fig> — a single failure.
+                In the same window, <Fig>783</Fig> of <Fig>791</Fig> alarms (<Fig>99.0%</Fig>) closed
+                themselves when the equipment recovered. Of <Fig>3,924</Fig> messages the gateway
+                accepted <Fig>3,923</Fig>.
               </p>
               <HowMeasured>
-                Joined every alarm event record to its outbound message record on the shared event
-                key, over 11 June – 28 July 2026, discarding pairs beyond one hour as unmatched. The
-                auto-clear rate is the share of recorded alarms carrying a system-set recovery time.
+                Joined each alarm event record to its outbound message record on the shared event key
+                over 11 June – 28 July 2026, discarding pairs beyond one hour. The auto-clear rate is
+                the share of alarms with a system-set recovery time.
               </HowMeasured>
             </ResultBlock>
 
@@ -827,23 +708,21 @@ const CaseStudyLMMS = () => {
                   vendor-brochure number, or a "typically hours" hand-wave — the only thing
                   that unblocks it is a customer willing to state their old detection time
                   on the record. */}
-              The comparison the question really asks for — time to notice a fault before LM-MS — is{' '}
+              The obvious comparison, time to notice a fault before LM-MS, is{' '}
               <Fill>not measurable from the system</Fill>. That baseline lived in phone calls and
-              site visits; publishing a before/after ratio would mean inventing the “before”. It
-              stays bracketed until a customer will state it on the record.
+              site visits, and stays bracketed until a customer states it.
             </AfterNote>
 
             <ResultBlock icon={GitBranch} title="Extensibility">
               <p>
-                The catalog currently describes <Fig>four</Fig> device models against a shared
-                measurement model of <Fig>~3,400</Fig> field definitions, with <Fig>867</Fig> alarm
-                definitions per model — all of it data rows, none of it code.
+                The catalog describes <Fig>four</Fig> device models against a shared measurement
+                model of <Fig>~3,400</Fig> field definitions, with <Fig>867</Fig> alarm definitions
+                per model. All of it is data rows, not code.
               </p>
               <p>
-                The verified proof this is real: on <Fig>7 July 2026</Fig> a fleet-wide correction to
-                how an entire measurement family is interpreted (see the incident below) shipped
-                purely as a catalog change — no code change, no deployment, no restart — and took
-                effect on the next configuration reload, within <Fig>10 minutes</Fig>.
+                On <Fig>7 July 2026</Fig> a fleet-wide correction to how a whole measurement family
+                is interpreted (see the incident below) shipped as a catalog change: no code, no
+                deployment, no restart, live within <Fig>10 minutes</Fig>.
               </p>
               <HowMeasured>
                 Counts taken from the live device catalog; the 7 July change is evidenced by the
@@ -857,43 +736,35 @@ const CaseStudyLMMS = () => {
                   integrated before — start-to-first-good-reading, wall clock. Until then it
                   stays bracketed. */}
               End-to-end time to onboard a brand-new model is{' '}
-              <Fill>unmeasured — needs one timed example</Fill>. A correction to an existing model is
-              not the same thing as commissioning an unfamiliar one, and I will not present it as if
-              it were.
+              <Fill>unmeasured — needs one timed example</Fill>. Correcting an existing model is not
+              commissioning an unfamiliar one.
             </AfterNote>
           </div>
         </Section>
 
         {/* ─── Reflection ───────────────────────────────────────────────── */}
         <Section id="reflection" eyebrow="06" title="What I'd do differently">
-          <p>Four lessons — and then the incident that produced three of them.</p>
+          <p>Four lessons, then the incident behind three of them.</p>
 
           <div className="space-y-4">
             <Lesson n={1} title="Invest in the measurement model's tooling sooner.">
-              A device-agnostic identity scheme is the right core, and it is also the steepest part
-              of the system to learn. Metadata, a browsable reference, and a lint that catches a
-              mis-mapped identity would have paid for themselves early — most of my own slow
-              debugging sessions traced back to reading identifiers by hand.
+              A browsable reference and a lint for mis-mapped identities would have paid for
+              themselves early; my slow debugging was mostly reading identifiers by hand.
             </Lesson>
 
             <Lesson n={2} title="Make the transform versioned and replayable from day one.">
-              Normalizing at acquisition is the correct call, but it means a scaling correction
-              implies a historical backfill. Versioning the transform and being able to replay a
-              window of history through a new version turns a delicate migration into a routine
-              operation.
+              Normalizing at acquisition is right, but a scaling correction implies a backfill, and
+              replaying history through a new transform version would make that routine.
             </Lesson>
 
             <Lesson n={3} title="Put contract tests on the boundary between the two stages.">
-              The single integration contract is the system's biggest strength and its most silent
-              failure mode: a mismatch in what one side writes and the other expects shows up as a
-              blank panel, not an error. That deserves automated tests in its own right, not the
-              end-to-end checks I leaned on.
+              A mismatch between what one side writes and the other expects shows up as a blank
+              panel, not an error, and deserves its own tests.
             </Lesson>
 
             <Lesson n={4} title="Design alarm-noise reduction as a real feature.">
-              Refusing to mask live faults in the UI is right, but it leaves noise as somebody
-              else's problem. Flapping detection and correlation — one root cause presented as one
-              incident rather than forty alarms — belongs in the plan rather than in a backlog.
+              Refusing to mask live faults is right, but flapping detection and correlation, one
+              incident rather than forty alarms, belong in the plan.
             </Lesson>
           </div>
 
@@ -927,17 +798,13 @@ const CaseStudyLMMS = () => {
                 <IncidentStep label="Symptom">
                   <p>
                     Battery current on several solar sites intermittently read about{' '}
-                    <Fig>6,553 A</Fig>, physically impossible on a 48-volt plant whose real currents
-                    are single or low double digits. It was not consistent, which is what made it
-                    easy to dismiss at first as a bad read.
+                    <Fig>6,553 A</Fig>, impossible on a 48-volt plant whose real currents are single
+                    or low double digits.
                   </p>
                 </IncidentStep>
 
                 <IncidentStep label="Diagnosis">
-                  <p>
-                    The number itself was the whole diagnosis. The scale factor for that measurement
-                    is one tenth, and:
-                  </p>
+                  <p>The scale factor for that measurement is one tenth:</p>
                   <div className="overflow-x-auto rounded-xl border border-subtle bg-surface-overlay px-4 py-3">
                     <p className="text-center font-mono text-sm font-semibold tabular-nums text-heading sm:text-base">
                       65535 × 0.1 = 6553.5
@@ -945,35 +812,31 @@ const CaseStudyLMMS = () => {
                   </div>
                   <p>
                     <Fig>65535</Fig> is the top of an unsigned 16-bit range. The controller reports
-                    battery current as a <em>signed</em> value — positive while charging, negative
-                    while discharging — and the measurement model had that entire family declared
-                    unsigned, so every discharge reading was reinterpreted as a very large positive
-                    one.
+                    battery current as a <em>signed</em> value, positive charging and negative
+                    discharging, and the model declared that whole family unsigned. Every discharge
+                    reading became a large positive one.
                   </p>
                   <p>
-                    The bug was invisible while the sun was up and the battery was charging, and
-                    appeared precisely when the battery was carrying the site: the exact condition
-                    the platform exists to observe.
+                    The bug was invisible while the battery charged and appeared when the battery
+                    carried the site.
                   </p>
                 </IncidentStep>
 
                 <IncidentStep label="Blast radius">
                   <p>
                     Because normalization happens once at acquisition (decision 01), this was never a
-                    display bug. The wrong values were written into history:{' '}
-                    <Fig>22,052</Fig> of <Fig>238,565</Fig> stored records, across <Fig>8</Fig>{' '}
-                    sites, from the beginning of the series on <Fig>17 May 2026</Fig> until the fix on{' '}
-                    <Fig>7 July 2026</Fig>. Every trend, battery report and availability figure over
-                    that window drew on them.
+                    display bug. The wrong values went into history: <Fig>22,052</Fig> of{' '}
+                    <Fig>238,565</Fig> stored records, across <Fig>8</Fig> sites, from the start of
+                    the series on <Fig>17 May 2026</Fig> until the fix on <Fig>7 July 2026</Fig>.
+                    Every trend and battery report over that window drew on them.
                   </p>
                 </IncidentStep>
 
                 <IncidentStep label="Fix">
                   <p>
-                    One metadata change: declare the family signed, applied in the device catalog. No
-                    code change, no release, no restart; live on the next configuration reload. Zero
-                    occurrences since, verified against the last seven days of data. Decision 02 paid
-                    for itself here — a fleet-wide measurement correction was a configuration edit.
+                    One metadata change: declare the family signed in the device catalog. No code, no
+                    release, no restart; live on the next configuration reload. Zero occurrences
+                    since, verified over the last seven days of data. Decision 02 paid for itself.
                   </p>
                 </IncidentStep>
 
@@ -985,13 +848,9 @@ const CaseStudyLMMS = () => {
                       </span>
                       <span>
                         Signedness, unit and physical range became first-class metadata rather than
-                        assumptions. A check that flags any measurement whose observed values fall
-                        outside its declared physical range would have caught this on day one instead
-                        of week seven — a battery current two orders of magnitude beyond the plant's
-                        rating is not a subtle signal.{' '}
-                        <em className="text-subtle">
-                          This is Lesson 1, and it cost me weeks before I wrote it down.
-                        </em>
+                        assumptions. A check flagging values outside a declared range would have
+                        caught this on day one, not week seven.{' '}
+                        <em className="text-subtle">Lesson 1.</em>
                       </span>
                     </li>
                     <li className="flex gap-3">
@@ -999,13 +858,9 @@ const CaseStudyLMMS = () => {
                         02
                       </span>
                       <span>
-                        Those <Fig>22,052</Fig> rows are still wrong. The transform is not versioned
-                        and history cannot be replayed through a corrected version, so fixing the
-                        past is a bespoke migration rather than a routine operation — which is why it
-                        has not been run. The bug did not teach me that versioned transforms are nice
-                        to have; it produced a permanent scar in the data that only a replay
-                        capability could remove.{' '}
-                        <em className="text-subtle">Lesson 2, written in the past tense.</em>
+                        Those <Fig>22,052</Fig> rows are still wrong. The transform is not versioned,
+                        so fixing the past is a bespoke migration and has not been run.{' '}
+                        <em className="text-subtle">Lesson 2.</em>
                       </span>
                     </li>
                     <li className="flex gap-3">
@@ -1013,11 +868,9 @@ const CaseStudyLMMS = () => {
                         03
                       </span>
                       <span>
-                        Nothing in the system ever raised an error. A physically impossible value
-                        passed through acquisition, storage, dashboards, health scoring and reports
-                        without a single complaint. That is the silent-failure mode the contract
-                        between the two stages is most prone to, and it is why range assertions
-                        belong on that boundary as tests, not as end-to-end spot checks.{' '}
+                        Nothing raised an error. A physically impossible value passed through
+                        acquisition, storage, dashboards, health scoring and reports without a
+                        complaint. Range assertions belong on that boundary as tests.{' '}
                         <em className="text-subtle">Lesson 3.</em>
                       </span>
                     </li>
@@ -1049,6 +902,10 @@ const CaseStudyLMMS = () => {
               <ArrowRight size={18} className="ml-2" />
             </Link>
           </Button>
+        </div>
+
+        <div className="mt-4">
+          <ShareLinks title={PAGE_TITLE} label="Share this case study" />
         </div>
       </div>
     </main>
