@@ -49,16 +49,12 @@ export const roles: Role[] = [
   },
   {
     company: 'Banque Misr',
-    title: 'Information Security Intern',
+    title: 'Data Governance Intern',
     duration: '2 – 27 August 2026',
     badge: 'Internship',
-    // Written before the placement began, so it states the placement and nothing
-    // more. TODO(laila): after 27 August, replace this with what you actually
-    // worked on — what you assessed, the tooling, what you'd do differently. That
-    // version carries weight; this one is only a placeholder fact.
     summary:
-      "Summer placement in the information security sector at one of Egypt's largest banks — security and compliance practice for enterprise systems.",
-    tech: ['Information Security'],
+      "Summer placement in the data analytics branch at one of Egypt's largest banks — focusing on data governance practices for enterprise systems.",
+    tech: ['Data Governance', 'Data Analytics', 'Compliance'],
   },
   {
     company: 'Media Gate Company',
