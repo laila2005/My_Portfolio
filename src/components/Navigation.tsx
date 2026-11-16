@@ -6,10 +6,10 @@ import { useLenis } from 'lenis/react';
 
 const navItems = [
   { name: 'Home', href: '#home' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Experience', href: '#experience' },
   { name: 'About', href: '#about' },
   { name: 'Skills', href: '#skills' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Projects', href: '#projects' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -148,7 +148,7 @@ const Navigation = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
-              className="md:hidden absolute top-full left-0 right-0 z-40 bg-white/95 dark:bg-[#0B0614]/95 backdrop-blur-2xl border-b border-purple-100 dark:border-purple-500/20 shadow-[0_30px_60px_rgba(0,0,0,0.12)] dark:shadow-[0_30px_60px_rgba(168,85,247,0.15)] rounded-b-[2.5rem] overflow-hidden"
+              className="md:hidden absolute top-full left-0 right-0 z-40 bg-white/95 dark:bg-[#13111c]/95 backdrop-blur-2xl border-b border-purple-100 dark:border-purple-500/20 shadow-[0_30px_60px_rgba(0,0,0,0.12)] dark:shadow-[0_30px_60px_rgba(168,85,247,0.15)] rounded-b-[2.5rem] overflow-hidden"
             >
               <div className="flex flex-col px-4 py-6 pb-8 space-y-2">
                 {navItems.map((item, i) => (

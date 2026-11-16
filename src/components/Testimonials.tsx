@@ -85,7 +85,7 @@ const Testimonials = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col bg-white/60 dark:bg-[#110B1D]/40 bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-white/5 backdrop-blur-xl border border-white/60 dark:border-purple-500/20 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-xl rounded-[2rem] p-8 sm:p-10"
+              className="flex flex-col bg-white/60 dark:bg-[#1c1b28]/40 bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-white/5 backdrop-blur-xl border border-white/60 dark:border-purple-500/20 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-xl rounded-[2rem] p-8 sm:p-10"
             >
               <Quote className="text-primary/40 mb-5 shrink-0" size={36} aria-hidden="true" />
 

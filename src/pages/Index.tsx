@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
+import ProofStrip from '@/components/ProofStrip';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Experience from '@/components/Experience';
@@ -21,7 +22,7 @@ const Index = () => {
     <div className="min-h-screen">
       {/* Keyboard users can jump past the nav straight to the content. */}
       <a
-        href="#about"
+        href="#projects"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-5 focus:py-3 focus:rounded-xl focus:bg-primary focus:text-white focus:font-bold focus:shadow-2xl"
       >
         Skip to content
@@ -29,10 +30,11 @@ const Index = () => {
       <Navigation />
       <main>
         <Hero />
+        <ProofStrip />
+        <Projects />
+        <Experience />
         <About />
         <Skills />
-        <Experience />
-        <Projects />
         <Testimonials />
         <Contact />
       </main>

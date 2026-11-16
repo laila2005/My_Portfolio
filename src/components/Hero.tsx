@@ -26,7 +26,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden bg-gradient-glass dark:bg-none dark:bg-[#030014] pt-20 pb-24 lg:pt-32 lg:pb-12 transition-colors duration-500">
+    <section id="home" className="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden bg-gradient-glass dark:bg-none dark:bg-[#0e0d16] pt-20 pb-24 lg:pt-32 lg:pb-12 transition-colors duration-500">
       <AnimatedBlobsBackground />
       
       {/* 3D FULL BLEED BACKGROUND.
@@ -40,7 +40,7 @@ const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2, delay: 0.5 }}
-          className="absolute inset-0 z-0 w-full h-full mix-blend-multiply dark:mix-blend-screen pointer-events-none overflow-hidden flex items-center justify-center"
+          className="absolute inset-0 z-0 w-full h-full mix-blend-multiply dark:mix-blend-screen dark:brightness-[0.45] pointer-events-none overflow-hidden flex items-center justify-center"
           style={{
             maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)',
             WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)'
@@ -51,7 +51,7 @@ const Hero = () => {
             src="https://my.spline.design/r4xbot-W4o2DoAzOZpijadxTQZEON0j/?v=11"
             frameBorder="0"
             loading="lazy"
-            className="pointer-events-auto w-[calc(100%+150px)] h-[calc(100%+150px)] max-w-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
+            className="dark:opacity-40 pointer-events-auto w-[calc(100%+150px)] h-[calc(100%+150px)] max-w-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
             title="Interactive 3D robot — follows your cursor"
           ></iframe>
         </motion.div>
@@ -73,7 +73,7 @@ const Hero = () => {
           className="flex flex-col gap-8 justify-center items-center lg:items-start w-full lg:w-[45%] z-20 text-center lg:text-left mt-0"
         >
           {/* Glassmorphism Text Container */}
-          <div className="relative w-full flex flex-col items-center lg:items-start p-6 sm:p-8 lg:p-10 pt-24 sm:pt-28 lg:pt-10 rounded-[2rem] bg-white/40 dark:bg-[#110B1D]/60 backdrop-blur-2xl border border-white/50 dark:border-purple-500/30 shadow-2xl pointer-events-auto transition-transform duration-500 hover:scale-[1.02]">
+          <div className="relative w-full flex flex-col items-center lg:items-start p-6 sm:p-8 lg:p-10 pt-24 sm:pt-28 lg:pt-10 rounded-[2rem] bg-white/40 dark:bg-[#1c1b28]/60 backdrop-blur-2xl border border-white/50 dark:border-purple-500/30 shadow-2xl pointer-events-auto transition-transform duration-500 hover:scale-[1.02]">
             <h1 className="font-clash text-4xl sm:text-5xl lg:text-6xl mb-4 text-heading font-black tracking-tight leading-[1.1] drop-shadow-sm whitespace-nowrap">
               Laila <span className="text-gradient">Mohamed</span>
             </h1>
@@ -118,6 +118,22 @@ const Hero = () => {
               <Button
                 asChild
                 size="lg"
+                className="bg-gray-900 text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-lg transition-all duration-300 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
+              >
+                <a
+                  href={`mailto:laila.mohamed.fikry@gmail.com?subject=${encodeURIComponent("Let's talk")}`}
+                  className="flex items-center justify-center gap-2 w-full"
+                >
+                  <Mail size={18} className="shrink-0" />
+                  <span className="whitespace-nowrap">Let&apos;s talk</span>
+                </a>
+              </Button>
+            </MagneticButton>
+
+            <MagneticButton intensity={0.3} className="w-full sm:w-auto flex justify-center lg:justify-start">
+              <Button
+                asChild
+                size="lg"
                 variant="outline"
                 className="border-2 border-primary/30 dark:border-primary/40 text-primary font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-lg hover-glow transition-all duration-300 bg-surface/50 backdrop-blur-sm hover:bg-primary/5 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
               >
@@ -136,6 +152,14 @@ const Hero = () => {
             </MagneticButton>
           </div>
           
+          <p className="flex items-center justify-center gap-2 font-inter text-sm text-body lg:justify-start">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+            </span>
+            Currently open to remote work
+          </p>
+
           {/* Socials */}
           <div className="flex gap-4 justify-center lg:justify-start w-full sm:w-auto pointer-events-auto">
             <MagneticButton intensity={0.4}>
@@ -180,7 +204,7 @@ const Hero = () => {
           className="flex flex-col gap-10 sm:gap-12 justify-center items-center lg:items-end w-full lg:w-[45%] z-30 mb-[-70px] sm:mb-[-90px] lg:mb-0 mt-0 pointer-events-none"
         >
           {/* Floating Profile Photo ID Badge */}
-          <div className="flex flex-shrink-0 z-40 relative w-[140px] sm:w-[180px] lg:w-[200px] h-[190px] sm:h-[240px] lg:h-[260px] bg-white/60 dark:bg-[#110B1D]/80 backdrop-blur-3xl rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(168,85,247,0.4)] border border-white/80 dark:border-purple-500/50 p-2 pointer-events-auto transition-transform duration-500 hover:scale-105 rotate-0 lg:rotate-3 hover:rotate-0">
+          <div className="flex flex-shrink-0 z-40 relative w-[140px] sm:w-[180px] lg:w-[200px] h-[190px] sm:h-[240px] lg:h-[260px] bg-white/60 dark:bg-[#1c1b28]/80 backdrop-blur-3xl rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(168,85,247,0.4)] border border-white/80 dark:border-purple-500/50 p-2 pointer-events-auto transition-transform duration-500 hover:scale-105 rotate-0 lg:rotate-3 hover:rotate-0">
             <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-inner">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent mix-blend-overlay z-10 pointer-events-none"></div>
               <img
@@ -195,7 +219,7 @@ const Hero = () => {
           </div>
 
           {/* Floating Terminal Box */}
-          <div className="hidden lg:flex flex-col rounded-xl overflow-hidden border border-white/60 dark:border-purple-500/50 bg-white/50 dark:bg-[#110B1D]/70 backdrop-blur-[24px] shadow-[0_15px_40px_rgb(0,0,0,0.15)] dark:shadow-[0_0_30px_rgba(168,85,247,0.3)] ring-1 ring-white/50 dark:ring-purple-500/30 w-full lg:max-w-md pointer-events-auto cursor-text hover:shadow-[0_15px_40px_rgb(139,92,246,0.3)] dark:hover:shadow-[0_0_40px_rgba(168,85,247,0.5)] transition-all duration-500 rotate-0 lg:-rotate-1 hover:rotate-0">
+          <div className="hidden lg:flex flex-col rounded-xl overflow-hidden border border-white/60 dark:border-purple-500/50 bg-white/50 dark:bg-[#1c1b28]/70 backdrop-blur-[24px] shadow-[0_15px_40px_rgb(0,0,0,0.15)] dark:shadow-[0_0_30px_rgba(168,85,247,0.3)] ring-1 ring-white/50 dark:ring-purple-500/30 w-full lg:max-w-md pointer-events-auto cursor-text hover:shadow-[0_15px_40px_rgb(139,92,246,0.3)] dark:hover:shadow-[0_0_40px_rgba(168,85,247,0.5)] transition-all duration-500 rotate-0 lg:-rotate-1 hover:rotate-0">
             <div className="bg-white/60 dark:bg-black/60 px-5 sm:px-6 py-3 sm:py-4 border-b border-white/30 dark:border-purple-500/40 flex items-center gap-2 backdrop-blur-xl">
               <div className="flex gap-1.5">
                 <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-red-400"></div>

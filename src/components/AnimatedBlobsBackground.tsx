@@ -22,7 +22,7 @@ export default function AnimatedBlobsBackground() {
       </svg>
       {/* First blob */}
       <motion.svg
-        className="absolute top-[8%] left-[8%] w-48 h-48 sm:w-[28vw] sm:h-[28vw] z-0 opacity-30 sm:opacity-70"
+        className="absolute top-[8%] left-[8%] w-48 h-48 sm:w-[28vw] sm:h-[28vw] z-0 opacity-30 sm:opacity-70 dark:opacity-20 dark:sm:opacity-35"
         viewBox="0 0 400 400"
         animate={{ y: [0, 60, 0], x: [0, 40, 0] }}
         transition={{ duration: 7, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }}
@@ -34,7 +34,7 @@ export default function AnimatedBlobsBackground() {
       </motion.svg>
       {/* Second blob */}
       <motion.svg
-        className="absolute bottom-[5%] right-[10%] w-56 h-56 sm:w-[32vw] sm:h-[32vw] z-0 opacity-20 sm:opacity-60"
+        className="absolute bottom-[5%] right-[10%] w-56 h-56 sm:w-[32vw] sm:h-[32vw] z-0 opacity-20 sm:opacity-60 dark:opacity-15 dark:sm:opacity-30"
         viewBox="0 0 400 400"
         animate={{ y: [0, -70, 0], x: [0, -50, 0] }}
         transition={{ duration: 9, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }}

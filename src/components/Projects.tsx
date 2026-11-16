@@ -70,21 +70,28 @@ const Projects = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
 
+  // Featured projects lead; the rest sit behind "See More Projects".
   const featured = projects.filter(p => p.featured);
+  const ordered = [...featured, ...projects.filter(p => !p.featured)];
 
   // Counts are derived, not stored, so a group can never advertise more
   // projects than it can actually show.
   const categoryCounts = categories.map(category => ({
     ...category,
-    count: featured.filter(project => projectInCategory(project, category)).length,
+    count: ordered.filter(project => projectInCategory(project, category)).length,
   }));
 
   const selected = categories.find(c => c.id === activeCategory);
   const filteredProjects = selected
-    ? featured.filter(project => projectInCategory(project, selected))
-    : featured;
+    ? ordered.filter(project => projectInCategory(project, selected))
+    : ordered;
 
-  const displayedProjects = showAll ? filteredProjects : filteredProjects.slice(0, 4);
+  // Collapsed view shows the featured ones; a filter with no featured match
+  // still shows its first few so a pill never opens an empty grid.
+  const collapsedProjects = filteredProjects.some(p => p.featured)
+    ? filteredProjects.filter(p => p.featured)
+    : filteredProjects.slice(0, 3);
+  const displayedProjects = showAll ? filteredProjects : collapsedProjects;
 
   // Collapse back to the first page whenever the filter changes, so the
   // "See More Projects" button always reflects the current result set.
@@ -137,7 +144,7 @@ const Projects = () => {
               }`}
             >
               All
-              <span className="ml-1.5 font-mono text-[11px] opacity-60">{featured.length}</span>
+              <span className="ml-1.5 font-mono text-[11px] opacity-60">{ordered.length}</span>
             </button>
             {categoryCounts.map(category => {
               const isActive = activeCategory === category.id;
@@ -187,7 +194,7 @@ const Projects = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
-                className={`group flex flex-col ${isHero ? 'lg:flex-row' : ''} bg-white/60 dark:bg-[#110B1D]/40 bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-white/5 backdrop-blur-xl border border-white/60 dark:border-purple-500/20 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-xl hover:shadow-[0_20px_50px_rgb(0,0,0,0.12)] dark:hover:shadow-2xl dark:hover:shadow-purple-500/20 hover:-translate-y-2 rounded-[2rem] overflow-hidden transition-all duration-500 cursor-pointer focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 ${spanClass}`}
+                className={`group flex flex-col ${isHero ? 'lg:flex-row' : ''} bg-white/60 dark:bg-[#1c1b28]/40 bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-white/5 backdrop-blur-xl border border-white/60 dark:border-purple-500/20 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-xl hover:shadow-[0_20px_50px_rgb(0,0,0,0.12)] dark:hover:shadow-2xl dark:hover:shadow-purple-500/20 hover:-translate-y-2 rounded-[2rem] overflow-hidden transition-all duration-500 cursor-pointer focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 ${spanClass}`}
                 /* Mouse convenience only: a plain div, not a control, so the card
                    is never announced as a button containing other buttons. The
                    keyboard/screen-reader path is the real "Explore Architecture"
@@ -202,7 +209,7 @@ const Projects = () => {
                     className={isHero ? 'h-64 sm:h-80 lg:h-full min-h-[300px] sm:min-h-[400px]' : isTall ? 'h-72 lg:h-80' : 'h-56 lg:h-64'}
                   />
                   <div className="absolute top-4 left-4 flex flex-col gap-2 z-30">
-                    <span className="bg-white/95 dark:bg-[#110B1D]/90 backdrop-blur-md text-gray-900 dark:text-white border border-gray-200 dark:border-purple-500/30 px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold shadow-md tracking-wider uppercase">
+                    <span className="bg-white/95 dark:bg-[#1c1b28]/90 backdrop-blur-md text-gray-900 dark:text-white border border-gray-200 dark:border-purple-500/30 px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold shadow-md tracking-wider uppercase">
                       Featured
                     </span>
                     {project.status && (
@@ -275,7 +282,7 @@ const Projects = () => {
           </AnimatePresence>
         </div>
 
-        {filteredProjects.length > 4 && (
+        {filteredProjects.length > collapsedProjects.length && (
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

@@ -432,7 +432,7 @@ export const projects: Project[] = [
         body: "The engine ingests live camera feeds, performs real-time triage, and calculates a severity score from the scene classification and the motion heuristics together. When that score breaches a critical threshold, the system bypasses manual review and coordinates GPS dispatch routing to the Ministry of Interior (122) and Ambulance services (123).",
       },
     ],
-    featured: true
+    featured: false
   },
 
   {
@@ -493,7 +493,7 @@ export const projects: Project[] = [
         body: "This is the project with both a public repository and a live deployment, so the demo above is better evidence than anything written here. The gallery is captured from that deployment.",
       },
     ],
-    featured: true
+    featured: false
   },
   {
     slug: 'crash-detection',
@@ -552,7 +552,7 @@ export const projects: Project[] = [
         body: "Inqaz came first, and it is the more ambitious system: live mobile feeds, two detection models, severity scoring, GPS dispatch. It was too complex to land in one go, so I cut the same problem down to the one question I could answer end to end — is this scene a crash or not — on a balanced 3,000-scene dataset with a held-out test set to check the answer against. That narrower scope is what made this version shippable and measurable: a single classification target, one metric that means something, and a deployment someone else could open and try. I submitted it as university coursework and it was marked highly. What came out of training and evaluating it fed back into Inqaz, which I am still developing. The two projects address the same problem at different scopes — Inqaz's own detection stack is the dual ResNet-34 system, InqazSceneNet and InqazPoseNet, described on its own page.",
       },
     ],
-    featured: true
+    featured: false
   },
   {
     slug: 'dishcraft',
@@ -588,7 +588,7 @@ export const projects: Project[] = [
         body: "Database integration runs through Node.js.",
       },
     ],
-    featured: true
+    featured: false
   },
   {
     slug: 'techroad',
@@ -627,7 +627,7 @@ export const projects: Project[] = [
         // no longer marked "In Progress".
       },
     ],
-    featured: true,
+    featured: false,
     status: "In Progress"
   },
   {
@@ -660,7 +660,7 @@ export const projects: Project[] = [
         body: "Complex collision detection, player movement physics, enemy AI, and dynamic maze texture rendering.",
       },
     ],
-    featured: true
+    featured: false
   }
 ];
 

@@ -62,13 +62,13 @@ const Experience = () => {
                 className={`mb-16 relative flex flex-col md:flex-row items-start ${isEven ? 'md:justify-start' : 'md:justify-end'}`}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-[28px] md:left-1/2 w-10 h-10 bg-white dark:bg-[#110B1D] border-4 border-purple-500 rounded-full flex items-center justify-center -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+                <div className="absolute left-[28px] md:left-1/2 w-10 h-10 bg-white dark:bg-[#1c1b28] border-4 border-purple-500 rounded-full flex items-center justify-center -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(168,85,247,0.4)]">
                   <Briefcase size={16} className="text-purple-600 dark:text-purple-400" />
                 </div>
 
                 {/* Content Card */}
                 <div className={`w-full md:w-[45%] pl-20 md:pl-0 ${isEven ? 'md:pr-16 text-left md:text-right' : 'md:pl-16 text-left'}`}>
-                  <div className="bg-white/60 dark:bg-[#110B1D]/40 backdrop-blur-xl border border-white/60 dark:border-purple-500/20 shadow-xl rounded-3xl p-8 hover:-translate-y-1 transition-transform duration-300">
+                  <div className="bg-white/60 dark:bg-[#1c1b28]/40 backdrop-blur-xl border border-white/60 dark:border-purple-500/20 shadow-xl rounded-3xl p-8 hover:-translate-y-1 transition-transform duration-300">
                     
                     <div className={`flex flex-wrap items-center gap-2 mb-3 text-sm font-bold text-indigo-600 dark:text-indigo-400 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
                       <Calendar size={16} />
