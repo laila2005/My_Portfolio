@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import InkUnderline from './InkUnderline';
 
 const Contact = () => {
   const contactInfo = [
@@ -105,6 +106,7 @@ const Contact = () => {
           <h2 className="font-poppins font-extrabold text-5xl sm:text-6xl mb-4 text-gradient drop-shadow-lg">
             Contact
           </h2>
+          <InkUnderline />
           <p className="font-inter text-xl text-body max-w-2xl mx-auto mb-2">
             Let's connect! I'd love to hear about your project, collaboration, or just chat about tech and creativity.
           </p>

@@ -349,3 +349,24 @@
     radial-gradient(1px 1px at 12% 90%, rgba(255,255,255,.45), transparent),
     radial-gradient(1px 1px at 58% 94%, rgba(255,255,255,.5), transparent);
 }
+
+/* The intro butterfly draws itself in ink. */
+.butterfly-draw path,
+.butterfly-draw ellipse,
+.butterfly-draw circle {
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  animation: butterfly-ink 1s ease-out forwards;
+}
+@keyframes butterfly-ink {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Page loader: appears only if a route takes noticeable time. */
+.page-loader {
+  opacity: 0;
+  animation: page-loader-in 0.3s ease-out 0.35s forwards;
+}
+@keyframes page-loader-in {
+  to { opacity: 1; }
+}

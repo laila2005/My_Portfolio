@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { BookOpen, Home } from "lucide-react";
+import { Butterfly } from "@/components/ButterflyField";
 
 const NotFound = () => {
   const location = useLocation();
@@ -20,8 +21,10 @@ const NotFound = () => {
   return (
     <main className="min-h-screen flex items-center justify-center bg-surface px-6 py-24 relative overflow-hidden">
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <Butterfly className="absolute right-[12%] top-[18%] h-24 w-28 -rotate-12 text-primary/40" />
 
       <div className="text-center relative z-10 max-w-lg">
+        <Butterfly className="mx-auto mb-4 h-14 w-16 text-primary" />
         <p className="font-mono text-sm font-bold uppercase tracking-[0.3em] text-primary mb-6">
           Error 404
         </p>
@@ -29,7 +32,7 @@ const NotFound = () => {
           Page not <span className="text-gradient">found</span>
         </h1>
         <p className="font-inter text-lg text-body mb-4">
-          This page doesn't exist or has moved.
+          This page flew away, or never existed.
         </p>
         <p className="font-mono text-sm text-subtle mb-10 break-all">{location.pathname}</p>
 

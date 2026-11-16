@@ -6,6 +6,7 @@ import { ReactLenis } from 'lenis/react';
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ErrorBoundary from './components/ErrorBoundary';
+import PageLoader from './components/PageLoader';
 
 // Sub-pages sit off the main route — load them on demand.
 const Writing = React.lazy(() => import('./pages/Writing'));
@@ -23,7 +24,7 @@ const App = () => {
         <ErrorBoundary>
           <TooltipProvider>
             <BrowserRouter>
-              <React.Suspense fallback={null}>
+              <React.Suspense fallback={<PageLoader />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/projects/:slug" element={<ProjectDetail />} />

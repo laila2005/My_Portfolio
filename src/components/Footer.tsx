@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
 import { useState } from 'react';
 import { useLenis } from 'lenis/react';
+import { Butterfly } from './ButterflyField';
 
 const Footer = () => {
   const [showTop, setShowTop] = useState(false);
@@ -49,10 +50,10 @@ const Footer = () => {
             <div className="flex flex-col items-center md:items-start max-w-md text-center md:text-left">
               <h3 className="font-poppins font-black text-3xl mb-4 text-gray-900 dark:text-white tracking-tight">
                 Laila <span className="text-primary">Mohamed</span>
+                <Butterfly className="ml-2 inline-block h-6 w-7 align-middle text-primary" still />
               </h3>
               <p className="font-inter text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
-                Software Engineer passionate about creating beautiful, efficient solutions 
-                that bridge complex system architecture with stunning user experiences.
+                Software engineer from Cairo. I build real systems that help people, I learn by doing, and when I need to breathe I paint.
               </p>
             </div>
 

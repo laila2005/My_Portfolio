@@ -1,5 +1,6 @@
 import { Layers, Database, Terminal, Cloud } from 'lucide-react';
 import { motion } from 'framer-motion';
+import InkUnderline from './InkUnderline';
 
 const Skills = () => {
   const containerVariants = {
@@ -29,8 +30,9 @@ const Skills = () => {
             viewport={{ once: true }}
             className="font-poppins font-black text-4xl sm:text-5xl lg:text-6xl mb-6 text-heading tracking-tight"
           >
-            SaaS & <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Full-Stack</span> Mastery
+            What I <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Build</span> With
           </motion.h2>
+          <InkUnderline />
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

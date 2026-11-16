@@ -50,8 +50,10 @@ const ProofStrip = () => (
         {items.map(({ icon: Icon, label, detail, href, to }) => {
           const body = (
             <>
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <Icon size={20} aria-hidden="true" />
+              <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border-2 border-dashed border-primary/50 p-1 transition-transform duration-500 group-hover:rotate-12">
+                <span className="flex h-full w-full items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <Icon size={18} aria-hidden="true" />
+                </span>
               </span>
               <span className="min-w-0">
                 <span className="block font-poppins text-sm font-bold leading-tight text-heading">{label}</span>

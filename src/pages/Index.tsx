@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import ProofStrip from '@/components/ProofStrip';
+import Intro from '@/components/Intro';
+import ScrollButterfly from '@/components/ScrollButterfly';
 import ButterflyDivider from '@/components/ButterflyDivider';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
@@ -28,6 +30,8 @@ const Index = () => {
       >
         Skip to content
       </a>
+      <Intro />
+      <ScrollButterfly />
       <Navigation />
       <main>
         <Hero />

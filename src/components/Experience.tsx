@@ -1,6 +1,7 @@
 import { Briefcase, Calendar, PlayCircle, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { roles } from '@/data/experience';
+import InkUnderline from './InkUnderline';
 
 const MAIL_BODY =
   'Hi Laila,\n\nI watched the LM-MS demo and would like more details.\n\nName / company:\nWhy I am asking:\n';
@@ -35,6 +36,7 @@ const Experience = () => {
           >
             Work <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Experience</span>
           </motion.h2>
+          <InkUnderline />
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

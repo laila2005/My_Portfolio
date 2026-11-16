@@ -20,10 +20,10 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				clash: ["'Clash Display'", 'Poppins', 'sans-serif'],
+				clash: ['Poppins', 'sans-serif'],
 				poppins: ["Poppins", 'sans-serif'],
 				inter: ["Inter", 'sans-serif'],
-				outfit: ["Outfit", 'sans-serif'],
+				outfit: ["Inter", 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { projects, categories, projectInCategory } from '@/data/projects';
 import dims from '@/data/image-dimensions.json';
+import InkUnderline from './InkUnderline';
 
 /**
  * Intrinsic dimensions for every locally hosted cover image, keyed by public path.
@@ -49,6 +50,9 @@ function ParallaxMedia({ image, alt, className = "h-56 lg:h-64", position, conta
         style={{ translateZ: -10 }}
         className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/10 opacity-0 group-hover/media:opacity-100 transition-opacity duration-500"
       />
+
+      <div className="pointer-events-none absolute inset-0 z-30 rounded-[inherit] ring-1 ring-inset ring-black/10 dark:ring-white/10" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-1/4 bg-gradient-to-t from-black/20 to-transparent" />
 
       <motion.img
         src={image}
@@ -112,8 +116,9 @@ const Projects = () => {
             viewport={{ once: true }}
             className="font-poppins font-black text-4xl sm:text-5xl lg:text-6xl mb-6 text-heading tracking-tight"
           >
-            Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Portfolio</span>
+            Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Work</span>
           </motion.h2>
+          <InkUnderline />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

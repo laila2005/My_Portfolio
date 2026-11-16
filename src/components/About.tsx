@@ -2,6 +2,7 @@ import { Shield, ExternalLink, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { certifications as certData } from '@/data/experience';
 import JourneyTimeline from './JourneyTimeline';
+import InkUnderline from './InkUnderline';
 
 const certificationIcon = <Shield className="text-emerald-500" size={24} />;
 
@@ -25,8 +26,9 @@ const About = () => {
             viewport={{ once: true }}
             className="font-poppins font-black text-4xl sm:text-5xl mb-6 text-heading"
           >
-            Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Background</span>
+            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Story</span>
           </motion.h2>
+          <InkUnderline />
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
