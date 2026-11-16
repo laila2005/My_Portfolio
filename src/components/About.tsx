@@ -101,6 +101,40 @@ const About = () => {
                 <p>
                   I care about details and feelings, and I&apos;m moved by things that make people feel something different. I like adventure and trying something new, or a little crazy. I love to travel too; I haven&apos;t been abroad yet, but it&apos;s on my bucket list.
                 </p>
+                <div className="grid grid-cols-2 gap-3 pt-2">
+                  <a
+                    href="https://www.instagram.com/p/C0xPO2vohax/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block overflow-hidden rounded-xl border border-subtle"
+                  >
+                    <img
+                      src="/art-charcoal-butterflies.webp"
+                      alt="Charcoal portrait of a woman with curly hair, a butterfly across one eye and butterflies around her face"
+                      width={800}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/p/CNfH_UBhDtZ/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block overflow-hidden rounded-xl border border-subtle"
+                  >
+                    <img
+                      src="/art-ink-butterflies.webp"
+                      alt="Black ink drawing of a woman holding a mask on a stick, her head open to a night sky with butterflies"
+                      width={800}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                  </a>
+                </div>
                 <p>
                   <a
                     href="https://www.instagram.com/laloo_arts_/"
