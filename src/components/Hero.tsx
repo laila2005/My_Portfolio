@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { ArrowDown, Github, Linkedin, Mail, Download, Terminal, ExternalLink } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, Download, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
-import AnimatedBlobsBackground from './AnimatedBlobsBackground';
+import ButterflyField, { Butterfly } from './ButterflyField';
 import MagneticButton from './MagneticButton';
 
 const roles = [
@@ -13,71 +12,32 @@ const roles = [
 ];
 
 const Hero = () => {
-  const [showSpline, setShowSpline] = useState(false);
-
-  // The 3D scene is desktop-only. (A previous isDarkMode state and its
-  // MutationObserver were removed — nothing in the markup ever read them.)
-  useEffect(() => {
-    const media = window.matchMedia('(min-width: 768px)');
-    const apply = () => setShowSpline(media.matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    apply();
-    media.addEventListener('change', apply);
-    return () => media.removeEventListener('change', apply);
-  }, []);
-
   return (
-    <section id="home" className="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden bg-gradient-glass dark:bg-none dark:bg-[#0e0d16] pt-20 pb-24 lg:pt-32 lg:pb-12 transition-colors duration-500">
-      <AnimatedBlobsBackground />
-      
-      {/* 3D FULL BLEED BACKGROUND.
-          The iframe keeps pointer-events so the robot tracks the cursor. Verified
-          that this does not trap scrolling: a wheel gesture directly over the
-          scene still scrolls the page, because this scene has zoom disabled. The
-          wrapper stays pointer-events-none so the mask area never blocks the
-          content sitting above it. Re-test both if the scene URL changes. */}
-      {showSpline && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 0.5 }}
-          className="absolute inset-0 z-0 w-full h-full mix-blend-multiply dark:mix-blend-screen dark:brightness-[0.45] pointer-events-none overflow-hidden flex items-center justify-center"
-          style={{
-            maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 100%)'
-          }}
-        >
-          {/* Oversized by 150px so the Spline badge sits outside the clipped bounds. */}
-          <iframe
-            src="https://my.spline.design/r4xbot-W4o2DoAzOZpijadxTQZEON0j/?v=11"
-            frameBorder="0"
-            loading="lazy"
-            className="dark:opacity-40 pointer-events-auto w-[calc(100%+150px)] h-[calc(100%+150px)] max-w-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
-            title="Interactive 3D robot — follows your cursor"
-          ></iframe>
-        </motion.div>
-      )}
+    <section
+      id="home"
+      className="paper night-sky min-h-[100dvh] flex flex-col justify-center relative overflow-hidden pt-20 pb-24 lg:pt-32 lg:pb-12 transition-colors duration-500"
+    >
+      <ButterflyField />
 
-      {/* Decorative floating elements */}
-      <div className="absolute top-20 right-20 w-24 h-24 bg-purple-400/20 dark:bg-purple-500/10 rounded-full blur-xl animate-float pointer-events-none"></div>
-      <div className="absolute bottom-20 right-10 w-16 h-16 bg-pink-400/20 dark:bg-pink-500/10 rounded-full animate-float pointer-events-none" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-1/2 left-1/4 w-12 h-12 bg-purple-400/15 dark:bg-purple-500/8 rounded-full animate-float pointer-events-none" style={{ animationDelay: '2s' }}></div>
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 min-h-[85vh] flex flex-col-reverse lg:flex-row items-center justify-between gap-0 lg:gap-12 pb-12 pt-24 lg:pt-0">
 
-      {/* GHOST GRID (Pointer events none allows mouse to pass through to 3D canvas) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 min-h-[85vh] flex flex-col-reverse lg:flex-row items-center justify-between gap-0 lg:gap-12 pb-12 pt-24 lg:pt-0 pointer-events-none">
-        
-        {/* LEFT HUD (Text, CTAs, Socials) */}
+        {/* LEFT: name, role, CTAs, socials */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col gap-8 justify-center items-center lg:items-start w-full lg:w-[45%] z-20 text-center lg:text-left mt-0"
+          className="flex flex-col gap-8 justify-center items-center lg:items-start w-full lg:w-[48%] z-20 text-center lg:text-left mt-0"
         >
-          {/* Glassmorphism Text Container */}
-          <div className="relative w-full flex flex-col items-center lg:items-start p-6 sm:p-8 lg:p-10 pt-24 sm:pt-28 lg:pt-10 rounded-[2rem] bg-white/40 dark:bg-[#1c1b28]/60 backdrop-blur-2xl border border-white/50 dark:border-purple-500/30 shadow-2xl pointer-events-auto transition-transform duration-500 hover:scale-[1.02]">
-            <h1 className="font-clash text-4xl sm:text-5xl lg:text-6xl mb-4 text-heading font-black tracking-tight leading-[1.1] drop-shadow-sm whitespace-nowrap">
-              Laila <span className="text-gradient">Mohamed</span>
+          <div className="relative w-full flex flex-col items-center lg:items-start pt-24 sm:pt-28 lg:pt-0">
+            <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-subtle bg-surface/60 px-4 py-1.5 font-inter text-xs font-bold uppercase tracking-[0.18em] text-body backdrop-blur-sm">
+              <Butterfly className="h-4 w-5 text-primary" />
+              Cairo, Egypt
+            </span>
+
+            <h1 className="font-clash text-5xl sm:text-6xl lg:text-7xl mb-4 text-heading font-black tracking-tight leading-[1.05] whitespace-nowrap">
+              Laila <span className="text-primary">Mohamed</span>
             </h1>
-            <span className="block font-outfit text-xl sm:text-2xl lg:text-3xl text-primary mb-6 min-h-[2.5rem] sm:min-h-[3rem] font-bold drop-shadow-sm w-full whitespace-nowrap">
+            <span className="block font-outfit text-xl sm:text-2xl lg:text-3xl text-heading/80 mb-6 min-h-[2.5rem] sm:min-h-[3rem] font-semibold w-full whitespace-nowrap">
               <Typewriter
                 words={roles}
                 loop={0}
@@ -89,14 +49,15 @@ const Hero = () => {
               />
             </span>
 
-            <p className="font-outfit text-base sm:text-lg lg:text-xl text-gray-800 dark:text-gray-200 max-w-2xl leading-relaxed tracking-wide drop-shadow-sm">
-              Building enterprise systems that run at <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-600 dark:from-purple-400 dark:to-pink-400">national scale</span>. <br className="hidden sm:block" />
-              From <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-600 dark:from-purple-400 dark:to-pink-400">IoT backends</span> to <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-600 dark:from-purple-400 dark:to-pink-400">AI pipelines</span>.
+            <p className="font-outfit text-base sm:text-lg lg:text-xl text-body max-w-xl leading-relaxed tracking-wide">
+              Building enterprise systems that run at <span className="font-bold text-primary">national scale</span>.{' '}
+              <br className="hidden sm:block" />
+              From <span className="font-bold text-primary">IoT backends</span> to <span className="font-bold text-primary">AI pipelines</span>.
             </p>
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start items-center lg:items-start w-full lg:w-auto pointer-events-auto">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center lg:items-start w-full lg:w-auto">
             {/* asChild makes the anchor the rendered element. Previously a
                 <Button> wrapped an <a>, so the focused button had no handler and
                 pressing Enter did nothing. */}
@@ -104,12 +65,11 @@ const Hero = () => {
               <Button
                 asChild
                 size="lg"
-                className="bg-gradient-to-r from-[#a78bfa] via-[#f472b6] to-[#7c3aed] text-white font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-xl shadow-purple-500/20 hover-glow border-0 relative overflow-hidden group transition-all duration-300 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
+                className="bg-primary text-white hover:bg-primary/90 font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-xl shadow-primary/25 transition-all duration-300 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
               >
                 <a href="#projects" className="flex items-center justify-center gap-2 w-full">
-                  <span className="relative z-10 whitespace-nowrap">My Work</span>
-                  <ArrowDown size={18} className="relative z-10 shrink-0" />
-                  <span className="absolute left-0 top-0 w-full h-full bg-gradient-to-r from-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-sm pointer-events-none"></span>
+                  <span className="whitespace-nowrap">My Work</span>
+                  <ArrowDown size={18} className="shrink-0" />
                 </a>
               </Button>
             </MagneticButton>
@@ -135,7 +95,7 @@ const Hero = () => {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-2 border-primary/30 dark:border-primary/40 text-primary font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-lg hover-glow transition-all duration-300 bg-surface/50 backdrop-blur-sm hover:bg-primary/5 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
+                className="border-2 border-gray-900/20 dark:border-white/25 text-heading font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl transition-all duration-300 bg-transparent hover:bg-primary/5 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
               >
                 {/* PDF opens inline in every browser; the .docx it replaced forced
                     a download recruiters on phones could not preview. */}
@@ -151,7 +111,7 @@ const Hero = () => {
               </Button>
             </MagneticButton>
           </div>
-          
+
           <p className="flex items-center justify-center gap-2 font-inter text-sm text-body lg:justify-start">
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
@@ -161,14 +121,14 @@ const Hero = () => {
           </p>
 
           {/* Socials */}
-          <div className="flex gap-4 justify-center lg:justify-start w-full sm:w-auto pointer-events-auto">
+          <div className="flex gap-4 justify-center lg:justify-start w-full sm:w-auto">
             <MagneticButton intensity={0.4}>
               <a
                 href="https://www.linkedin.com/in/laila-mohamed23/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn profile"
-                className="p-3 bg-surface/70 backdrop-blur-md rounded-full shadow-md hover-glow transition-all duration-300 text-primary hover:-translate-y-1 block border border-subtle"
+                className="p-3 bg-surface/70 backdrop-blur-md rounded-full shadow-md transition-all duration-300 text-primary hover:-translate-y-1 block border border-subtle"
               >
                 <Linkedin size={22} />
               </a>
@@ -179,7 +139,7 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub profile"
-                className="p-3 bg-surface/70 backdrop-blur-md rounded-full shadow-md hover-glow transition-all duration-300 text-heading hover:-translate-y-1 block border border-subtle"
+                className="p-3 bg-surface/70 backdrop-blur-md rounded-full shadow-md transition-all duration-300 text-heading hover:-translate-y-1 block border border-subtle"
               >
                 <Github size={22} />
               </a>
@@ -188,7 +148,7 @@ const Hero = () => {
               <a
                 href="mailto:laila.mohamed.fikry@gmail.com"
                 aria-label="Email Laila"
-                className="p-3 bg-surface/70 backdrop-blur-md rounded-full shadow-md hover-glow transition-all duration-300 text-pink-500 hover:-translate-y-1 block border border-subtle"
+                className="p-3 bg-surface/70 backdrop-blur-md rounded-full shadow-md transition-all duration-300 text-primary hover:-translate-y-1 block border border-subtle"
               >
                 <Mail size={22} />
               </a>
@@ -196,54 +156,53 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* RIGHT HUD (Floating ID Card & Terminal) */}
+        {/* RIGHT: portrait and terminal */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col gap-10 sm:gap-12 justify-center items-center lg:items-end w-full lg:w-[45%] z-30 mb-[-70px] sm:mb-[-90px] lg:mb-0 mt-0 pointer-events-none"
+          className="flex flex-col gap-10 sm:gap-12 justify-center items-center lg:items-end w-full lg:w-[44%] z-30 mb-[-70px] sm:mb-[-90px] lg:mb-0 mt-0"
         >
-          {/* Floating Profile Photo ID Badge */}
-          <div className="flex flex-shrink-0 z-40 relative w-[140px] sm:w-[180px] lg:w-[200px] h-[190px] sm:h-[240px] lg:h-[260px] bg-white/60 dark:bg-[#1c1b28]/80 backdrop-blur-3xl rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(168,85,247,0.4)] border border-white/80 dark:border-purple-500/50 p-2 pointer-events-auto transition-transform duration-500 hover:scale-105 rotate-0 lg:rotate-3 hover:rotate-0">
-            <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-inner">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-transparent mix-blend-overlay z-10 pointer-events-none"></div>
+          {/* Portrait, framed like a print pinned to the page */}
+          <div className="relative z-40 flex-shrink-0 w-[140px] sm:w-[180px] lg:w-[200px] h-[190px] sm:h-[240px] lg:h-[260px] rounded-[1.75rem] border border-subtle bg-surface-elevated p-2 shadow-[0_20px_50px_rgba(20,16,40,0.18)] transition-transform duration-500 hover:scale-105 rotate-0 lg:rotate-3 hover:rotate-0">
+            <div className="relative h-full w-full overflow-hidden rounded-[1.25rem]">
               <img
                 src="/profile2.webp"
                 alt="Laila Mohamed Fikry"
                 width={600}
                 height={600}
                 decoding="async"
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
               />
             </div>
+            <Butterfly className="absolute -right-5 -top-5 h-10 w-12 rotate-12 text-primary" />
           </div>
 
-          {/* Floating Terminal Box */}
-          <div className="hidden lg:flex flex-col rounded-xl overflow-hidden border border-white/60 dark:border-purple-500/50 bg-white/50 dark:bg-[#1c1b28]/70 backdrop-blur-[24px] shadow-[0_15px_40px_rgb(0,0,0,0.15)] dark:shadow-[0_0_30px_rgba(168,85,247,0.3)] ring-1 ring-white/50 dark:ring-purple-500/30 w-full lg:max-w-md pointer-events-auto cursor-text hover:shadow-[0_15px_40px_rgb(139,92,246,0.3)] dark:hover:shadow-[0_0_40px_rgba(168,85,247,0.5)] transition-all duration-500 rotate-0 lg:-rotate-1 hover:rotate-0">
-            <div className="bg-white/60 dark:bg-black/60 px-5 sm:px-6 py-3 sm:py-4 border-b border-white/30 dark:border-purple-500/40 flex items-center gap-2 backdrop-blur-xl">
+          {/* Terminal */}
+          <div className="hidden lg:flex flex-col rounded-xl overflow-hidden border border-subtle bg-surface-elevated shadow-[0_15px_40px_rgba(20,16,40,0.16)] w-full lg:max-w-md cursor-text transition-all duration-500 lg:-rotate-1 hover:rotate-0">
+            <div className="bg-surface-overlay px-5 sm:px-6 py-3 sm:py-4 border-b border-subtle flex items-center gap-2">
               <div className="flex gap-1.5">
-                <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-red-400"></div>
-                <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-yellow-400"></div>
-                <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-400"></div>
+                <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                <div className="w-3 h-3 rounded-full bg-green-400"></div>
               </div>
-              <div className="ml-3 flex items-center gap-2 text-[10px] sm:text-xs font-mono text-gray-900 dark:text-gray-400 font-medium tracking-tight">
+              <div className="ml-3 flex items-center gap-2 text-[10px] sm:text-xs font-mono text-body font-medium tracking-tight">
                 <Terminal size={12} className="sm:w-3.5 sm:h-3.5" />
-                <span>guest@laila-portfolio:~</span>
+                <span>laila.js</span>
               </div>
             </div>
-            <div className="p-5 sm:p-8 font-mono text-[10px] sm:text-xs md:text-sm text-gray-900 dark:text-purple-100 h-[220px] sm:h-[280px] lg:h-[340px] overflow-hidden flex flex-col leading-relaxed">
-              <p className="text-purple-800 dark:text-purple-400 mb-2 sm:mb-3 font-bold">$ ./fetch_stats.sh</p>
+            <div className="p-5 sm:p-8 font-mono text-[10px] sm:text-xs md:text-sm text-heading h-[220px] sm:h-[280px] lg:h-[340px] overflow-hidden flex flex-col leading-relaxed">
+              <p className="text-primary mb-2 sm:mb-3 font-bold">$ node laila.js</p>
               <div className="flex-1 whitespace-pre-wrap font-mono">
                 <Typewriter
                   words={[
-                    // Every figure here must be one the case study can defend, because
-                    // this is the first thing a visitor reads and the last thing they
-                    // will forgive. 300+ is the deployed total across client
-                    // installations; the case study's 13 is the single deployment whose
-                    // database the measurements were taken from, and it now states that
-                    // distinction explicitly. Keep both figures in step with that page.
-                    "> Resolving metrics...\n\n[OK] 300+ sites across client deployments\n[OK] 45s median fault to SMS dispatch\n[OK] 68% F1 crash detection (unseen data)\n\nSystem ready.",
-                    "> Loading architecture...\n\n- Next.js / React (Frontend)\n- FastAPI / Node.js (Backend)\n- PostgreSQL / Redis (Data)\n- AI/ML Pipelines (Python)\n\nAll services operational."
+                    // The first line is the story: JavaScript was the first language,
+                    // written in elementary school. The metrics below it must stay
+                    // defensible: 300+ is the deployed total across client
+                    // installations (the LM-MS measurement set is one deployment).
+                    '> console.log("Hello, World");\n\nHello, World\n\n// my first line of code,\n// written in elementary school.',
+                    '> Resolving metrics...\n\n[OK] 300+ sites across client deployments\n[OK] 45s median fault to SMS dispatch\n[OK] 68% F1 crash detection (unseen data)\n\nSystem ready.',
+                    '> Loading architecture...\n\n- Next.js / React (Frontend)\n- FastAPI / Node.js (Backend)\n- PostgreSQL / Redis (Data)\n- AI/ML Pipelines (Python)\n\nAll services operational.',
                   ]}
                   loop={0}
                   cursor
@@ -257,15 +216,15 @@ const Hero = () => {
           </div>
         </motion.div>
       </div>
-      
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer z-20"
       >
-        <a href="#about" aria-label="Scroll down">
-          <ArrowDown className="text-primary hover:text-purple-600 transition-colors" size={32} />
+        <a href="#projects" aria-label="Scroll to my work">
+          <ArrowDown className="text-primary hover:text-primary/70 transition-colors" size={32} />
         </a>
       </motion.div>
     </section>

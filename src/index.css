@@ -307,3 +307,45 @@
     animation: none !important;
   }
 }
+
+/* ── Ink & Night ─────────────────────────────────────────────────────────────
+   The butterfly is the site's mark. Wings flap by squeezing toward the body;
+   the reduced-motion rule above already disables every animation. */
+.butterfly-wing {
+  transform-box: view-box;
+  transform-origin: 50px 40px;
+  animation: butterfly-flap 1.8s ease-in-out infinite;
+}
+.butterfly-wing-right {
+  animation-delay: -0.05s;
+}
+@keyframes butterfly-flap {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.55); }
+}
+
+/* Light theme: warm paper with a whisper of grain. */
+.paper {
+  background-color: #f7f5f1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* Dark theme: a quiet night sky, a few stars only. */
+.dark .night-sky {
+  background-color: #0e0d16;
+  background-image:
+    radial-gradient(1.2px 1.2px at 8% 18%, rgba(255,255,255,.75), transparent),
+    radial-gradient(1px 1px at 17% 62%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.4px 1.4px at 26% 34%, rgba(196,181,253,.8), transparent),
+    radial-gradient(1px 1px at 34% 82%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.2px 1.2px at 43% 12%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 52% 48%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1.4px 1.4px at 61% 76%, rgba(196,181,253,.7), transparent),
+    radial-gradient(1px 1px at 69% 22%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1.2px 1.2px at 77% 58%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 84% 14%, rgba(255,255,255,.55), transparent),
+    radial-gradient(1.4px 1.4px at 91% 70%, rgba(196,181,253,.75), transparent),
+    radial-gradient(1px 1px at 96% 40%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 12% 90%, rgba(255,255,255,.45), transparent),
+    radial-gradient(1px 1px at 58% 94%, rgba(255,255,255,.5), transparent);
+}
