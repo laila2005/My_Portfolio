@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ErrorBoundary from './components/ErrorBoundary';
 import PageLoader from './components/PageLoader';
+import { Analytics } from '@vercel/analytics/react';
 
 // Sub-pages sit off the main route — load them on demand.
 const Writing = React.lazy(() => import('./pages/Writing'));
@@ -23,6 +24,7 @@ const App = () => {
       <ReactLenis root options={{ anchors: { offset: -80 } }}>
         <ErrorBoundary>
           <TooltipProvider>
+            <Analytics />
             <BrowserRouter>
               <React.Suspense fallback={<PageLoader />}>
                 <Routes>

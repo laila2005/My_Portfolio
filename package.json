@@ -9,7 +9,8 @@
     "build:dev": "vite build --mode development && node scripts/prerender-meta.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
-    "assets": "node scripts/generate-assets.mjs"
+    "assets": "node scripts/generate-assets.mjs",
+    "social-cards": "node scripts/generate-social-cards.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -39,6 +40,7 @@
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.4",
+    "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",

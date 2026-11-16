@@ -15,6 +15,8 @@ type Testimonial = {
   link?: string;
   /** Where the review lives, e.g. 'Mostaql'. */
   source?: string;
+  /** Shown instead of a verify link when the text is a LinkedIn recommendation. */
+  note?: string;
 };
 
 /**
@@ -26,6 +28,22 @@ type Testimonial = {
  * words, keeping the original language plus a translation when it isn't English.
  */
 const testimonials: Testimonial[] = [
+  {
+    // Verbatim from a LinkedIn recommendation dated 15 September 2026.
+    quote:
+      "It was a pleasure mentoring Laila during her Data Governance internship at Banque Misr. She was truly one of the standout interns, demonstrating great commitment, enthusiasm, and eagerness to learn.\n\nHer positive energy, collaborative spirit, and drive to grow make her a valuable addition to any team. I'm confident that Laila is ready for the professional world and will make a strong impact wherever she goes.\n\nWishing her continued success in her career journey!",
+    name: 'Alaa Ghaly',
+    role: "Assistant Manager, Credit Assessment at Banque Misr. Laila's mentor",
+    note: 'LinkedIn recommendation, September 2026',
+  },
+  {
+    // Verbatim from a LinkedIn recommendation dated 14 September 2026.
+    quote:
+      "Leila stood out as one of the most proactive interns in Banque Misr's Data Governance Internship Program. She was recognized among the program's six exceptional interns and was a member of the winning use case squad. Her initiative, enthusiasm for learning, and collaborative approach made her a valued contributor. I look forward to seeing her continued growth and future achievements.",
+    name: 'Amr Elharony',
+    role: 'Fintech Delivery Lead. Worked with Laila on the same team',
+    note: 'LinkedIn recommendation, September 2026',
+  },
   {
     // Verbatim from the client's public Mostaql review of the engagement.
     quote:
@@ -58,7 +76,7 @@ const Testimonials = () => {
             viewport={{ once: true }}
             className="font-poppins font-black text-4xl sm:text-5xl lg:text-6xl mb-6 text-heading tracking-tight"
           >
-            Client <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Feedback</span>
+            Kind <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Words</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -67,7 +85,7 @@ const Testimonials = () => {
             transition={{ delay: 0.1 }}
             className="font-inter text-lg text-body max-w-2xl mx-auto"
           >
-            What the people I've built for say about working together.
+            From mentors, teammates and clients I've worked with.
           </motion.p>
         </div>
 
@@ -94,7 +112,7 @@ const Testimonials = () => {
               <blockquote
                 lang={item.quoteLang}
                 dir={item.quoteLang === 'ar' ? 'rtl' : undefined}
-                className={`text-heading leading-loose text-lg sm:text-xl font-medium ${
+                className={`whitespace-pre-line text-heading leading-loose text-lg sm:text-xl font-medium ${
                   item.quoteLang === 'ar' ? 'text-right' : 'font-inter'
                 }`}
               >
@@ -117,6 +135,12 @@ const Testimonials = () => {
                   <div className="font-poppins font-bold text-heading">{item.name}</div>
                   <div className="font-inter text-sm text-subtle">{item.role}</div>
                 </div>
+                {!item.link && item.note && (
+                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-lg">
+                    <BadgeCheck size={14} />
+                    {item.note}
+                  </span>
+                )}
                 {item.link && (
                   <a
                     href={item.link}

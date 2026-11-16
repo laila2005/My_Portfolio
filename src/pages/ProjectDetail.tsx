@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { projects } from '@/data/projects';
 import ProjectGallery from '@/components/ProjectGallery';
 import ShareLinks from '@/components/ShareLinks';
+import { trackEvent } from '@/lib/track';
 
 /**
  * One project. Route: /projects/:slug
@@ -203,7 +204,7 @@ const ProjectDetail = () => {
                   asChild
                   className="h-12 w-full rounded-xl font-bold shadow-md shadow-primary/25 sm:w-auto sm:flex-1 sm:min-w-[190px]"
                 >
-                  <a href={project.live} target="_blank" rel="noopener noreferrer">
+                  <a href={project.live} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('project_live_click', { project: project.slug })}>
                     {project.liveLabel ?? 'Live Demo'}
                     <ExternalLink size={16} className="ml-2" />
                   </a>
@@ -217,7 +218,7 @@ const ProjectDetail = () => {
                   variant="outline"
                   className="h-12 w-full rounded-xl border-subtle bg-surface font-bold text-heading hover:bg-surface-overlay sm:w-auto sm:flex-1 sm:min-w-[190px]"
                 >
-                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  <a href={link.url} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('project_link_click', { project: project.slug, label: link.label })}>
                     {link.label}
                     <ExternalLink size={16} className="ml-2" />
                   </a>

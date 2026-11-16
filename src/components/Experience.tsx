@@ -2,6 +2,7 @@ import { Briefcase, Calendar, PlayCircle, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { roles } from '@/data/experience';
 import InkUnderline from './InkUnderline';
+import { trackEvent } from '@/lib/track';
 
 const MAIL_BODY =
   'Hi Laila,\n\nI watched the LM-MS demo and would like more details.\n\nName / company:\nWhy I am asking:\n';
@@ -108,6 +109,7 @@ const Experience = () => {
                       <div className={`flex flex-wrap items-center gap-3 mb-6 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
                         <a
                           href={exp.demoVideo}
+                          onClick={() => trackEvent('lm_ms_demo_click')}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-sm font-bold text-primary bg-primary/10 px-4 py-2 rounded-xl border border-primary/20 hover:bg-primary/20 transition-colors"
@@ -117,6 +119,7 @@ const Experience = () => {
                         </a>
                         <a
                           href={`mailto:laila.mohamed.fikry@gmail.com?subject=${encodeURIComponent('LM-MS details request')}&body=${encodeURIComponent(MAIL_BODY)}`}
+                          onClick={() => trackEvent('lm_ms_details_request')}
                           className="inline-flex items-center gap-1.5 text-sm font-bold text-heading px-4 py-2 rounded-xl border border-subtle hover:bg-surface-overlay transition-colors"
                         >
                           <Mail size={16} />

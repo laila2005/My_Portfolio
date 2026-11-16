@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 import ButterflyField, { Butterfly } from './ButterflyField';
 import MagneticButton from './MagneticButton';
+import { trackEvent } from '@/lib/track';
 
 const roles = [
   'Software Engineer',
@@ -67,7 +68,7 @@ const Hero = () => {
                 size="lg"
                 className="bg-primary text-white hover:bg-primary/90 font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-xl shadow-primary/25 transition-all duration-300 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
               >
-                <a href="#projects" className="flex items-center justify-center gap-2 w-full">
+                <a href="#projects" onClick={() => trackEvent('hero_my_work')} className="flex items-center justify-center gap-2 w-full">
                   <span className="whitespace-nowrap">My Work</span>
                   <ArrowDown size={18} className="shrink-0" />
                 </a>
@@ -82,6 +83,7 @@ const Hero = () => {
               >
                 <a
                   href={`mailto:laila.mohamed.fikry@gmail.com?subject=${encodeURIComponent("Let's talk")}`}
+                  onClick={() => trackEvent('lets_talk_click')}
                   className="flex items-center justify-center gap-2 w-full"
                 >
                   <Mail size={18} className="shrink-0" />
@@ -101,6 +103,7 @@ const Hero = () => {
                     a download recruiters on phones could not preview. */}
                 <a
                   href="/Laila_Mohamed_CV.pdf"
+                  onClick={() => trackEvent('resume_click')}
                   target="_blank"
                   rel="noopener"
                   className="flex items-center justify-center gap-2 w-full"
