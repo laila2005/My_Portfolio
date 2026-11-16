@@ -71,24 +71,24 @@ const About = () => {
             className="lg:col-span-7"
           >
             <h3 className="font-poppins font-bold text-2xl mb-6 text-heading">
-              My Engineering Philosophy
+              How I Got Here
             </h3>
             
             <div className="space-y-5 text-body font-inter">
               <p className="text-lg leading-relaxed font-medium text-heading border-l-4 border-purple-500 pl-4 bg-primary/5 py-2 rounded-r-lg">
-                I build and architect scalable SaaS applications from the database up.
-              </p>
-              
-              <p className="text-base leading-relaxed">
-                Currently pursuing a Computer Science degree at El Sewedy University of Technology, my foundation is deeply rooted in systems programming, advanced algorithms, and low-level resource management. 
-              </p>
-              
-              <p className="text-base leading-relaxed">
-                My technical capabilities were forged in the rigorous ALX Africa Software Engineering Program. There, I mastered the process of bridging complex backend infrastructure with seamless, high-performance UIs. From developing custom C-based 3D engines to deploying cloud-native React and Node.js ecosystems, I focus entirely on shipping production-ready systems.
+                My first lines of code were JavaScript: a console.log("Hello, World"), written in school, before I had even heard of Scratch.
               </p>
 
               <p className="text-base leading-relaxed">
-                My approach is pragmatic and systematic. I don't just write code—I engineer long-term solutions that solve actual business logic problems, focusing on clean architecture, minimal technical debt, and beautiful user experiences.
+                It was hard. Most people start with something gentler, and I didn&apos;t know that. I just kept going, taking courses on the side of school, and the love of it stuck.
+              </p>
+
+              <p className="text-base leading-relaxed">
+                I started a university degree in 2023 at the Egyptian Russian University. In 2025 I transferred to El Sewedy University of Technology (Polytechnic of Egypt) to study software development, the field I was most drawn to. I learn by doing, and I wanted to be somewhere I could build.
+              </p>
+
+              <p className="text-base leading-relaxed">
+                What drives me is making real systems that work and help people. ALX Africa gave me the full-stack and C foundations, and since then I have built things like a C 3D engine, a real-time messaging platform, and LM-MS, the monitoring product I help build as co-founder of LM Smart Solutions.
               </p>
             </div>
 

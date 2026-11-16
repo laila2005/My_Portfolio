@@ -89,6 +89,12 @@ export const credentials: Credential[] = [
   },
   {
     kind: 'education',
+    title: 'Egyptian Russian University',
+    detail: 'Started university here in 2023, then transferred to El Sewedy University of Technology in 2025 to study software development.',
+    period: '2023 – 2025',
+  },
+  {
+    kind: 'education',
     title: 'El Sewedy University of Technology',
     detail: 'B.Sc. Computer Science (Polytechnic of Egypt).',
     period: 'Expected graduation 2027',
