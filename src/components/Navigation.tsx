@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Moon, Sun, Linkedin, Github } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLenis } from 'lenis/react';
-import { Butterfly } from './ButterflyField';
 
 const navItems = [
   { name: 'Home', href: '#home' },
@@ -84,7 +83,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="font-poppins font-bold text-xl text-heading flex items-center gap-2 drop-shadow-sm">
-            <span className="mr-1.5 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-900 text-violet-300 shadow-sm dark:bg-white/10" aria-hidden="true"><Butterfly className="h-6 w-7" still /></span>
+            <img src="/finaliconand logo.png" alt="Logo" style={{ height: '2.5rem', width: '2.5rem', marginRight: '0.3em', verticalAlign: 'middle', borderRadius: '0.4rem', boxShadow: '0 2px 8px 0 rgba(164,120,250,0.10)' }} />
             Laila Mohamed
           </div>
 
