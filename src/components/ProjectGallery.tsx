@@ -86,6 +86,17 @@ const ProjectGallery = ({ shots, title }: { shots: GalleryShot[]; title: string 
 
   const active = shots[selected];
 
+  // Phone screenshots share one aspect ratio, so the stage can size to the image.
+  // A set of photos mixes portrait and landscape, and the track is as tall as its
+  // tallest slide, which left a landscape photo floating in a mostly empty card.
+  // When the ratios differ, give the stage a fixed frame and fit each image in it.
+  const ratios = shots.map(shot => {
+    const size = imageDimensions[shot.src];
+    return size ? size.w / size.h : null;
+  });
+  const known = ratios.filter((r): r is number => r !== null);
+  const mixed = known.length > 1 && Math.max(...known) / Math.min(...known) > 1.25;
+
   return (
     <div
       role="group"
@@ -113,7 +124,9 @@ const ProjectGallery = ({ shots, title }: { shots: GalleryShot[]; title: string 
                 return (
                   <div
                     key={shot.src}
-                    className="min-w-0 flex-[0_0_100%] px-2"
+                    className={`min-w-0 flex-[0_0_100%] px-2 ${
+                      mixed ? 'flex h-[300px] items-center justify-center sm:h-[420px]' : ''
+                    }`}
                     role="group"
                     aria-roledescription="slide"
                     aria-label={`${index + 1} of ${shots.length}`}
@@ -128,9 +141,11 @@ const ProjectGallery = ({ shots, title }: { shots: GalleryShot[]; title: string 
                       decoding="async"
                       draggable={false}
                       referrerPolicy={isRemote(shot.src) ? 'no-referrer' : undefined}
-                      className={`mx-auto h-auto max-h-[58vh] w-auto max-w-full rounded-2xl object-contain shadow-lg sm:max-h-[62vh] ${
-                        isLogo(shot.src) ? 'bg-white/80 p-6 dark:bg-white/[0.06]' : ''
-                      }`}
+                      className={`mx-auto rounded-2xl object-contain shadow-lg ${
+                        mixed
+                          ? 'h-auto max-h-full w-auto max-w-full'
+                          : 'h-auto max-h-[58vh] w-auto max-w-full sm:max-h-[62vh]'
+                      } ${isLogo(shot.src) ? 'bg-white/80 p-6 dark:bg-white/[0.06]' : ''}`}
                     />
                   </div>
                 );
@@ -197,9 +212,13 @@ const ProjectGallery = ({ shots, title }: { shots: GalleryShot[]; title: string 
                 // intrinsic width, so auto collapsed it to zero.
                 const size = imageDimensions[shot.src];
                 const thumbHeight = 64;
-                const thumbWidth = size
-                  ? Math.min(112, Math.max(28, Math.round(thumbHeight * (size.w / size.h))))
-                  : 36;
+                // Mixed photo sets get uniform square thumbnails; a tall photo
+                // beside a wide one otherwise produces an uneven, wrapping rail.
+                const thumbWidth = mixed
+                  ? 64
+                  : size
+                    ? Math.min(112, Math.max(28, Math.round(thumbHeight * (size.w / size.h))))
+                    : 36;
                 return (
                   <button
                     key={shot.src}
@@ -223,7 +242,7 @@ const ProjectGallery = ({ shots, title }: { shots: GalleryShot[]; title: string 
                       height={thumbHeight}
                       style={{ width: thumbWidth, height: thumbHeight }}
                       referrerPolicy={isRemote(shot.src) ? 'no-referrer' : undefined}
-                      className="bg-surface-overlay object-cover object-top"
+                      className={`bg-surface-overlay object-cover ${mixed ? 'object-center' : 'object-top'}`}
                     />
                   </button>
                 );
