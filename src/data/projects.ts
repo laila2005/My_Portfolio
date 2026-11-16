@@ -33,6 +33,8 @@ export type Project = {
   title: string;
   description: string;
   image: string;
+  /** CSS object-position for the card cover, to keep the subject in frame when it is cropped. */
+  imagePosition?: string;
   tech: string[];
   languages?: string[];
   github?: string;
@@ -98,7 +100,8 @@ export const projects: Project[] = [
     title: "FlameLens – NASA Fire-Evidence Dashboard",
     description: "Web dashboard that tells a habitat engineer whether a cabin atmosphere has been backed by NASA's microgravity fire experiments. It compares a design against 2,003 real runs from 18 NASA PSI flight investigations. Built with team AstroSpark for the 2026 NASA Space Apps Challenge.",
     tagline: "Checks a cabin atmosphere against NASA's microgravity fire experiments, and says plainly when there is no evidence.",
-    image: "/nasa-space-apps-team-photo.webp",
+    image: "/flamelens-cover.webp",
+    imagePosition: "left 70%",
     tech: ["Python", "FastAPI", "JavaScript", "AI", "Google Gemini AI", "Pydantic", "Vercel"],
     languages: ["Python", "JavaScript"],
     live: "https://flamelens-steel.vercel.app/",

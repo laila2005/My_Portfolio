@@ -15,7 +15,7 @@ const imageDimensions = dims as Record<string, { w: number; h: number } | undefi
 
 const isRemoteImage = (src: string) => /^https?:\/\//i.test(src);
 
-function ParallaxMedia({ image, alt, className = "h-56 lg:h-64" }: { image: string, alt: string, className?: string }) {
+function ParallaxMedia({ image, alt, className = "h-56 lg:h-64", position }: { image: string, alt: string, className?: string, position?: string }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -58,7 +58,7 @@ function ParallaxMedia({ image, alt, className = "h-56 lg:h-64" }: { image: stri
         loading="lazy"
         decoding="async"
         referrerPolicy={isRemoteImage(image) ? 'no-referrer' : undefined}
-        style={{ translateZ: 20 }}
+        style={{ translateZ: 20, objectPosition: position }}
         className={`w-full h-full ${image.includes('logo') ? 'object-contain p-8 bg-white/80 dark:bg-white/10 backdrop-blur-md' : 'object-cover'} transition-all duration-700 z-20 group-hover/media:scale-110`}
       />
     </motion.div>
@@ -197,6 +197,7 @@ const Projects = () => {
                 <div className={`relative overflow-hidden border-subtle flex-shrink-0 ${isHero ? 'lg:w-[60%] lg:border-r border-b lg:border-b-0' : 'border-b w-full'}`}>
                   <ParallaxMedia
                     image={project.image}
+                    position={project.imagePosition}
                     alt={project.title}
                     className={isHero ? 'h-64 sm:h-80 lg:h-full min-h-[300px] sm:min-h-[400px]' : isTall ? 'h-72 lg:h-80' : 'h-56 lg:h-64'}
                   />
