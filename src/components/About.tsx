@@ -101,6 +101,16 @@ const About = () => {
                 <p>
                   I care about details and feelings, and I&apos;m moved by things that make people feel something different. I like adventure and trying something new, or a little crazy. I love to travel too; I haven&apos;t been abroad yet, but it&apos;s on my bucket list.
                 </p>
+                <p>
+                  <a
+                    href="https://www.instagram.com/laloo_arts_/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-primary hover:underline"
+                  >
+                    My paintings: @laloo_arts_ on Instagram
+                  </a>
+                </p>
               </div>
             </div>
 
