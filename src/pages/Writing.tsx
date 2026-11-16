@@ -94,16 +94,8 @@ const Writing = () => {
             <PenLine size={28} className="mx-auto mb-4 text-primary/60" />
             <h2 className="mb-2 font-poppins text-xl font-bold text-heading">Nothing published yet</h2>
             <p className="mx-auto mb-7 max-w-md font-inter text-sm leading-relaxed text-body">
-              The first pieces are being written. In the meantime, the LM-MS case study covers the
-              architecture I spend most of my time in.
+              The first pieces are being written.
             </p>
-            <Link
-              to="/case-study/lm-ms"
-              className="inline-flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/10 px-4 py-2.5 font-inter text-sm font-bold text-primary transition-colors hover:bg-primary/20"
-            >
-              Read the LM-MS case study
-              <ArrowRight size={15} />
-            </Link>
           </motion.div>
         ) : (
           <div className="space-y-6">

@@ -66,6 +66,34 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: 'lm-reservations',
+    title: "LM Reservations – Restaurant Booking for Hotels & Resorts",
+    description: "Restaurant reservation system for hotels and resorts, built at LM Smart Solutions. Demo video is public; technical details are shared on request.",
+    tagline: "A restaurant reservation system for hotels and resorts, built at LM Smart Solutions.",
+    image: "https://img.youtube.com/vi/MUpSX5gP1y4/hqdefault.jpg",
+    tech: ["System Design"],
+    live: "https://youtu.be/MUpSX5gP1y4",
+    liveLabel: "Watch Demo Video",
+    sourceStatus: 'private',
+    privateNote: "This is a commercial product, so details are shared on request.",
+    role: "LM Smart Solutions",
+    featured: true,
+    highlights: [
+      "Restaurant reservation system for hotels and resorts",
+      "Built during my work at LM Smart Solutions",
+    ],
+    sections: [
+      {
+        heading: "What it is",
+        body: "LM Reservations is a restaurant reservation system for hotels and resorts, built at LM Smart Solutions alongside the LM-MS monitoring platform.",
+      },
+      {
+        heading: "More details",
+        body: "It is a commercial product, so the demo video is the public view. Architecture and implementation details are shared on request.",
+      },
+    ],
+  },
+  {
     slug: 'flamelens',
     title: "FlameLens – NASA Fire-Evidence Dashboard",
     description: "Web dashboard that tells a habitat engineer whether a cabin atmosphere has been backed by NASA's microgravity fire experiments. It compares a design against 2,003 real runs from 18 NASA PSI flight investigations. Built with team AstroSpark for the 2026 NASA Space Apps Challenge.",

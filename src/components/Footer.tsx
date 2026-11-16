@@ -61,12 +61,6 @@ const Footer = () => {
             <div className="flex flex-col items-center md:items-end gap-4">
               <nav className="flex gap-5 mb-2" aria-label="More pages">
                 <Link
-                  to="/case-study/lm-ms"
-                  className="font-inter text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
-                >
-                  Case study
-                </Link>
-                <Link
                   to="/writing"
                   className="font-inter text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
                 >

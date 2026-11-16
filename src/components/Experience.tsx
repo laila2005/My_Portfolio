@@ -1,7 +1,9 @@
-import { Briefcase, Calendar, ArrowRight } from 'lucide-react';
+import { Briefcase, Calendar, PlayCircle, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { roles } from '@/data/experience';
+
+const MAIL_BODY =
+  'Hi Laila,\n\nI watched the LM-MS demo and would like more details.\n\nName / company:\nWhy I am asking:\n';
 
 // Rendered from the shared work-history module; see src/data/experience.ts.
 const experiences = roles.map(role => ({
@@ -12,7 +14,7 @@ const experiences = roles.map(role => ({
   duration: role.duration,
   description: role.summary,
   tech: role.tech,
-  caseStudy: role.caseStudy,
+  demoVideo: role.demoVideo,
   badge: role.badge,
 }));
 
@@ -100,14 +102,25 @@ const Experience = () => {
                       {exp.description}
                     </p>
 
-                    {exp.caseStudy && (
-                      <Link
-                        to={exp.caseStudy}
-                        className={`inline-flex items-center gap-1.5 mb-6 text-sm font-bold text-primary hover:gap-2.5 transition-all ${isEven ? 'md:flex-row-reverse' : ''}`}
-                      >
-                        Read the case study
-                        <ArrowRight size={15} />
-                      </Link>
+                    {exp.demoVideo && (
+                      <div className={`flex flex-wrap items-center gap-3 mb-6 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
+                        <a
+                          href={exp.demoVideo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-sm font-bold text-primary bg-primary/10 px-4 py-2 rounded-xl border border-primary/20 hover:bg-primary/20 transition-colors"
+                        >
+                          <PlayCircle size={16} />
+                          Watch the demo video
+                        </a>
+                        <a
+                          href={`mailto:laila.mohamed.fikry@gmail.com?subject=${encodeURIComponent('LM-MS details request')}&body=${encodeURIComponent(MAIL_BODY)}`}
+                          className="inline-flex items-center gap-1.5 text-sm font-bold text-heading px-4 py-2 rounded-xl border border-subtle hover:bg-surface-overlay transition-colors"
+                        >
+                          <Mail size={16} />
+                          Request details
+                        </a>
+                      </div>
                     )}
 
                     <div className={`flex flex-wrap gap-2 ${isEven ? 'md:justify-end' : 'justify-start'}`}>

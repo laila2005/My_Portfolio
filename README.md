@@ -102,10 +102,8 @@ sections, so the two can never disagree about a job title or employer again.
 
 - **Testimonials must be real.** `src/components/Testimonials.tsx` renders nothing when its
   array is empty — never fill it with invented quotes.
-- **The LM-MS case study is deliberately architecture-level only.** It omits schema, internal
-  component names, hosts, ports, versions, and licensing details because the product is
-  commercial. Read the disclosure note at the top of `src/pages/CaseStudyLMMS.tsx` before
-  adding detail.
+- **The LM-MS case study is not published.** Only the demo video is public; details are shared
+  on request after approval. The page was removed from this repo, so do not re-add it.
 - Unverified figures are rendered as loud amber `[bracketed]` placeholders. If one is visible
   on the live site, it needs filling in or deleting — it is not finished copy.
 

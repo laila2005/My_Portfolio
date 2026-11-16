@@ -20,7 +20,7 @@
  *
  * DISCLOSURE BOUNDARY — 'monitoring-a-fleet-you-cannot-see' describes LM-MS,
  * which is a commercial product. That post holds exactly the same line as
- * src/pages/CaseStudyLMMS.tsx: no database/table/view/procedure names, no column
+ * the (removed) LM-MS case study: no database/table/view/procedure names, no column
  * or register schemes, no hostnames, ports, install paths or app-pool names, no
  * framework versions, no licensing or cryptographic mechanisms, no hardware
  * vendor or model designations, and no customer or site identities. The depth

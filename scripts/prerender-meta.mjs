@@ -89,14 +89,6 @@ function buildRoutes({ projects, posts }) {
       image: DEFAULT_IMAGE,
       type: 'website',
     },
-    {
-      route: '/case-study/lm-ms',
-      title: `Case Study — LM-MS Power Monitoring | ${AUTHOR}`,
-      description:
-        'How LM-MS is architected: a monitoring platform for distributed solar, rectifier, inverter and generator power sites — separating acquisition from presentation, a device-agnostic measurement model, and the trade-offs behind each decision.',
-      image: DEFAULT_IMAGE,
-      type: 'article',
-    },
   ];
 
   for (const project of projects) {

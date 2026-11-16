@@ -8,7 +8,6 @@ import NotFound from "./pages/NotFound";
 import ErrorBoundary from './components/ErrorBoundary';
 
 // Sub-pages sit off the main route — load them on demand.
-const CaseStudyLMMS = React.lazy(() => import('./pages/CaseStudyLMMS'));
 const Writing = React.lazy(() => import('./pages/Writing'));
 const WritingPost = React.lazy(() => import('./pages/WritingPost'));
 const ProjectDetail = React.lazy(() => import('./pages/ProjectDetail'));
@@ -27,7 +26,6 @@ const App = () => {
               <React.Suspense fallback={null}>
                 <Routes>
                   <Route path="/" element={<Index />} />
-                  <Route path="/case-study/lm-ms" element={<CaseStudyLMMS />} />
                   <Route path="/projects/:slug" element={<ProjectDetail />} />
                   <Route path="/writing" element={<Writing />} />
                   <Route path="/writing/:slug" element={<WritingPost />} />

@@ -17,8 +17,8 @@ export type Role = {
   summary: string;
   tech: string[];
   link?: string;
-  /** Internal route to a deeper write-up, when one exists. */
-  caseStudy?: string;
+  /** Public demo video. Deeper details are deliberately not published; they are shared on request. */
+  demoVideo?: string;
   /**
    * Short badge for a role that isn't a finished chapter — e.g. 'Internship'.
    * Deliberately not used to assert progress ("in progress", "incoming"): the
@@ -40,12 +40,12 @@ export const roles: Role[] = [
     title: 'Co-Founder & Full-Stack Engineer',
     duration: 'Nov 2025 – Present',
     summary:
-      'Architecting and shipping LM-MS, a monitoring platform for distributed power sites — solar, rectifier, inverter, and generator plants. Covers the telemetry acquisition service, the normalized data model behind it, the operator dashboards and single-site console, catalog-driven reporting, and multi-channel alarm delivery.',
+      'Architecting and shipping LM-MS, a monitoring platform for distributed power sites — solar, rectifier, inverter, and generator plants. Covers the telemetry acquisition service, the normalized data model behind it, the operator dashboards and single-site console, catalog-driven reporting, and multi-channel alarm delivery. Also built LM Reservations, a restaurant reservation system for hotels and resorts.',
     // Product stack. Deliberately kept at this level: no versions, hosts, or
     // internal component names — see the case study's disclosure note.
     tech: ['C# / .NET', 'ASP.NET', 'SQL Server', 'Industrial protocols', 'IoT telemetry'],
     link: 'https://lm-tech-solutions.tech/',
-    caseStudy: '/case-study/lm-ms',
+    demoVideo: 'https://youtu.be/33ZLtyIYzfk',
   },
   {
     company: 'Banque Misr',
