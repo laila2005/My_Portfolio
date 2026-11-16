@@ -76,7 +76,7 @@ const About = () => {
             
             <div className="space-y-5 text-body font-inter">
               <p className="text-lg leading-relaxed font-medium text-heading border-l-4 border-purple-500 pl-4 bg-primary/5 py-2 rounded-r-lg">
-                My first lines of code were JavaScript: a console.log("Hello, World"), written in school, before I had even heard of Scratch.
+                My first lines of code were JavaScript: a console.log("Hello, World"), written on my own in elementary school, before I had even heard of Scratch. It wasn&apos;t a school subject.
               </p>
 
               <p className="text-base leading-relaxed">
