@@ -90,7 +90,7 @@ export const credentials: Credential[] = [
   {
     kind: 'education',
     title: 'Egyptian Russian University',
-    detail: 'Started university here in 2023, then transferred to El Sewedy University of Technology in 2025 to study software development.',
+    detail: 'Studied AI here from 2023, then transferred to El Sewedy University of Technology in 2025 to study software development.',
     period: '2023 – 2025',
   },
   {

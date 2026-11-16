@@ -84,12 +84,24 @@ const About = () => {
               </p>
 
               <p className="text-base leading-relaxed">
-                I started a university degree in 2023 at the Egyptian Russian University. In 2025 I transferred to El Sewedy University of Technology (Polytechnic of Egypt) to study software development, the field I was most drawn to. I learn by doing, and I wanted to be somewhere I could build.
+                I started a university degree in AI in 2023 at the Egyptian Russian University. In 2025 I transferred to El Sewedy University of Technology (Polytechnic of Egypt) to study software development, the field I was most drawn to. I learn by doing, and I wanted to be somewhere I could build.
               </p>
 
               <p className="text-base leading-relaxed">
                 What drives me is making real systems that work and help people. ALX Africa gave me the full-stack and C foundations, and since then I have built things like a C 3D engine, a real-time messaging platform, and LM-MS, the monitoring product I help build as co-founder of LM Smart Solutions.
               </p>
+            </div>
+
+            <div className="mt-10 p-6 bg-surface-elevated border border-subtle ring-1 ring-primary/5 rounded-2xl shadow-sm">
+              <h4 className="font-poppins font-bold text-heading mb-3">Beyond the code</h4>
+              <div className="space-y-3 text-body font-inter text-sm leading-relaxed">
+                <p>
+                  I&apos;m also an artist. I have loved painting and drawing since I was a kid, and I&apos;ve kept it alongside programming. When I feel overwhelmed or stressed, I paint: moving the brush is how I let it all go.
+                </p>
+                <p>
+                  I care about details and feelings, and I&apos;m moved by things that make people feel something different. I like adventure and trying something new, or a little crazy. I love to travel too; I haven&apos;t been abroad yet, but it&apos;s on my bucket list.
+                </p>
+              </div>
             </div>
 
             <div className="mt-10 p-6 bg-surface-elevated border border-subtle ring-1 ring-primary/5 rounded-2xl shadow-sm flex flex-col sm:flex-row gap-8">
