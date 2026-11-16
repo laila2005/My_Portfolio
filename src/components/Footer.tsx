@@ -1,6 +1,5 @@
 import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useLenis } from 'lenis/react';
 
 const Footer = () => {
@@ -59,14 +58,6 @@ const Footer = () => {
 
             {/* High-Contrast Social Icons */}
             <div className="flex flex-col items-center md:items-end gap-4">
-              <nav className="flex gap-5 mb-2" aria-label="More pages">
-                <Link
-                  to="/writing"
-                  className="font-inter text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
-                >
-                  Writing
-                </Link>
-              </nav>
               <span className="font-poppins font-semibold text-gray-900 dark:text-white text-sm tracking-wide uppercase opacity-80">
                 Connect
               </span>
