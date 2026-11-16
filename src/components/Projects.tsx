@@ -15,7 +15,7 @@ const imageDimensions = dims as Record<string, { w: number; h: number } | undefi
 
 const isRemoteImage = (src: string) => /^https?:\/\//i.test(src);
 
-function ParallaxMedia({ image, alt, className = "h-56 lg:h-64", position }: { image: string, alt: string, className?: string, position?: string }) {
+function ParallaxMedia({ image, alt, className = "h-56 lg:h-64", position, contain, bg }: { image: string, alt: string, className?: string, position?: string, contain?: boolean, bg?: string }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -40,7 +40,7 @@ function ParallaxMedia({ image, alt, className = "h-56 lg:h-64", position }: { i
 
   return (
     <motion.div
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 800 }}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d", perspective: 800, backgroundColor: bg }}
       onMouseMove={handleMouse}
       onMouseLeave={handleMouseLeave}
       className={`w-full flex items-center justify-center bg-surface-overlay relative group/media overflow-hidden ${className}`}
@@ -59,7 +59,7 @@ function ParallaxMedia({ image, alt, className = "h-56 lg:h-64", position }: { i
         decoding="async"
         referrerPolicy={isRemoteImage(image) ? 'no-referrer' : undefined}
         style={{ translateZ: 20, objectPosition: position }}
-        className={`w-full h-full ${image.includes('logo') ? 'object-contain p-8 bg-white/80 dark:bg-white/10 backdrop-blur-md' : 'object-cover'} transition-all duration-700 z-20 group-hover/media:scale-110`}
+        className={`w-full h-full ${image.includes('logo') ? 'object-contain p-8 bg-white/80 dark:bg-white/10 backdrop-blur-md' : contain ? 'object-contain' : 'object-cover'} transition-all duration-700 z-20 group-hover/media:scale-110`}
       />
     </motion.div>
   );
@@ -205,6 +205,8 @@ const Projects = () => {
                   <ParallaxMedia
                     image={project.image}
                     position={project.imagePosition}
+                    contain={project.imageFit === 'contain'}
+                    bg={project.imageBg}
                     alt={project.title}
                     className={isHero ? 'h-64 sm:h-80 lg:h-full min-h-[300px] sm:min-h-[400px]' : isTall ? 'h-72 lg:h-80' : 'h-56 lg:h-64'}
                   />

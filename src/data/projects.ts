@@ -35,6 +35,9 @@ export type Project = {
   image: string;
   /** CSS object-position for the card cover, to keep the subject in frame when it is cropped. */
   imagePosition?: string;
+  /** Show the whole cover (letterboxed on imageBg) instead of cropping it to fill the card. */
+  imageFit?: 'contain';
+  imageBg?: string;
   /** YouTube video ID to embed on the detail page. */
   video?: string;
   tech: string[];
@@ -74,7 +77,9 @@ export const projects: Project[] = [
     title: "TalentScout AI – Lili, the CV-Screening Agent",
     description: "AI recruiting agent for small and medium-sized businesses. Lili reads CVs, scores candidates against a weighted rubric, sorts them into tiers, and drafts interview questions and candidate emails. Lili is built on Wessam AI. Built solo; 3rd place at the Agents at Work virtual hackathon.",
     tagline: "An AI agent that screens CVs against a role's requirements and drafts the next step.",
-    image: "https://img.youtube.com/vi/sWYGC3gNatI/hqdefault.jpg",
+    image: "/talentscout-cover.webp",
+    imageFit: 'contain',
+    imageBg: '#08080b',
     tech: ["Wessam AI", "AI Agents", "AI", "Vercel"],
     live: "https://lili-hr-agent.vercel.app",
     liveLabel: "Open TalentScout AI",
@@ -169,7 +174,7 @@ export const projects: Project[] = [
     ],
     gallery: [
       { src: "/flamelens-banner.webp", alt: "FlameLens banner: Every crew deserves to come home. What NASA's fire experiments really show, every result cited. In memory of the Apollo 1 crew. Team AstroSpark.", caption: "FlameLens, NASA Space Apps 2026 · Flame in Freefall" },
-      { src: "/nasa-space-apps-team-photo.webp", alt: "Team AstroSpark in front of the NASA Space Apps Cairo sponsor wall", caption: "Team AstroSpark at NASA Space Apps Cairo" },
+      { src: "/flamelens-cover.webp", alt: "Team AstroSpark in front of the NASA Space Apps Cairo sponsor wall", caption: "Team AstroSpark at NASA Space Apps Cairo" },
       { src: "/nasa-space-apps-team-selfie.webp", alt: "Team AstroSpark selfie in front of the NASA Space Apps Cairo banner", caption: "Team selfie at the event" },
       { src: "/nasa-space-apps-opening-ceremony.webp", alt: "Stage screen reading Welcome to NASA Space Apps Cairo", caption: "Opening ceremony, Saturday" },
       { src: "/nasa-space-apps-2026-certificate.webp", alt: "Galactic Problem Solver certificate from the 2026 NASA Space Apps Challenge", caption: "Certificate of participation, 14–15 November 2026" },
