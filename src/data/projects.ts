@@ -70,6 +70,50 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: 'talentscout-ai-lili',
+    title: "TalentScout AI – Lili, the CV-Screening Agent",
+    description: "AI recruiting agent for small and medium-sized businesses. Lili reads CVs, scores candidates against a weighted rubric, sorts them into tiers, and drafts interview questions and candidate emails. Lili is built on Wessam AI. Built solo; 3rd place at the Agents at Work virtual hackathon.",
+    tagline: "An AI agent that screens CVs against a role's requirements and drafts the next step.",
+    image: "https://img.youtube.com/vi/sWYGC3gNatI/hqdefault.jpg",
+    tech: ["Wessam AI", "AI Agents", "AI", "Vercel"],
+    live: "https://lili-hr-agent.vercel.app",
+    liveLabel: "Open TalentScout AI",
+    video: "sWYGC3gNatI",
+    links: [
+      { label: "Watch on YouTube", url: "https://youtu.be/sWYGC3gNatI" },
+      { label: "Agents at Work Hackathon", url: "https://ai.untap.us/" },
+    ],
+    status: "3rd Place",
+    role: "Solo builder, Agents at Work virtual hackathon",
+    featured: true,
+    highlights: [
+      "3rd place at the Agents at Work virtual hackathon, entered and built solo",
+      "Agent Lili is built on Wessam AI; it reads CVs (PDF, Word or text) and extracts name, tech stack and experience",
+      "Scores each candidate against a weighted rubric and a minimum-experience requirement, then assigns Fast-Track, Review or Below Bar",
+      "Produces a scorecard with strengths, gaps and verification flags, plus interview questions and drafted invitations or rejection feedback",
+      "Single or bulk CV upload, a filterable candidate pipeline and CSV export",
+      "Per-recruiter sign-in with row-level security, so each recruiter sees only their own data",
+    ],
+    sections: [
+      {
+        heading: "What it is",
+        body: "TalentScout AI is a recruiting tool for small and medium-sized businesses. Its agent, Lili, is built on Wessam AI and screens job candidates against a role's requirements so a recruiter can shortlist faster and more consistently.",
+      },
+      {
+        heading: "How screening works",
+        body: "You set up a role with a minimum-experience requirement and a rubric, then upload one CV or import several, which are screened in parallel. Lili extracts the candidate's details, matches them against the must-have requirements, scores them on the rubric, and assigns a tier. Each candidate gets a scorecard with strengths, gaps and verification flags, and a one-sentence summary.",
+      },
+      {
+        heading: "From shortlist to outreach",
+        body: "Lili generates interview questions with guidance on what a strong answer looks like, and drafts interview invitations or rejection feedback. Emails go out as a pre-filled Gmail draft or through background sending via Brevo or Resend. The pipeline can be filtered, compared and exported to CSV, and the app estimates recruiter time and cost saved from assumptions the user enters.",
+      },
+      {
+        heading: "The hackathon",
+        body: "I entered the Agents at Work virtual hackathon as a solo participant and placed 3rd with this agent.",
+      },
+    ],
+  },
+  {
     slug: 'lm-reservations',
     title: "LM Reservations – Restaurant Booking for Hotels & Resorts",
     description: "Restaurant reservation system for hotels and resorts, built at LM Smart Solutions. Demo video is public; technical details are shared on request.",

@@ -112,4 +112,11 @@ export const certifications: Credential[] = [
     period: 'Nov 2026',
     localProof: '/nasa-space-apps-2026-certificate.webp',
   },
+  {
+    kind: 'certification',
+    title: '3rd Place — Agents at Work Hackathon',
+    detail:
+      'Placed third at the Agents at Work virtual hackathon, entering solo with TalentScout AI, a CV-screening agent named Lili.',
+    period: 'Hackathon',
+  },
 ];
