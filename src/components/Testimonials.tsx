@@ -1,5 +1,8 @@
-import { BadgeCheck, Quote } from 'lucide-react';
+import { useState } from 'react';
+import { BadgeCheck, ChevronDown, Linkedin, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Butterfly } from './ButterflyField';
+import InkUnderline from './InkUnderline';
 
 type Testimonial = {
   /** The client's own words, in the language they wrote them. */
@@ -58,102 +61,164 @@ const testimonials: Testimonial[] = [
   },
 ];
 
+const initialsOf = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(word => word[0])
+    .join('')
+    .toUpperCase();
+
+/** Long quotes start collapsed so three cards stay balanced; the full text is one tap away. */
+const CLAMP_AFTER = 330;
+
+const TestimonialCard = ({ item, index }: { item: Testimonial; index: number }) => {
+  const [open, setOpen] = useState(false);
+  const isArabic = item.quoteLang === 'ar';
+  const long = item.quote.length + (item.translation?.length ?? 0) > CLAMP_AFTER;
+  const collapsed = long && !open;
+  const fromLinkedIn = !item.link && item.note;
+
+  return (
+    <motion.figure
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-subtle bg-surface p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl sm:p-8"
+    >
+      {/* ink-and-night details: an accent edge and a faint butterfly watermark */}
+      <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-pink-400 to-primary/30" aria-hidden="true" />
+      <Butterfly
+        still
+        className="pointer-events-none absolute -bottom-6 -right-6 h-32 w-40 -rotate-12 text-primary opacity-[0.07] transition-opacity duration-500 group-hover:opacity-[0.12]"
+      />
+
+      <div className="relative mb-5 flex items-start justify-between gap-3">
+        <Quote className="text-primary/30" size={34} aria-hidden="true" />
+        {fromLinkedIn && (
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-bold text-primary">
+            <Linkedin size={12} aria-hidden="true" />
+            {item.note?.replace('LinkedIn recommendation, ', 'LinkedIn · ')}
+          </span>
+        )}
+      </div>
+
+      <div className="relative">
+        <div
+          className="overflow-hidden transition-[max-height] duration-500 ease-in-out"
+          style={{ maxHeight: collapsed ? '15rem' : '64rem' }}
+        >
+          <blockquote
+            lang={item.quoteLang}
+            dir={isArabic ? 'rtl' : undefined}
+            className={`whitespace-pre-line text-heading ${
+              isArabic
+                ? 'text-right text-lg font-medium leading-loose'
+                : 'font-inter text-[0.95rem] leading-relaxed sm:text-base'
+            }`}
+          >
+            {item.quote}
+          </blockquote>
+
+          {item.translation && (
+            <div className="mt-5 border-t border-subtle pt-5">
+              <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-subtle">Translated from Arabic</p>
+              <p className="font-inter text-sm italic leading-relaxed text-body">“{item.translation}”</p>
+            </div>
+          )}
+        </div>
+        {collapsed && (
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[hsl(var(--surface))] to-transparent"
+            aria-hidden="true"
+          />
+        )}
+      </div>
+
+      {long && (
+        <button
+          type="button"
+          onClick={() => setOpen(value => !value)}
+          aria-expanded={open}
+          className="relative mt-3 flex w-fit items-center gap-1 rounded-lg text-sm font-bold text-primary outline-none transition-colors hover:text-primary/80 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        >
+          {open ? 'Show less' : 'Read more'}
+          <ChevronDown size={16} className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
+        </button>
+      )}
+
+      <figcaption className="relative mt-auto flex items-center justify-between gap-3 border-t border-subtle pt-6">
+        <div className="flex min-w-0 items-center gap-3">
+          <span
+            className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary to-pink-400 font-poppins text-sm font-bold text-white shadow-md"
+            aria-hidden="true"
+          >
+            {initialsOf(item.name)}
+          </span>
+          <div className="min-w-0">
+            <div className="truncate font-poppins font-bold text-heading">{item.name}</div>
+            <div className="font-inter text-xs leading-snug text-subtle">{item.role}</div>
+          </div>
+        </div>
+        {item.link && (
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Verified review${item.source ? ` on ${item.source}` : ''}`}
+            title={`Verified review${item.source ? ` on ${item.source}` : ''}`}
+            className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-lg border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-bold text-primary transition-colors hover:bg-primary/15"
+          >
+            <BadgeCheck size={14} aria-hidden="true" />
+            {item.source ?? 'Verified'}
+          </a>
+        )}
+      </figcaption>
+    </motion.figure>
+  );
+};
+
 const Testimonials = () => {
   if (testimonials.length === 0) return null;
 
   return (
     <section
       id="testimonials"
-      className="py-32 bg-surface-elevated transition-colors duration-500 relative overflow-hidden"
+      className="relative overflow-hidden bg-surface-elevated py-32 transition-colors duration-500"
     >
-      <div className="absolute top-20 left-[-10%] w-[500px] h-[500px] bg-purple-500/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none" />
+      <div className="pointer-events-none absolute left-[-10%] top-20 h-[500px] w-[500px] rounded-full bg-purple-500/10 blur-[120px] filter mix-blend-multiply dark:mix-blend-screen" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-20">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-16 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-poppins font-black text-4xl sm:text-5xl lg:text-6xl mb-6 text-heading tracking-tight"
+            className="mb-6 font-poppins text-4xl font-black tracking-tight text-heading sm:text-5xl lg:text-6xl"
           >
-            Kind <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Words</span>
+            Kind <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">Words</span>
           </motion.h2>
+          <InkUnderline />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-inter text-lg text-body max-w-2xl mx-auto"
+            className="mx-auto max-w-2xl font-inter text-lg text-body"
           >
-            From mentors, teammates and clients I've worked with.
+            From mentors, teammates and clients I&apos;ve worked with.
           </motion.p>
         </div>
 
         <div
-          className={`grid gap-6 lg:gap-8 ${
-            testimonials.length === 1
-              ? 'max-w-3xl mx-auto'
-              : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+          className={`grid items-stretch gap-6 lg:gap-8 ${
+            testimonials.length === 1 ? 'mx-auto max-w-3xl' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
           }`}
         >
           {testimonials.map((item, index) => (
-            <motion.figure
-              key={item.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col bg-white/60 dark:bg-[#1c1b28]/40 bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-white/5 backdrop-blur-xl border border-white/60 dark:border-purple-500/20 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-xl rounded-[2rem] p-8 sm:p-10"
-            >
-              <Quote className="text-primary/40 mb-5 shrink-0" size={36} aria-hidden="true" />
-
-              {/* The original language first — dir/lang so Arabic renders RTL and
-                  screen readers switch pronunciation. */}
-              <blockquote
-                lang={item.quoteLang}
-                dir={item.quoteLang === 'ar' ? 'rtl' : undefined}
-                className={`whitespace-pre-line text-heading leading-relaxed sm:leading-loose text-base sm:text-xl font-medium ${
-                  item.quoteLang === 'ar' ? 'text-right' : 'font-inter'
-                }`}
-              >
-                {item.quote}
-              </blockquote>
-
-              {item.translation && (
-                <div className="mt-6 pt-6 border-t border-subtle">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-subtle mb-3">
-                    Translated from Arabic
-                  </p>
-                  <p className="font-inter text-body leading-relaxed italic">
-                    “{item.translation}”
-                  </p>
-                </div>
-              )}
-
-              <figcaption className="mt-auto pt-8 flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <div className="font-poppins font-bold text-heading">{item.name}</div>
-                  <div className="font-inter text-sm text-subtle">{item.role}</div>
-                </div>
-                {!item.link && item.note && (
-                  <span className="inline-flex items-center gap-1.5 text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-lg">
-                    <BadgeCheck size={14} />
-                    {item.note}
-                  </span>
-                )}
-                {item.link && (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-lg hover:bg-primary/15 transition-colors"
-                  >
-                    <BadgeCheck size={14} />
-                    Verified review{item.source ? ` on ${item.source}` : ''}
-                  </a>
-                )}
-              </figcaption>
-            </motion.figure>
+            <TestimonialCard key={item.name} item={item} index={index} />
           ))}
         </div>
       </div>
