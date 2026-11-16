@@ -37,6 +37,8 @@ export type Project = {
   languages?: string[];
   github?: string;
   live?: string;
+  /** Extra outbound buttons, e.g. a demo video or a hackathon team page. */
+  links?: { label: string; url: string }[];
   /** Overrides the "Live Demo" button text, e.g. for a preview that isn't finished. */
   liveLabel?: string;
   /** Sets expectations before the visitor clicks, e.g. "still in development". */
@@ -66,24 +68,26 @@ export const projects: Project[] = [
   {
     slug: 'flamelens',
     title: "FlameLens – NASA Fire-Evidence Dashboard",
-    description: "Free web dashboard that tells a spacecraft or habitat engineer whether a cabin atmosphere has been tested in NASA's microgravity fire experiments. Built with team AstroSpark for the 2026 NASA Space Apps Challenge.",
+    description: "Web dashboard that tells a habitat engineer whether a cabin atmosphere has been backed by NASA's microgravity fire experiments. It compares a design against 2,003 real runs from 18 NASA PSI flight investigations. Built with team AstroSpark for the 2026 NASA Space Apps Challenge.",
     tagline: "Checks a cabin atmosphere against NASA's microgravity fire experiments, and says plainly when there is no evidence.",
     image: "/nasa-space-apps-team-photo.webp",
-    tech: ["AI", "Data Analysis", "NASA PSI Data"],
-    languages: ["Web"],
-    live: "https://youtu.be/FxSWxqPT-EI",
-    liveLabel: "Watch Demo",
-    liveNote: "Demo video on YouTube",
-    sourceStatus: 'private',
-    privateNote: "Source is not published; the demo video is the proof.",
+    tech: ["Python", "FastAPI", "JavaScript", "AI", "Google Gemini AI", "Pydantic", "Vercel"],
+    languages: ["Python", "JavaScript"],
+    live: "https://flamelens-steel.vercel.app/",
+    liveLabel: "Open FlameLens",
+    links: [
+      { label: "Watch Demo Video", url: "https://youtu.be/FxSWxqPT-EI" },
+      { label: "Space Apps Team Page", url: "https://www.spaceappschallenge.org/2026/find-a-team/astrospark2/?tab=project" },
+    ],
     role: "Team AstroSpark, NASA Space Apps Challenge 2026",
     featured: true,
     highlights: [
-      "Merged 2,003 runs from 18 NASA Physical Sciences Informatics flight investigations into one table",
-      "Marks each condition (oxygen, pressure, airflow, material, gravity) as supported, weak or not tested, with an evidence-strength score",
-      "Shows the closest real NASA runs, exactly how they differ, and the next experiment that would close the gap",
-      "Every AI claim must cite a NASA run or quote a NASA page, or it is removed",
-      "Never gives a safety verdict",
+      "Compares a cabin design with 2,003 runs from 18 NASA PSI flight investigations, with presets for ISS cabin, spacesuit, pressurized rover, Moon base and Mars habitat",
+      "Marks each condition Supported, Weak or No evidence, citing the matching run IDs (only runs with the same material count)",
+      "Evidence strength score from 0 to 100 with its four parts visible; explicitly not a safety rating",
+      "Suggests the next experiment and plans a campaign: which 3 extra tests would cover the most designs",
+      "\"Ask the NASA reports\" answers from 1,899 passages of 20 NASA documents; a claim is kept only if its quote appears word for word on the cited page",
+      "95 automated tests (pytest) and a 137-check script against the live site",
     ],
     gallery: [
       { src: "/nasa-space-apps-team-photo.webp", alt: "Team AstroSpark in front of the NASA Space Apps Cairo sponsor wall", caption: "Team AstroSpark at NASA Space Apps Cairo" },
@@ -94,19 +98,27 @@ export const projects: Project[] = [
     sections: [
       {
         heading: "The problem",
-        body: "Future Moon bases and pressurized rovers are expected to use 30% oxygen or more at 10.2 psi or less, which makes materials burn more easily. NASA has studied fire on the International Space Station for years and the results are public in its Physical Sciences Informatics (PSI) repository, but they are spread over many tables and reports that are hard to compare.",
+        body: "Future Moon bases and pressurized rovers are expected to use 30% oxygen or more at about 10.2 psi, which makes materials burn more easily. In 1967 the Apollo 1 crew died in a ground test in a pure-oxygen cabin full of flammable materials. NASA has studied fire on the International Space Station for years and the results are public in its Physical Sciences Informatics (PSI) repository, but they are spread over many tables and reports that are hard to compare.",
       },
       {
-        heading: "What FlameLens does",
-        body: "We merged 2,003 runs from 18 PSI flight investigations into one table. The user enters oxygen, pressure, airflow, material and gravity. FlameLens marks each condition as supported, weak or not tested, scores how strong the evidence is, shows the closest real NASA runs and exactly how they differ, and proposes the next experiment that would close the gap.",
+        heading: "What it does",
+        body: "You enter the cabin air (oxygen %, pressure, airflow, material, gravity) or pick a preset. FlameLens compares it with the 2,003 runs and returns an evidence case, an evidence strength score, the closest NASA evidence and exactly what differs when nothing matches, and the next experiment to run. It also offers tested options with less oxygen, seven science lenses, a mission journey, and a printable design review brief. Every number links to its PSI run, data table and DOI.",
       },
       {
-        heading: "AI, with citations",
-        body: "A plain-language explanation and an \"Ask the NASA reports\" panel use AI, but every AI claim must cite a NASA run or quote a NASA page, or it is removed.",
+        heading: "Honest about gaps",
+        body: "\"No evidence\" is a valid answer. The rover preset shows it: its oxygen and pressure were only tested with gas flames and fuel droplets, never with a solid material. When nothing matches, FlameLens shows the closest real runs and cited NASA tests outside PSI, such as Saffire spacecraft fires and lunar-gravity drop tests, without counting them. Every PSI run is in microgravity, so it says so and does not stretch the data to Moon or Mars gravity. It never gives a safety verdict.",
       },
       {
-        heading: "The challenge",
-        body: "It answers the \"Flame in Freefall\" challenge: it summarizes, ranks and interprets NASA combustion data for fire-safety decisions. Where there is no evidence, FlameLens says so instead of guessing, and it never gives a safety verdict.",
+        heading: "AI, with a citation verifier",
+        body: "Decisions use no AI, and the app still works with the AI off. An open model (qwen2.5:7b-instruct) writes the plain-language explanation and Google Gemini 2.5 Flash powers \"Ask the NASA reports\", both behind a citation verifier that removes any claim whose run, number or quote is not in the NASA source. AI coding assistants (Claude, Gemini) helped write code and docs.",
+      },
+      {
+        heading: "Built with",
+        body: "FastAPI and Pydantic backend with Python data scripts; plain JavaScript frontend with custom SVG charts, light and dark themes, readable at phone width; hosted on Vercel. Data: NASA PSI experiment tables (CC0), the NASA Technical Reports Server and NASA Spinoff. The demo video was made with Python scripts, ffmpeg and Whisper for subtitle timing.",
+      },
+      {
+        heading: "Impact",
+        body: "Engineers get a defensible answer in minutes instead of days of searching, with the gaps in plain view. Researchers and students get one comparable table of 2,003 runs, 43 measured flame-spread rates and links to 27 NASA papers, all downloadable. The same research on Earth supports smoke detectors that tell smoke from dust, and firefighter clothing and breathing equipment.",
       },
     ],
   },

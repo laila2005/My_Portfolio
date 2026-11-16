@@ -210,6 +210,20 @@ const ProjectDetail = () => {
                 </Button>
               )}
 
+              {project.links?.map(link => (
+                <Button
+                  key={link.url}
+                  asChild
+                  variant="outline"
+                  className="h-12 w-full rounded-xl border-subtle bg-surface font-bold text-heading hover:bg-surface-overlay sm:w-auto sm:flex-1 sm:min-w-[190px]"
+                >
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                    {link.label}
+                    <ExternalLink size={16} className="ml-2" />
+                  </a>
+                </Button>
+              ))}
+
               {project.apk && (
                 <Button
                   asChild
