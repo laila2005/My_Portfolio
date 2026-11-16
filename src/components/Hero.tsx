@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 import ButterflyField, { Butterfly } from './ButterflyField';
+import { releaseSwarm } from './ButterflySwarm';
 import MagneticButton from './MagneticButton';
 import { trackEvent } from '@/lib/track';
 
@@ -35,7 +36,7 @@ const Hero = () => {
               Cairo, Egypt
             </span>
 
-            <h1 className="font-clash text-5xl sm:text-6xl lg:text-7xl mb-4 text-heading font-black tracking-tight leading-[1.05] whitespace-nowrap">
+            <h1 className="font-clash text-[2.4rem] min-[400px]:text-5xl sm:text-6xl lg:text-7xl mb-4 text-heading font-black tracking-tight leading-[1.05] whitespace-nowrap">
               Laila <span className="text-primary">Mohamed</span>
             </h1>
             <span className="block font-outfit text-xl sm:text-2xl lg:text-3xl text-heading/80 mb-6 min-h-[2.5rem] sm:min-h-[3rem] font-semibold w-full whitespace-nowrap">
@@ -58,15 +59,15 @@ const Hero = () => {
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center lg:items-start w-full lg:w-auto">
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-4 justify-center lg:justify-start items-center lg:items-start w-full lg:w-auto">
             {/* asChild makes the anchor the rendered element. Previously a
                 <Button> wrapped an <a>, so the focused button had no handler and
                 pressing Enter did nothing. */}
-            <MagneticButton className="w-full sm:w-auto flex justify-center lg:justify-start">
+            <MagneticButton className="col-span-2 w-full sm:w-auto flex justify-center lg:justify-start">
               <Button
                 asChild
                 size="lg"
-                className="bg-primary text-white hover:bg-primary/90 font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-xl shadow-primary/25 transition-all duration-300 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
+                className="bg-primary text-white hover:bg-primary/90 font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-xl shadow-primary/25 transition-all duration-300 w-full sm:w-auto h-12 sm:h-16 text-base sm:text-lg"
               >
                 <a href="#projects" onClick={() => trackEvent('hero_my_work')} className="flex items-center justify-center gap-2 w-full">
                   <span className="whitespace-nowrap">My Work</span>
@@ -79,7 +80,7 @@ const Hero = () => {
               <Button
                 asChild
                 size="lg"
-                className="bg-gray-900 text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-lg transition-all duration-300 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
+                className="bg-gray-900 text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 font-bold px-4 sm:px-8 py-6 sm:py-7 rounded-2xl shadow-lg transition-all duration-300 w-full sm:w-auto h-12 sm:h-16 text-base sm:text-lg"
               >
                 <a
                   href={`mailto:laila.mohamed.fikry@gmail.com?subject=${encodeURIComponent("Let's talk")}`}
@@ -97,7 +98,7 @@ const Hero = () => {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-2 border-gray-900/20 dark:border-white/25 text-heading font-bold px-6 sm:px-8 py-6 sm:py-7 rounded-2xl transition-all duration-300 bg-transparent hover:bg-primary/5 w-full sm:w-auto h-14 sm:h-16 text-base sm:text-lg"
+                className="border-2 border-gray-900/20 dark:border-white/25 text-heading font-bold px-4 sm:px-8 py-6 sm:py-7 rounded-2xl transition-all duration-300 bg-transparent hover:bg-primary/5 w-full sm:w-auto h-12 sm:h-16 text-base sm:text-lg"
               >
                 {/* PDF opens inline in every browser; the .docx it replaced forced
                     a download recruiters on phones could not preview. */}
@@ -178,7 +179,19 @@ const Hero = () => {
                 className="h-full w-full object-cover"
               />
             </div>
-            <Butterfly className="absolute -right-5 -top-5 h-10 w-12 rotate-12 text-primary" />
+            <button
+              type="button"
+              aria-label="Release a swarm of butterflies"
+              title="Click me"
+              onClick={event => {
+                const r = event.currentTarget.getBoundingClientRect();
+                releaseSwarm(r.left + r.width / 2, r.top + r.height / 2);
+                trackEvent('butterfly_swarm');
+              }}
+              className="absolute -right-6 -top-6 z-10 flex h-12 w-14 rotate-12 items-center justify-center rounded-full text-primary outline-none transition-transform duration-300 hover:scale-125 focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <Butterfly className="h-10 w-12" />
+            </button>
           </div>
 
           {/* Terminal */}

@@ -112,7 +112,7 @@ const Testimonials = () => {
               <blockquote
                 lang={item.quoteLang}
                 dir={item.quoteLang === 'ar' ? 'rtl' : undefined}
-                className={`whitespace-pre-line text-heading leading-loose text-lg sm:text-xl font-medium ${
+                className={`whitespace-pre-line text-heading leading-relaxed sm:leading-loose text-base sm:text-xl font-medium ${
                   item.quoteLang === 'ar' ? 'text-right' : 'font-inter'
                 }`}
               >

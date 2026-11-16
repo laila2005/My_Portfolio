@@ -137,12 +137,12 @@ const Projects = () => {
             viewport={{ once: true }}
             role="group"
             aria-label="Filter projects by area"
-            className="inline-flex flex-wrap justify-center gap-1.5 rounded-2xl border border-subtle bg-surface-elevated/60 p-1.5 backdrop-blur-sm"
+            className="flex max-w-full flex-nowrap gap-1.5 overflow-x-auto rounded-2xl border border-subtle bg-surface-elevated/60 p-1.5 backdrop-blur-sm [scrollbar-width:none] sm:inline-flex sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden"
           >
             <button
               onClick={() => setActiveCategory(null)}
               aria-pressed={activeCategory === null}
-              className={`rounded-xl px-4 py-2.5 text-sm font-bold outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+              className={`shrink-0 whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-bold outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                 activeCategory === null
                   ? 'bg-primary text-white shadow-md shadow-primary/25'
                   : 'text-body hover:bg-surface-overlay hover:text-heading'
@@ -159,7 +159,7 @@ const Projects = () => {
                   onClick={() => setActiveCategory(category.id)}
                   aria-pressed={isActive}
                   disabled={category.count === 0}
-                  className={`rounded-xl px-4 py-2.5 text-sm font-bold outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 ${
+                  className={`shrink-0 whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-bold outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 ${
                     isActive
                       ? 'bg-primary text-white shadow-md shadow-primary/25'
                       : 'text-body hover:bg-surface-overlay hover:text-heading'

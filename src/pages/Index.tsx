@@ -3,6 +3,7 @@ import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import ProofStrip from '@/components/ProofStrip';
 import Intro from '@/components/Intro';
+import ButterflySwarm from '@/components/ButterflySwarm';
 import ScrollButterfly from '@/components/ScrollButterfly';
 import ButterflyDivider from '@/components/ButterflyDivider';
 import About from '@/components/About';
@@ -31,9 +32,10 @@ const Index = () => {
         Skip to content
       </a>
       <Intro />
+      <ButterflySwarm />
       <ScrollButterfly />
       <Navigation />
-      <main>
+      <main className="overflow-x-clip">
         <Hero />
         <ProofStrip />
         <Projects />

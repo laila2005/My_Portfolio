@@ -125,7 +125,7 @@ const ProjectGallery = ({ shots, title }: { shots: GalleryShot[]; title: string 
                   <div
                     key={shot.src}
                     className={`min-w-0 flex-[0_0_100%] px-2 ${
-                      mixed ? 'flex h-[300px] items-center justify-center sm:h-[420px]' : ''
+                      mixed ? 'flex h-[230px] items-center justify-center sm:h-[420px]' : ''
                     }`}
                     role="group"
                     aria-roledescription="slide"

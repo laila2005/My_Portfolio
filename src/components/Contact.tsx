@@ -112,7 +112,7 @@ const Contact = () => {
           </p>
           <span className="block text-base text-primary font-medium mb-2">I reply to every message—let's build something amazing together.</span>
         </div>
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Info */}
           <div className="animate-slide-up">
             <h3 className="font-poppins font-semibold text-2xl mb-8 text-heading">
@@ -125,7 +125,7 @@ const Contact = () => {
                   className="rounded-2xl bg-surface-elevated backdrop-blur-md shadow-lg border border-subtle hover:shadow-xl hover:scale-[1.03] transition-all duration-300 group"
                   whileHover={{ y: -4, boxShadow: '0 8px 32px rgba(167,139,250,0.12)' }}
                 >
-                  <CardContent className="p-6 flex items-center gap-4">
+                  <CardContent className="p-4 sm:p-6 flex items-center gap-4">
                     <motion.div
                       className="p-3 bg-primary/10 rounded-xl shadow-sm"
                       whileHover={{ scale: 1.18 }}
@@ -134,14 +134,14 @@ const Contact = () => {
                     >
                       {info.icon}
                     </motion.div>
-                    <div>
+                    <div className="min-w-0">
                       <h4 className="font-poppins font-semibold text-heading mb-1">
                         {info.title}
                       </h4>
                       {info.href !== "#" ? (
                         <a 
                           href={info.href}
-                          className="text-body hover:text-primary transition-colors duration-200 font-inter text-base"
+                          className="text-body hover:text-primary transition-colors duration-200 font-inter text-sm sm:text-base [overflow-wrap:anywhere]"
                         >
                           {info.value}
                         </a>

@@ -70,8 +70,8 @@ const Experience = () => {
                 </div>
 
                 {/* Content Card */}
-                <div className={`w-full md:w-[45%] pl-20 md:pl-0 ${isEven ? 'md:pr-16 text-left md:text-right' : 'md:pl-16 text-left'}`}>
-                  <div className="bg-white/60 dark:bg-[#1c1b28]/40 backdrop-blur-xl border border-white/60 dark:border-purple-500/20 shadow-xl rounded-3xl p-8 hover:-translate-y-1 transition-transform duration-300">
+                <div className={`w-full md:w-[45%] pl-14 md:pl-0 ${isEven ? 'md:pr-16 text-left md:text-right' : 'md:pl-16 text-left'}`}>
+                  <div className="bg-white/60 dark:bg-[#1c1b28]/40 backdrop-blur-xl border border-white/60 dark:border-purple-500/20 shadow-xl rounded-3xl p-5 sm:p-8 hover:-translate-y-1 transition-transform duration-300">
                     
                     <div className={`flex flex-wrap items-center gap-2 mb-3 text-sm font-bold text-indigo-600 dark:text-indigo-400 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
                       <Calendar size={16} />
@@ -106,13 +106,13 @@ const Experience = () => {
                     </p>
 
                     {exp.demoVideo && (
-                      <div className={`flex flex-wrap items-center gap-3 mb-6 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
+                      <div className={`flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 mb-6 ${isEven ? 'md:justify-end' : 'justify-start'}`}>
                         <a
                           href={exp.demoVideo}
                           onClick={() => trackEvent('lm_ms_demo_click')}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-sm font-bold text-primary bg-primary/10 px-4 py-2 rounded-xl border border-primary/20 hover:bg-primary/20 transition-colors"
+                          className="inline-flex items-center justify-center gap-1.5 text-sm font-bold text-primary bg-primary/10 px-4 py-2.5 rounded-xl border border-primary/20 hover:bg-primary/20 transition-colors"
                         >
                           <PlayCircle size={16} />
                           Watch the demo video
@@ -120,7 +120,7 @@ const Experience = () => {
                         <a
                           href={`mailto:laila.mohamed.fikry@gmail.com?subject=${encodeURIComponent('LM-MS details request')}&body=${encodeURIComponent(MAIL_BODY)}`}
                           onClick={() => trackEvent('lm_ms_details_request')}
-                          className="inline-flex items-center gap-1.5 text-sm font-bold text-heading px-4 py-2 rounded-xl border border-subtle hover:bg-surface-overlay transition-colors"
+                          className="inline-flex items-center justify-center gap-1.5 text-sm font-bold text-heading px-4 py-2.5 rounded-xl border border-subtle hover:bg-surface-overlay transition-colors"
                         >
                           <Mail size={16} />
                           Request details

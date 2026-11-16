@@ -154,6 +154,8 @@ export const projects: Project[] = [
     tagline: "Checks a cabin atmosphere against NASA's microgravity fire experiments, and says plainly when there is no evidence.",
     image: "/flamelens-banner.webp",
     imagePosition: "center 40%",
+    imageFit: 'contain',
+    imageBg: '#0b0d1a',
     tech: ["Python", "FastAPI", "JavaScript", "AI", "Google Gemini AI", "Pydantic", "Vercel"],
     languages: ["Python", "JavaScript"],
     live: "https://flamelens-steel.vercel.app/",
