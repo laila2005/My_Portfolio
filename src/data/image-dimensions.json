@@ -82,5 +82,21 @@
   "/zagel-01-signin.webp": {
     "w": 1200,
     "h": 833
+  },
+  "/nasa-space-apps-team-selfie.webp": {
+    "w": 1280,
+    "h": 960
+  },
+  "/nasa-space-apps-team-photo.webp": {
+    "w": 1600,
+    "h": 1200
+  },
+  "/nasa-space-apps-opening-ceremony.webp": {
+    "w": 900,
+    "h": 1600
+  },
+  "/nasa-space-apps-2026-certificate.webp": {
+    "w": 1056,
+    "h": 816
   }
 }

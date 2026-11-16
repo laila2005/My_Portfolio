@@ -68,7 +68,7 @@ export const projects: Project[] = [
     title: "FlameLens – NASA Fire-Evidence Dashboard",
     description: "Free web dashboard that tells a spacecraft or habitat engineer whether a cabin atmosphere has been tested in NASA's microgravity fire experiments. Built with team AstroSpark for the 2026 NASA Space Apps Challenge.",
     tagline: "Checks a cabin atmosphere against NASA's microgravity fire experiments, and says plainly when there is no evidence.",
-    image: "/nasa-space-apps-2026-certificate.webp",
+    image: "/nasa-space-apps-team-photo.webp",
     tech: ["AI", "Data Analysis", "NASA PSI Data"],
     languages: ["Web"],
     live: "https://youtu.be/FxSWxqPT-EI",
@@ -86,6 +86,9 @@ export const projects: Project[] = [
       "Never gives a safety verdict",
     ],
     gallery: [
+      { src: "/nasa-space-apps-team-photo.webp", alt: "Team AstroSpark in front of the NASA Space Apps Cairo sponsor wall", caption: "Team AstroSpark at NASA Space Apps Cairo" },
+      { src: "/nasa-space-apps-team-selfie.webp", alt: "Team AstroSpark selfie in front of the NASA Space Apps Cairo banner", caption: "Team selfie at the event" },
+      { src: "/nasa-space-apps-opening-ceremony.webp", alt: "Stage screen reading Welcome to NASA Space Apps Cairo", caption: "Opening ceremony, Saturday" },
       { src: "/nasa-space-apps-2026-certificate.webp", alt: "Galactic Problem Solver certificate from the 2026 NASA Space Apps Challenge", caption: "Certificate of participation, 14–15 November 2026" },
     ],
     sections: [
