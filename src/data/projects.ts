@@ -147,8 +147,8 @@ export const projects: Project[] = [
     title: "FlameLens – NASA Fire-Evidence Dashboard",
     description: "Web dashboard that tells a habitat engineer whether a cabin atmosphere has been backed by NASA's microgravity fire experiments. It compares a design against 2,003 real runs from 18 NASA PSI flight investigations. Built with team AstroSpark for the 2026 NASA Space Apps Challenge.",
     tagline: "Checks a cabin atmosphere against NASA's microgravity fire experiments, and says plainly when there is no evidence.",
-    image: "/flamelens-cover.webp",
-    imagePosition: "left 70%",
+    image: "/flamelens-banner.webp",
+    imagePosition: "center 40%",
     tech: ["Python", "FastAPI", "JavaScript", "AI", "Google Gemini AI", "Pydantic", "Vercel"],
     languages: ["Python", "JavaScript"],
     live: "https://flamelens-steel.vercel.app/",
@@ -168,6 +168,7 @@ export const projects: Project[] = [
       "95 automated tests (pytest) and a 137-check script against the live site",
     ],
     gallery: [
+      { src: "/flamelens-banner.webp", alt: "FlameLens banner: Every crew deserves to come home. What NASA's fire experiments really show, every result cited. In memory of the Apollo 1 crew. Team AstroSpark.", caption: "FlameLens, NASA Space Apps 2026 · Flame in Freefall" },
       { src: "/nasa-space-apps-team-photo.webp", alt: "Team AstroSpark in front of the NASA Space Apps Cairo sponsor wall", caption: "Team AstroSpark at NASA Space Apps Cairo" },
       { src: "/nasa-space-apps-team-selfie.webp", alt: "Team AstroSpark selfie in front of the NASA Space Apps Cairo banner", caption: "Team selfie at the event" },
       { src: "/nasa-space-apps-opening-ceremony.webp", alt: "Stage screen reading Welcome to NASA Space Apps Cairo", caption: "Opening ceremony, Saturday" },
