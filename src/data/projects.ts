@@ -35,6 +35,8 @@ export type Project = {
   image: string;
   /** CSS object-position for the card cover, to keep the subject in frame when it is cropped. */
   imagePosition?: string;
+  /** YouTube video ID to embed on the detail page. */
+  video?: string;
   tech: string[];
   languages?: string[];
   github?: string;
@@ -76,6 +78,7 @@ export const projects: Project[] = [
     tech: ["System Design"],
     live: "https://youtu.be/MUpSX5gP1y4",
     liveLabel: "Watch Demo Video",
+    video: "MUpSX5gP1y4",
     sourceStatus: 'private',
     privateNote: "This is a commercial product, so details are shared on request.",
     role: "LM Smart Solutions",

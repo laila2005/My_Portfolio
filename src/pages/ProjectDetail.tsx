@@ -278,6 +278,23 @@ const ProjectDetail = () => {
             )}
           </motion.section>
 
+          {/* Demo video: privacy-enhanced embed, loaded only when scrolled near. */}
+          {project.video && (
+            <section className="mb-14" aria-label="Demo video">
+              <div className="aspect-video w-full overflow-hidden rounded-2xl border border-subtle bg-surface-overlay shadow-lg">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${project.video}?rel=0`}
+                  title={`${project.title} demo video`}
+                  loading="lazy"
+                  allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  className="h-full w-full"
+                />
+              </div>
+            </section>
+          )}
+
           {/* ─── Gallery ─── */}
           {gallery.length > 0 && (
             <motion.section
