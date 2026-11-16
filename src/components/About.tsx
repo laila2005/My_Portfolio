@@ -1,36 +1,13 @@
-import { GraduationCap, Award, Users, Shield, ExternalLink, Briefcase, FileText } from 'lucide-react';
+import { Shield, ExternalLink, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { roles, credentials, certifications as certData } from '@/data/experience';
+import { certifications as certData } from '@/data/experience';
+import JourneyTimeline from './JourneyTimeline';
 
-const iconFor: Record<string, JSX.Element> = {
-  work: <Briefcase className="text-blue-500" size={24} />,
-  education: <GraduationCap className="text-purple-500" size={24} />,
-  community: <Users className="text-indigo-500" size={24} />,
-  certification: <Shield className="text-emerald-500" size={24} />,
-};
+const certificationIcon = <Shield className="text-emerald-500" size={24} />;
 
 const About = () => {
-  // Work history comes from the shared module so this timeline and the Experience
-  // section can no longer disagree about employers, titles, or product names.
-  const achievements = [
-    ...roles.map((role, i) => ({
-      icon: i === 0 ? iconFor.work : <Briefcase className="text-emerald-500" size={24} />,
-      title: role.company,
-      description: `${role.title}${role.project ? ` — ${role.project}` : ''}`,
-      year: role.duration,
-      credential: undefined as string | undefined,
-    })),
-    ...credentials.map(item => ({
-      icon: item.title.startsWith('ALX') ? <Award className="text-pink-500" size={24} /> : iconFor[item.kind],
-      title: item.title,
-      description: item.detail,
-      year: item.period,
-      credential: item.credential,
-    })),
-  ];
-
   const certifications = certData.map(cert => ({
-    icon: iconFor.certification,
+    icon: certificationIcon,
     title: cert.title,
     description: cert.detail,
     year: cert.period,
@@ -205,7 +182,7 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Education & Experience cards */}
+          {/* The path, told as a metamorphosis */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -214,46 +191,10 @@ const About = () => {
             className="lg:col-span-5 space-y-6"
           >
             <h3 className="font-poppins font-bold text-2xl mb-6 text-heading">
-              Education & Experience
+              My Path
             </h3>
-            
-            <div className="relative border-l-2 border-primary/20 ml-4 space-y-8 pb-4">
-              {achievements.map((achievement, index) => (
-                <div key={index} className="relative pl-8">
-                  <div className="absolute -left-[21px] top-1 w-10 h-10 bg-surface border-2 border-primary/20 rounded-full flex items-center justify-center z-10 shadow-sm">
-                    <div className="w-6 h-6 flex items-center justify-center">
-                       {achievement.icon}
-                    </div>
-                  </div>
-                  
-                  <div className="border border-subtle ring-1 ring-primary/10 shadow-sm hover:shadow-lg hover:ring-primary/20 transition-all duration-300 bg-surface-elevated rounded-2xl group p-6">
-                    <div className="flex flex-col">
-                      <span className="text-[10px] uppercase font-bold text-primary mb-2 tracking-wider">
-                        {achievement.year}
-                      </span>
-                      <h4 className="font-poppins font-bold text-heading text-lg mb-2 group-hover:text-primary transition-colors">
-                        {achievement.title}
-                      </h4>
-                      <p className="text-body font-inter text-sm mb-4 leading-relaxed">
-                        {achievement.description}
-                      </p>
-                      
-                      {achievement.credential && (
-                        <a 
-                          href={achievement.credential} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 font-bold transition-colors w-fit border border-primary/20 bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-lg"
-                        >
-                          <ExternalLink size={14} />
-                          View Certificate
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+
+            <JourneyTimeline />
           </motion.div>
         </div>
       </div>

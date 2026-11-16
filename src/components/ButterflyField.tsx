@@ -1,40 +1,55 @@
 import { motion } from 'framer-motion';
 
 /**
- * Line-art butterfly, drawn with currentColor so it reads as ink on the paper
- * (light) theme and as a pale-violet glow on the night (dark) theme. The wings
- * flap through the `.butterfly-wing` CSS animation; the global reduced-motion
- * rule switches that off.
+ * The site's mark: a line-art butterfly with veined wings and spots, in the
+ * spirit of the ink drawings it is inspired by. Drawn with currentColor so it
+ * reads as ink on the paper (light) theme and as a pale-violet glow on the night
+ * (dark) theme. Wings flap through the `.butterfly-wing` CSS animation; the
+ * global reduced-motion rule switches that off. Pass `still` for a static mark
+ * (logo, favicon-style uses).
  */
-export const Butterfly = ({ className = '' }: { className?: string }) => (
+export const Butterfly = ({ className = '', still = false }: { className?: string; still?: boolean }) => (
   <svg
     viewBox="0 0 100 80"
     className={className}
     fill="none"
     stroke="currentColor"
-    strokeWidth="1.4"
+    strokeWidth="1.3"
     strokeLinecap="round"
     strokeLinejoin="round"
     aria-hidden="true"
   >
     {/* left wings */}
-    <g className="butterfly-wing butterfly-wing-left">
-      <path d="M50 40 C40 10 5 5 8 30 C10 45 35 48 50 40 Z" fill="currentColor" fillOpacity="0.08" />
-      <path d="M50 42 C38 50 15 52 20 70 C25 82 42 70 50 46 Z" fill="currentColor" fillOpacity="0.08" />
-      <path d="M46 38 C36 22 22 18 16 28" />
-      <path d="M44 48 C36 55 28 60 26 68" />
+    <g className={still ? undefined : 'butterfly-wing butterfly-wing-left'}>
+      <path d="M50 40 C40 10 5 4 8 30 C10 46 35 49 50 40 Z" fill="currentColor" fillOpacity="0.07" />
+      <path d="M50 42 C38 50 15 52 20 70 C25 83 42 71 50 46 Z" fill="currentColor" fillOpacity="0.07" />
+      {/* veins */}
+      <path d="M47 39 C36 25 22 17 12 22" strokeWidth="0.9" />
+      <path d="M47 41 C34 36 20 36 11 33" strokeWidth="0.9" />
+      <path d="M46 44 C38 49 30 55 24 64" strokeWidth="0.9" />
+      {/* spots */}
+      <ellipse cx="20" cy="27" rx="4.2" ry="2.6" transform="rotate(-25 20 27)" fill="currentColor" fillOpacity="0.5" stroke="none" />
+      <ellipse cx="30" cy="36" rx="3.2" ry="2" transform="rotate(-10 30 36)" fill="currentColor" fillOpacity="0.4" stroke="none" />
+      <circle cx="29" cy="62" r="2" fill="currentColor" fillOpacity="0.4" stroke="none" />
     </g>
     {/* right wings */}
-    <g className="butterfly-wing butterfly-wing-right">
-      <path d="M50 40 C60 10 95 5 92 30 C90 45 65 48 50 40 Z" fill="currentColor" fillOpacity="0.08" />
-      <path d="M50 42 C62 50 85 52 80 70 C75 82 58 70 50 46 Z" fill="currentColor" fillOpacity="0.08" />
-      <path d="M54 38 C64 22 78 18 84 28" />
-      <path d="M56 48 C64 55 72 60 74 68" />
+    <g className={still ? undefined : 'butterfly-wing butterfly-wing-right'}>
+      <path d="M50 40 C60 10 95 4 92 30 C90 46 65 49 50 40 Z" fill="currentColor" fillOpacity="0.07" />
+      <path d="M50 42 C62 50 85 52 80 70 C75 83 58 71 50 46 Z" fill="currentColor" fillOpacity="0.07" />
+      <path d="M53 39 C64 25 78 17 88 22" strokeWidth="0.9" />
+      <path d="M53 41 C66 36 80 36 89 33" strokeWidth="0.9" />
+      <path d="M54 44 C62 49 70 55 76 64" strokeWidth="0.9" />
+      <ellipse cx="80" cy="27" rx="4.2" ry="2.6" transform="rotate(25 80 27)" fill="currentColor" fillOpacity="0.5" stroke="none" />
+      <ellipse cx="70" cy="36" rx="3.2" ry="2" transform="rotate(10 70 36)" fill="currentColor" fillOpacity="0.4" stroke="none" />
+      <circle cx="71" cy="62" r="2" fill="currentColor" fillOpacity="0.4" stroke="none" />
     </g>
     {/* body and antennae */}
-    <path d="M50 30 L50 64" strokeWidth="2" />
-    <path d="M50 31 C47 22 42 17 37 15" />
-    <path d="M50 31 C53 22 58 17 63 15" />
+    <ellipse cx="50" cy="48" rx="2.2" ry="15" fill="currentColor" fillOpacity="0.25" />
+    <circle cx="50" cy="31" r="2.6" fill="currentColor" fillOpacity="0.5" />
+    <path d="M49 29 C46 21 41 16 35 13" />
+    <path d="M51 29 C54 21 59 16 65 13" />
+    <circle cx="35" cy="13" r="1.3" fill="currentColor" stroke="none" />
+    <circle cx="65" cy="13" r="1.3" fill="currentColor" stroke="none" />
   </svg>
 );
 

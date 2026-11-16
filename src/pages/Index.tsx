@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import ProofStrip from '@/components/ProofStrip';
+import ButterflyDivider from '@/components/ButterflyDivider';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Experience from '@/components/Experience';
@@ -32,8 +33,11 @@ const Index = () => {
         <Hero />
         <ProofStrip />
         <Projects />
+        <ButterflyDivider />
         <Experience />
+        <ButterflyDivider />
         <About />
+        <ButterflyDivider />
         <Skills />
         <Testimonials />
         <Contact />
