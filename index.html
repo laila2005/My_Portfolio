@@ -33,7 +33,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <!-- Fonts load without blocking the first paint; text shows in a fallback face, then swaps. -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" /></noscript>
     <link rel="icon" type="image/png" href="/finaliconand%20logo.png" />
 
     <script type="application/ld+json">
@@ -75,10 +77,20 @@
           "Computer Vision",
           "System Architecture"
         ],
+        "award": [
+          "3rd place, Agents at Work hackathon",
+          "Galactic Problem Solver, NASA Space Apps Challenge 2026",
+          "Best Squad, Banque Misr Data Governance Internship Program"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "LM Smart Solutions"
+        },
         "knowsLanguage": ["Arabic", "English", "Turkish", "Russian"],
         "sameAs": [
           "https://www.linkedin.com/in/laila-mohamed23/",
-          "https://github.com/laila2005"
+          "https://github.com/laila2005",
+          "https://www.instagram.com/laloo_arts_/"
         ]
       }
     </script>

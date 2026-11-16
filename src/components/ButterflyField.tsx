@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 
 /**
  * The site's mark: a line-art butterfly with veined wings and spots, in the

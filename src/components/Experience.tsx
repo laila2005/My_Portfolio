@@ -1,5 +1,5 @@
 import { Briefcase, Calendar, PlayCircle, Mail } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { useRoles } from '@/hooks/useContent';
 import InkUnderline from './InkUnderline';
 import { trackEvent } from '@/lib/track';

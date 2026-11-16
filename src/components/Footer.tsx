@@ -99,7 +99,7 @@ const Footer = () => {
             <p className="font-inter text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-medium text-center md:text-left">
               © {new Date().getFullYear()} Laila Fikry. All rights reserved.
             </p>
-            <p className="font-inter text-gray-400 dark:text-gray-500 text-xs sm:text-sm flex items-center justify-center gap-1">
+            <p className="font-inter text-gray-400 dark:text-gray-400 text-xs sm:text-sm flex items-center justify-center gap-1">
               Designed & Built with <span className="text-red-500 animate-pulse">♥</span>
             </p>
           </div>

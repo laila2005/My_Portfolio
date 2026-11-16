@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { BadgeCheck, ChevronLeft, ChevronRight, Linkedin, Pause, Play, Quote } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { Butterfly } from './ButterflyField';
 import InkUnderline from './InkUnderline';
 import { type Testimonial } from '@/data/recommendations';
@@ -214,10 +214,14 @@ const Testimonials = () => {
                   aria-selected={index === selected}
                   aria-label={`Show recommendation from ${item.name}`}
                   onClick={() => embla?.scrollTo(index)}
-                  className={`h-2.5 rounded-full outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-                    index === selected ? 'w-8 bg-primary' : 'w-2.5 bg-primary/25 hover:bg-primary/50'
-                  }`}
-                />
+                  className="group flex h-6 min-w-6 items-center justify-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                >
+                  <span
+                    className={`block h-2.5 rounded-full transition-all duration-300 ${
+                      index === selected ? 'w-8 bg-primary' : 'w-2.5 bg-primary/25 group-hover:bg-primary/50'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 

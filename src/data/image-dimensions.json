@@ -12,20 +12,20 @@
     "h": 1024
   },
   "/chat-ui-cover.webp": {
-    "w": 1024,
-    "h": 1024
+    "w": 900,
+    "h": 900
   },
   "/riselist_logo.webp": {
-    "w": 1024,
-    "h": 1024
+    "w": 320,
+    "h": 320
   },
   "/dishcraft.webp": {
     "w": 969,
     "h": 599
   },
   "/profile2.webp": {
-    "w": 600,
-    "h": 600
+    "w": 420,
+    "h": 420
   },
   "/techroad-logo.svg": {
     "w": 25,
@@ -100,23 +100,27 @@
     "h": 816
   },
   "/art-charcoal-butterflies.webp": {
-    "w": 800,
-    "h": 800
+    "w": 480,
+    "h": 480
   },
   "/art-ink-butterflies.webp": {
-    "w": 800,
-    "h": 800
+    "w": 480,
+    "h": 480
   },
   "/flamelens-banner.webp": {
-    "w": 1280,
-    "h": 720
+    "w": 960,
+    "h": 540
   },
   "/talentscout-cover.webp": {
-    "w": 1280,
-    "h": 720
+    "w": 960,
+    "h": 540
   },
   "/flamelens-cover.webp": {
     "w": 1100,
     "h": 970
+  },
+  "/logo-96.webp": {
+    "w": 96,
+    "h": 96
   }
 }

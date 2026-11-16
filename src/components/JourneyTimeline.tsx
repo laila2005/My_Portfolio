@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m as motion, useScroll, useTransform } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { Butterfly } from './ButterflyField';
 

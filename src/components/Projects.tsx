@@ -1,6 +1,6 @@
 import { Github, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
+import { m as motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { categories, projectInCategory } from '@/data/projects';
@@ -231,9 +231,9 @@ const Projects = () => {
                 </div>
 
                 <div className={`p-6 sm:p-8 lg:p-10 flex-1 flex flex-col relative ${isHero ? 'lg:w-[40%] lg:justify-center' : ''}`}>
-                  <h4 className={`font-poppins font-black tracking-tight ${isHero ? 'text-3xl sm:text-4xl lg:text-5xl leading-tight' : 'text-2xl'} mb-4 text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300`}>
+                  <h3 className={`font-poppins font-black tracking-tight ${isHero ? 'text-3xl sm:text-4xl lg:text-5xl leading-tight' : 'text-2xl'} mb-4 text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300`}>
                     {project.title}
-                  </h4>
+                  </h3>
                   <p className={`text-gray-600 dark:text-gray-300 font-inter mb-8 leading-relaxed flex-1 ${isHero ? 'text-base sm:text-lg lg:text-xl' : 'text-sm md:text-base'}`}>
                     {project.description}
                   </p>
@@ -257,7 +257,7 @@ const Projects = () => {
                         hover or focus. */}
                     <Link
                       to={`/projects/${project.slug}`}
-                      aria-label={`Explore the architecture of ${project.title}`}
+                      aria-label={`Explore Architecture: ${project.title}`}
                       className="flex items-center gap-1.5 text-xs font-bold rounded-lg text-primary/0 group-hover:text-primary focus-visible:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 outline-none transition-all duration-300"
                     >
                       <span>Explore Architecture</span>

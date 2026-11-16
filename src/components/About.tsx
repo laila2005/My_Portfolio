@@ -1,5 +1,5 @@
 import { Shield, ExternalLink, FileText } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { certifications as certData } from '@/data/experience';
 import JourneyTimeline from './JourneyTimeline';
 import InkUnderline from './InkUnderline';
@@ -90,8 +90,8 @@ const About = () => {
                     <img
                       src="/art-charcoal-butterflies.webp"
                       alt="Charcoal portrait of a woman with curly hair, a butterfly across one eye and butterflies around her face"
-                      width={800}
-                      height={800}
+                      width={480}
+                      height={480}
                       loading="lazy"
                       decoding="async"
                       className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105"
@@ -106,8 +106,8 @@ const About = () => {
                     <img
                       src="/art-ink-butterflies.webp"
                       alt="Black ink drawing of a woman holding a mask on a stick, her head open to a night sky with butterflies"
-                      width={800}
-                      height={800}
+                      width={480}
+                      height={480}
                       loading="lazy"
                       decoding="async"
                       className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105"

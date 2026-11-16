@@ -1,6 +1,6 @@
 import { ArrowDown, Github, Linkedin, Mail, Download, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 import ButterflyField, { Butterfly } from './ButterflyField';
 import { releaseSwarm } from './ButterflySwarm';
@@ -25,7 +25,7 @@ const Hero = () => {
 
         {/* LEFT: name, role, CTAs, socials */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
+          initial={{ x: -24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           className="flex flex-col gap-8 justify-center items-center lg:items-start w-full lg:w-[48%] z-20 text-center lg:text-left mt-0"
@@ -162,7 +162,7 @@ const Hero = () => {
 
         {/* RIGHT: portrait and terminal */}
         <motion.div
-          initial={{ opacity: 0, x: 40 }}
+          initial={{ x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="flex flex-col gap-10 sm:gap-12 justify-center items-center lg:items-end w-full lg:w-[44%] z-30 mb-[-70px] sm:mb-[-90px] lg:mb-0 mt-0"

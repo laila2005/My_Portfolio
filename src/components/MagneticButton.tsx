@@ -1,5 +1,5 @@
 import React, { useRef, MouseEvent } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { m as motion, useMotionValue, useSpring } from 'framer-motion';
 
 interface MagneticButtonProps {
   children: React.ReactNode;

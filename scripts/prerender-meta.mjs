@@ -175,7 +175,23 @@ async function main() {
     await writeFile(path.join(dir, 'index.html'), applyMeta(shell, meta), 'utf8');
   }
 
-  console.log(`prerender-meta: wrote ${routes.length} route files with per-page social metadata`);
+  // The sitemap comes from the same route list, so it can never name a page that
+  // does not exist (the hand-written one linked a wrong project address) or omit
+  // a new project.
+  const featured = new Set(data.projects.filter((project) => project.featured).map((project) => project.slug));
+  const today = new Date().toISOString().slice(0, 10);
+  const entry = (route, priority) =>
+    `  <url>\n    <loc>${SITE}${route === '/' ? '/' : route}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+  const urls = [entry('/', '1.0')];
+  for (const meta of routes) {
+    const slug = meta.route.split('/').pop();
+    const priority = meta.route.startsWith('/projects/') ? (featured.has(slug) ? '0.8' : '0.6') : '0.5';
+    urls.push(entry(meta.route, priority));
+  }
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
+  await writeFile(path.join(DIST, 'sitemap.xml'), sitemap, 'utf8');
+
+  console.log(`prerender-meta: wrote ${routes.length} route files and a sitemap with ${urls.length} addresses`);
 }
 
 main().catch((error) => {

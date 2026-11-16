@@ -1,26 +1,42 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import ProofStrip from '@/components/ProofStrip';
 import Intro from '@/components/Intro';
-import ButterflySwarm from '@/components/ButterflySwarm';
-import ScrollButterfly from '@/components/ScrollButterfly';
-import ButterflyDivider from '@/components/ButterflyDivider';
-import About from '@/components/About';
-import Skills from '@/components/Skills';
-import Experience from '@/components/Experience';
-import Projects from '@/components/Projects';
-import Testimonials from '@/components/Testimonials';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
+
+// Loaded after the first screen is on the page, so the hero never waits on them.
+const Sections = lazy(() => import('@/components/BelowTheFold').then(m => ({ default: m.Sections })));
+const SiteFooter = lazy(() => import('@/components/BelowTheFold').then(m => ({ default: m.SiteFooter })));
+const ButterflySwarm = lazy(() => import('@/components/ButterflySwarm'));
+const ScrollButterfly = lazy(() => import('@/components/ScrollButterfly'));
 
 const HOME_TITLE = 'Laila Mohamed Fikry | Software Engineer — Full-Stack & Systems';
 
+type IdleWindow = Window & {
+  requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+  cancelIdleCallback?: (id: number) => void;
+};
+
+/** Run `job` once the browser has a quiet moment (or after a short wait). */
+const whenIdle = (job: () => void) => {
+  const w = window as IdleWindow;
+  if (w.requestIdleCallback && w.cancelIdleCallback) {
+    const id = w.requestIdleCallback(job, { timeout: 1200 });
+    return () => w.cancelIdleCallback?.(id);
+  }
+  const id = window.setTimeout(job, 250);
+  return () => window.clearTimeout(id);
+};
+
 const Index = () => {
+  const [later, setLater] = useState(false);
+
   // Sub-pages set their own document title; restore this one on return.
   useEffect(() => {
     document.title = HOME_TITLE;
   }, []);
+
+  useEffect(() => whenIdle(() => setLater(true)), []);
 
   return (
     <div className="min-h-screen">
@@ -32,23 +48,27 @@ const Index = () => {
         Skip to content
       </a>
       <Intro />
-      <ButterflySwarm />
-      <ScrollButterfly />
       <Navigation />
+      {later && (
+        <Suspense fallback={null}>
+          <ButterflySwarm />
+          <ScrollButterfly />
+        </Suspense>
+      )}
       <main className="overflow-x-clip">
         <Hero />
         <ProofStrip />
-        <Projects />
-        <ButterflyDivider />
-        <Experience />
-        <ButterflyDivider />
-        <About />
-        <ButterflyDivider />
-        <Skills />
-        <Testimonials />
-        <Contact />
+        {later && (
+          <Suspense fallback={<div aria-hidden="true" style={{ minHeight: '100vh' }} />}>
+            <Sections />
+          </Suspense>
+        )}
       </main>
-      <Footer />
+      {later && (
+        <Suspense fallback={null}>
+          <SiteFooter />
+        </Suspense>
+      )}
     </div>
   );
 };

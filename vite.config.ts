@@ -9,6 +9,11 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
+  build: {
+    // Every browser a recruiter uses supports ES2022; skipping the legacy
+    // transforms makes the bundle smaller and quicker to run.
+    target: "es2022",
+  },
   plugins: [
     react(),
     mode === 'development' &&

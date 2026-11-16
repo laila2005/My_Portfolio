@@ -64,7 +64,7 @@
     --popover: 248 22% 11%;
     --popover-foreground: 250 20% 95%;
 
-    --primary: 262 80% 64%;
+    --primary: 262 85% 72%;
     --primary-foreground: 270 20% 98%;
 
     --secondary: 248 20% 16%;
@@ -73,7 +73,7 @@
     --muted: 248 18% 16%;
     --muted-foreground: 250 10% 70%;
 
-    --accent: 262 80% 64%;
+    --accent: 262 85% 72%;
     --accent-foreground: 250 20% 95%;
 
     --destructive: 0 63% 31%;
@@ -81,7 +81,7 @@
 
     --border: 248 16% 22%;
     --input: 248 16% 22%;
-    --ring: 262 80% 64%;
+    --ring: 262 85% 72%;
 
     /* Dark surface tokens — deep purple tinted */
     --surface: 248 22% 11%;
@@ -374,4 +374,13 @@
 /* Butterflies in the swarm beat their wings quickly. */
 .swarm-fly .butterfly-wing {
   animation-duration: 0.35s;
+}
+
+/* Contrast: the light purple that reads well as text on dark is too pale to put
+   white text on, so solid purple buttons and pills use a deeper shade. */
+.dark .bg-primary {
+  background-color: hsl(262 70% 56%);
+}
+.dark .hover\:bg-primary\/90:hover {
+  background-color: hsl(262 70% 48%);
 }

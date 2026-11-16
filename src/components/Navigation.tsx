@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Moon, Sun, Linkedin, Github } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { useLenis } from 'lenis/react';
 
 const navItems = [
@@ -83,7 +83,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="font-poppins font-bold text-xl text-heading flex items-center gap-2 drop-shadow-sm">
-            <img src="/finaliconand logo.png" alt="Logo" style={{ height: '2.5rem', width: '2.5rem', marginRight: '0.3em', verticalAlign: 'middle', borderRadius: '0.4rem', boxShadow: '0 2px 8px 0 rgba(164,120,250,0.10)' }} />
+            <img src="/logo-96.webp" width={40} height={40} decoding="async" alt="Logo" style={{ height: '2.5rem', width: '2.5rem', marginRight: '0.3em', verticalAlign: 'middle', borderRadius: '0.4rem', boxShadow: '0 2px 8px 0 rgba(164,120,250,0.10)' }} />
             Laila Mohamed
           </div>
 

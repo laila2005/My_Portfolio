@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 
 /** A hand-drawn ink stroke that draws itself under a section heading. */
 const InkUnderline = ({ className = '' }: { className?: string }) => (

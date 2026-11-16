@@ -1,6 +1,6 @@
 import { useEffect, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Clock, FileQuestion } from 'lucide-react';
 import { posts, type Block } from '@/data/posts';
 import ShareLinks from '@/components/ShareLinks';
