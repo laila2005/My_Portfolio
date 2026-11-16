@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button';
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { projects, categories, projectInCategory } from '@/data/projects';
+import { categories, projectInCategory } from '@/data/projects';
+import { useProjects } from '@/hooks/useContent';
 import dims from '@/data/image-dimensions.json';
 import InkUnderline from './InkUnderline';
 
@@ -73,6 +74,8 @@ const Projects = () => {
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
+
+  const { projects } = useProjects();
 
   // Featured projects lead; the rest sit behind "See More Projects".
   const featured = projects.filter(p => p.featured);

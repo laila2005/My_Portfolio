@@ -1,26 +1,26 @@
 import { Briefcase, Calendar, PlayCircle, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { roles } from '@/data/experience';
+import { useRoles } from '@/hooks/useContent';
 import InkUnderline from './InkUnderline';
 import { trackEvent } from '@/lib/track';
 
 const MAIL_BODY =
   'Hi Laila,\n\nI watched the LM-MS demo and would like more details.\n\nName / company:\nWhy I am asking:\n';
 
-// Rendered from the shared work-history module; see src/data/experience.ts.
-const experiences = roles.map(role => ({
-  role: role.title,
-  company: role.company,
-  project: role.project,
-  link: role.link ?? null,
-  duration: role.duration,
-  description: role.summary,
-  tech: role.tech,
-  demoVideo: role.demoVideo,
-  badge: role.badge,
-}));
-
 const Experience = () => {
+  // Built-in work history, replaced by the admin store's items when it has any.
+  const experiences = useRoles().map(role => ({
+    role: role.title,
+    company: role.company,
+    project: role.project,
+    link: role.link ?? null,
+    duration: role.duration,
+    description: role.summary,
+    tech: role.tech,
+    demoVideo: role.demoVideo,
+    badge: role.badge,
+  }));
+
   return (
     <section id="experience" className="py-32 bg-surface transition-colors duration-500 relative overflow-hidden">
       {/* Decorative background elements */}

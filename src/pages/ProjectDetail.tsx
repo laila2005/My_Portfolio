@@ -14,7 +14,8 @@ import {
   Mail,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { projects } from '@/data/projects';
+import { useProjects } from '@/hooks/useContent';
+import PageLoader from '@/components/PageLoader';
 import ProjectGallery from '@/components/ProjectGallery';
 import ShareLinks from '@/components/ShareLinks';
 import { trackEvent } from '@/lib/track';
@@ -52,6 +53,7 @@ const renderBody = (text: string): ReactNode[] =>
 
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { projects, ready } = useProjects();
   const project = projects.find((p) => p.slug === slug);
 
   useEffect(() => {
@@ -70,6 +72,9 @@ const ProjectDetail = () => {
       }
     };
   }, [project]);
+
+  // A project that exists only in the admin store is not known until it loads.
+  if (!project && !ready) return <PageLoader />;
 
   const hasPublicRepo = Boolean(project?.github && project.github !== '#');
   const isPrivateSource = project?.sourceStatus === 'private' || project?.github === '#';

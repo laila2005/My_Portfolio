@@ -13,6 +13,7 @@ import { Analytics } from '@vercel/analytics/react';
 const Writing = React.lazy(() => import('./pages/Writing'));
 const WritingPost = React.lazy(() => import('./pages/WritingPost'));
 const ProjectDetail = React.lazy(() => import('./pages/ProjectDetail'));
+const Admin = React.lazy(() => import('./pages/Admin'));
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/projects/:slug" element={<ProjectDetail />} />
+                  <Route path="/admin" element={<Admin />} />
                   <Route path="/writing" element={<Writing />} />
                   <Route path="/writing/:slug" element={<WritingPost />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
