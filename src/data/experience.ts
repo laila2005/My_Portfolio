@@ -91,7 +91,7 @@ export const credentials: Credential[] = [
     kind: 'education',
     title: 'El Sewedy University of Technology',
     detail: 'B.Sc. Computer Science (Polytechnic of Egypt).',
-    period: 'Expected graduation 2028',
+    period: 'Expected graduation 2027',
   },
 ];
 
