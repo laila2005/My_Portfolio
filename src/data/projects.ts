@@ -64,6 +64,50 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: 'flamelens',
+    title: "FlameLens – NASA Fire-Evidence Dashboard",
+    description: "Free web dashboard that tells a spacecraft or habitat engineer whether a cabin atmosphere has been tested in NASA's microgravity fire experiments. Built with team AstroSpark for the 2026 NASA Space Apps Challenge.",
+    tagline: "Checks a cabin atmosphere against NASA's microgravity fire experiments, and says plainly when there is no evidence.",
+    image: "/nasa-space-apps-2026-certificate.webp",
+    tech: ["AI", "Data Analysis", "NASA PSI Data"],
+    languages: ["Web"],
+    live: "https://youtu.be/FxSWxqPT-EI",
+    liveLabel: "Watch Demo",
+    liveNote: "Demo video on YouTube",
+    sourceStatus: 'private',
+    privateNote: "Source is not published; the demo video is the proof.",
+    role: "Team AstroSpark, NASA Space Apps Challenge 2026",
+    featured: true,
+    highlights: [
+      "Merged 2,003 runs from 18 NASA Physical Sciences Informatics flight investigations into one table",
+      "Marks each condition (oxygen, pressure, airflow, material, gravity) as supported, weak or not tested, with an evidence-strength score",
+      "Shows the closest real NASA runs, exactly how they differ, and the next experiment that would close the gap",
+      "Every AI claim must cite a NASA run or quote a NASA page, or it is removed",
+      "Never gives a safety verdict",
+    ],
+    gallery: [
+      { src: "/nasa-space-apps-2026-certificate.webp", alt: "Galactic Problem Solver certificate from the 2026 NASA Space Apps Challenge", caption: "Certificate of participation, 14–15 November 2026" },
+    ],
+    sections: [
+      {
+        heading: "The problem",
+        body: "Future Moon bases and pressurized rovers are expected to use 30% oxygen or more at 10.2 psi or less, which makes materials burn more easily. NASA has studied fire on the International Space Station for years and the results are public in its Physical Sciences Informatics (PSI) repository, but they are spread over many tables and reports that are hard to compare.",
+      },
+      {
+        heading: "What FlameLens does",
+        body: "We merged 2,003 runs from 18 PSI flight investigations into one table. The user enters oxygen, pressure, airflow, material and gravity. FlameLens marks each condition as supported, weak or not tested, scores how strong the evidence is, shows the closest real NASA runs and exactly how they differ, and proposes the next experiment that would close the gap.",
+      },
+      {
+        heading: "AI, with citations",
+        body: "A plain-language explanation and an \"Ask the NASA reports\" panel use AI, but every AI claim must cite a NASA run or quote a NASA page, or it is removed.",
+      },
+      {
+        heading: "The challenge",
+        body: "It answers the \"Flame in Freefall\" challenge: it summarizes, ranks and interprets NASA combustion data for fire-safety decisions. Where there is no evidence, FlameLens says so instead of guessing, and it never gives a safety verdict.",
+      },
+    ],
+  },
+  {
     slug: 'zagel',
     title: "Zagel – Enterprise Real-Time Messaging",
     description: "A hybrid communications platform: instant multi-device messaging with client-side end-to-end encryption, plus peer-to-peer WebRTC video calls carrying 1080p screen sharing and live connection telemetry. Runs as a web app and as a native Android build from one codebase.",

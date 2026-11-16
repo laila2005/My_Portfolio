@@ -104,4 +104,12 @@ export const certifications: Credential[] = [
     // The issuer's verifier URL no longer resolves, so the local PDF is the proof.
     localProof: '/green%20digital%20certificate.pdf',
   },
+  {
+    kind: 'certification',
+    title: 'Galactic Problem Solver — NASA Space Apps Challenge',
+    detail:
+      'Certificate for outstanding participation in the 2026 NASA International Space Apps Challenge (14–15 November 2026), awarded to team AstroSpark for FlameLens, a dashboard that checks cabin atmospheres against NASA microgravity fire experiments.',
+    period: 'Nov 2026',
+    localProof: '/nasa-space-apps-2026-certificate.webp',
+  },
 ];

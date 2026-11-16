@@ -138,7 +138,7 @@ const About = () => {
                             className="inline-flex items-center gap-1.5 text-xs text-emerald-500 hover:text-emerald-400 font-bold transition-colors w-fit bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/20"
                           >
                             {cert.credential ? <ExternalLink size={14} /> : <FileText size={14} />}
-                            {cert.credential ? 'Verify Credential' : 'View Certificate (PDF)'}
+                            {cert.credential ? 'Verify Credential' : 'View Certificate'}
                           </a>
                         )}
                       </div>
