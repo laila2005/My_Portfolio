@@ -103,3 +103,36 @@ create policy "admin write portfolio images" on storage.objects
   for all to authenticated
   using (bucket_id = 'portfolio-images' and public.is_admin())
   with check (bucket_id = 'portfolio-images' and public.is_admin());
+
+-- CV upload: small key/value settings (the site reads which CV file is current),
+-- plus a public bucket for PDFs that only admins can change.
+create table if not exists public.site_settings (
+  key text primary key,
+  value jsonb not null,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.site_settings enable row level security;
+
+drop policy if exists "public read settings" on public.site_settings;
+create policy "public read settings" on public.site_settings
+  for select to anon, authenticated using (true);
+
+drop policy if exists "admin write settings" on public.site_settings;
+create policy "admin write settings" on public.site_settings
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('portfolio-files', 'portfolio-files', true, 10485760, array['application/pdf'])
+on conflict (id) do update
+  set public = true, file_size_limit = 10485760, allowed_mime_types = array['application/pdf'];
+
+drop policy if exists "public read portfolio files" on storage.objects;
+create policy "public read portfolio files" on storage.objects
+  for select to anon, authenticated using (bucket_id = 'portfolio-files');
+
+drop policy if exists "admin write portfolio files" on storage.objects;
+create policy "admin write portfolio files" on storage.objects
+  for all to authenticated
+  using (bucket_id = 'portfolio-files' and public.is_admin())
+  with check (bucket_id = 'portfolio-files' and public.is_admin());

@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Butterfly } from '@/components/ButterflyField';
 import { supabase, supabaseConfigured } from '@/lib/supabase';
 import ContentManager from '@/admin/ContentManager';
+import CvManager from '@/admin/CvManager';
 
 /**
  * The private control panel. Not linked anywhere on the site, kept out of search
@@ -191,14 +192,16 @@ const Admin = () => {
         </p>
       )}
       <Tabs defaultValue="projects">
-        <TabsList className="mb-6 grid w-full grid-cols-3">
+        <TabsList className="mb-6 grid h-auto w-full grid-cols-2 sm:grid-cols-4">
           <TabsTrigger value="projects">Projects</TabsTrigger>
           <TabsTrigger value="roles">Experience</TabsTrigger>
           <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
+          <TabsTrigger value="cv">CV</TabsTrigger>
         </TabsList>
         <TabsContent value="projects"><ContentManager table="projects" onNotice={setNotice} /></TabsContent>
         <TabsContent value="roles"><ContentManager table="roles" onNotice={setNotice} /></TabsContent>
         <TabsContent value="recommendations"><ContentManager table="recommendations" onNotice={setNotice} /></TabsContent>
+        <TabsContent value="cv"><CvManager onNotice={setNotice} /></TabsContent>
       </Tabs>
     </Shell>
   );

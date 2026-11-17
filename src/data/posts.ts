@@ -755,4 +755,57 @@ const TaskPlan = z.object({ tasks: z.array(Task).max(20) }).strict();`,
       },
     ],
   },
+  {
+    slug: 'nasa-space-apps-cairo-48-hours',
+    title: '48 Hours, 15 Minutes of Sleep, and One Submitted Project',
+    date: '2026-11-16',
+    readingTime: '3 min read',
+    excerpt:
+      'I promised myself last year that I would come back to NASA Space Apps and compete. This is what the 48 hours in Cairo were really like: the hope, the despair, the laughs, and the moment we hit submit.',
+    tags: ['NASA Space Apps', 'Hackathon', 'Teamwork', 'FlameLens'],
+    body: [
+      {
+        type: 'p',
+        text: '48 hours. 15 minutes of sleep. Endless swings between pure hope, total despair, laughter, and sheer exhaustion, and then we officially hit submit at NASA Space Apps Cairo.',
+      },
+
+      { type: 'h2', text: 'A promise from last year' },
+      {
+        type: 'p',
+        text: 'Last year I attended the bootcamp at Zewail City and promised myself I would come back to compete in the actual hackathon. This year I did not just take part. I experienced it on site, which turned out to be a whole different level of energy.',
+      },
+
+      { type: 'h2', text: 'What the 48 hours were really like' },
+      {
+        type: 'p',
+        text: 'We dug into NASA open data, divided the work under intense pressure, and figured most of it out from scratch. That was tough. There were definitely moments when we lost hope, regrouped, and came back stronger.',
+      },
+      {
+        type: 'p',
+        text: 'What I did not expect is how much of it was not grinding. We did not sit in a corner with our laptops. We met incredible people, shared so many laughs, and genuinely enjoyed every second of the chaos.',
+      },
+
+      { type: 'h2', text: 'What we built' },
+      {
+        type: 'p',
+        text: 'Our team, AstroSpark, built FlameLens: a dashboard that checks a cabin atmosphere against NASA\'s microgravity fire experiments, compares a design with 2,003 real runs from 18 NASA flight investigations, and says plainly when there is no evidence. The full write-up, the demo video and the live dashboard are on its project page.',
+      },
+
+      { type: 'h2', text: 'What I am taking from it' },
+      {
+        type: 'p',
+        text: 'Whether or not a project wins anything, pushing through those 48 hours without giving up, and submitting, is already a massive victory in my book. We came away with the Galactic Problem Solver certificate for outstanding participation, and with an experience I will not forget.',
+      },
+      {
+        type: 'quote',
+        text: 'The win I am sure of is that we did not give up, and we submitted.',
+      },
+
+      { type: 'h2', text: 'Thank you' },
+      {
+        type: 'p',
+        text: 'A huge thank you to my four teammates on AstroSpark for making this journey ten times better, and to the organizers and mentors at NASA Space Apps Cairo and IEEE Young Professionals Egypt for bringing this community together. I am beyond proud of us. Now it is time for a very long nap.',
+      },
+    ],
+  },
 ];

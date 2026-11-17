@@ -1,5 +1,6 @@
-import { supabase, IMAGE_BUCKET } from '@/lib/supabase';
+import { supabase, IMAGE_BUCKET, FILE_BUCKET } from '@/lib/supabase';
 import { resetContent, type ContentTable } from '@/hooks/useContent';
+import { resetCv } from '@/hooks/useCv';
 import { projects as builtInProjects } from '@/data/projects';
 import { roles as builtInRoles } from '@/data/experience';
 import { testimonials as builtInRecommendations } from '@/data/recommendations';
@@ -110,6 +111,61 @@ export async function uploadImage(file: File): Promise<string> {
   });
   if (error) throw explain(error);
   return client().storage.from(IMAGE_BUCKET).getPublicUrl(path).data.publicUrl;
+}
+
+/** The CV the site currently links to, as recorded by the admin. */
+export type CvRecord = { url: string; path: string; name: string; size: number; uploadedAt: string };
+
+const CV_MAX_BYTES = 10 * 1024 * 1024;
+
+export async function getCv(): Promise<CvRecord | null> {
+  const { data, error } = await client().from('site_settings').select('value').eq('key', 'cv').maybeSingle();
+  if (error) throw explain(error);
+  return (data?.value as CvRecord | undefined) ?? null;
+}
+
+/** Upload a new CV (PDF), make the site link to it, and remove the previous upload. */
+export async function uploadCv(file: File): Promise<CvRecord> {
+  if (file.size > CV_MAX_BYTES) throw new Error('That file is over 10 MB. Export a smaller PDF and try again.');
+  const header = new TextDecoder().decode(await file.slice(0, 5).arrayBuffer());
+  if (!header.startsWith('%PDF')) throw new Error('That does not look like a PDF. Export your CV as a PDF and try again.');
+
+  const previous = await getCv().catch(() => null);
+  // A new folder per upload, so browsers and caches can never serve the old file.
+  const path = `cv/${Date.now()}/Laila_Mohamed_CV.pdf`;
+  const { error } = await client().storage.from(FILE_BUCKET).upload(path, file, {
+    contentType: 'application/pdf',
+    cacheControl: '3600',
+  });
+  if (error) throw explain(error);
+
+  const record: CvRecord = {
+    url: client().storage.from(FILE_BUCKET).getPublicUrl(path).data.publicUrl,
+    path,
+    name: file.name,
+    size: file.size,
+    uploadedAt: new Date().toISOString(),
+  };
+  const saved = await client()
+    .from('site_settings')
+    .upsert({ key: 'cv', value: record, updated_at: new Date().toISOString() });
+  if (saved.error) {
+    // Do not leave an orphan file behind if the link could not be recorded.
+    await client().storage.from(FILE_BUCKET).remove([path]);
+    throw explain(saved.error);
+  }
+  if (previous?.path) await client().storage.from(FILE_BUCKET).remove([previous.path]);
+  resetCv();
+  return record;
+}
+
+/** Go back to the CV built into the site. */
+export async function removeCv(): Promise<void> {
+  const previous = await getCv();
+  const { error } = await client().from('site_settings').delete().eq('key', 'cv');
+  if (error) throw explain(error);
+  if (previous?.path) await client().storage.from(FILE_BUCKET).remove([previous.path]);
+  resetCv();
 }
 
 /** Turn "https://youtu.be/ID" or "https://youtube.com/watch?v=ID" (or a bare ID) into the ID. */

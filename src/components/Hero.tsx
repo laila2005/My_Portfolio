@@ -6,6 +6,7 @@ import ButterflyField, { Butterfly } from './ButterflyField';
 import { releaseSwarm } from './ButterflySwarm';
 import MagneticButton from './MagneticButton';
 import { trackEvent } from '@/lib/track';
+import { useCvUrl } from '@/hooks/useCv';
 
 const roles = [
   'Software Engineer',
@@ -14,6 +15,7 @@ const roles = [
 ];
 
 const Hero = () => {
+  const cvUrl = useCvUrl();
   return (
     <section
       id="home"
@@ -103,7 +105,7 @@ const Hero = () => {
                 {/* PDF opens inline in every browser; the .docx it replaced forced
                     a download recruiters on phones could not preview. */}
                 <a
-                  href="/Laila_Mohamed_CV.pdf"
+                  href={cvUrl}
                   onClick={() => trackEvent('resume_click')}
                   target="_blank"
                   rel="noopener"

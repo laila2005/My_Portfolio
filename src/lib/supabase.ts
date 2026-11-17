@@ -20,3 +20,4 @@ export const supabase = supabaseConfigured
   : null;
 
 export const IMAGE_BUCKET = 'portfolio-images';
+export const FILE_BUCKET = 'portfolio-files';

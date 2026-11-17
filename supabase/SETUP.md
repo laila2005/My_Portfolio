@@ -62,6 +62,17 @@ lines in a file called `.env.local` in the project folder (see `.env.example`).
 3. From then on: **Add**, **Edit**, **Hide / Show**, **Delete**, and the arrows to
    change the order. Saved changes appear on the site straight away, with no redeploy.
 
+## Updating your CV
+
+Open the **CV** tab, click **Upload a CV** and choose a PDF (up to 10 MB). The
+**Resume** button on your site opens it straight away, with no redeploy, and the
+previous upload is deleted. **Use the built-in CV** goes back to the PDF shipped with
+the site (`public/Laila_Mohamed_CV.pdf`).
+
+This needs the CV storage from `supabase/schema.sql`. If you set the admin up before
+the CV tab existed, paste the whole of that file into **SQL Editor** and Run it once
+more; it is safe to run again.
+
 ## Good to know
 
 - **Hide** keeps an item but removes it from the site. Prefer it to Delete.

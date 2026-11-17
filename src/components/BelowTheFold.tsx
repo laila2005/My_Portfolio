@@ -32,13 +32,13 @@ export const Sections = () => {
   return (
     <>
       <Projects />
+      <Testimonials />
       <ButterflyDivider />
       <Experience />
       <ButterflyDivider />
       <About />
       <ButterflyDivider />
       <Skills />
-      <Testimonials />
       <Contact />
     </>
   );
